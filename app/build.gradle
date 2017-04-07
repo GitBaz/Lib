@@ -19,9 +19,6 @@ android {
     }
 }
 
-apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.GitBaz'
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
