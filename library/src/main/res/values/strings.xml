@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">library</string>
+    <string name="user_exists">نام کاربری یا ایمیل تکراری است</string>
+    <string name="connection_error">خطا در اتصال</string>
+    <string name="password_changed">رمز با موفقیت تغییر کرد</string>
+    <string name="wrong_password">رمز اشتباه است</string>
+    <string name="not_guest">شما کاربر میهمان نیستید</string>
+
 </resources>

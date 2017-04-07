@@ -63,7 +63,6 @@ public class Core {
         return Typeface.createFromAsset(context.getAssets(), "fonts/iran_sans.ttf");
     }
 
-
     //Actions
     public void intentActivity(Class Class) {
         Intent intent = new Intent(context, Class);
@@ -162,6 +161,10 @@ public class Core {
 
     public int getColor(int color) {
         return (context).getResources().getColor(color);
+    }
+
+    public String getString(int string) {
+        return (context).getResources().getString(string);
     }
 
     //Checkers
