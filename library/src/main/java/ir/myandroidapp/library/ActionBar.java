@@ -1,4 +1,4 @@
-package ir.myandroidapp.lib;
+package ir.myandroidapp.library;
 
 import android.app.Activity;
 import android.support.v7.widget.Toolbar;

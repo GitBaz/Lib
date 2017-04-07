@@ -1,4 +1,4 @@
-package ir.myandroidapp.lib;
+package ir.myandroidapp.library;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;

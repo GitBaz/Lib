@@ -1,4 +1,4 @@
-package ir.myandroidapp.lib;
+package ir.myandroidapp.library;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
