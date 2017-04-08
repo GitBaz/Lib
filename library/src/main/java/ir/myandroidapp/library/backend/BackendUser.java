@@ -1,4 +1,4 @@
-package ir.myandroidapp.library;
+package ir.myandroidapp.library.backend;
 
 import com.backtory.java.HttpStatusCode;
 import com.backtory.java.internal.BacktoryCallBack;
@@ -12,23 +12,27 @@ import com.backtory.java.internal.LoginResponse;
 
 import java.io.File;
 
+import ir.myandroidapp.library.Core;
+import ir.myandroidapp.library.R;
+import ir.myandroidapp.library.Remember;
+
 /**
  * Created by kam.amir on 4/7/17.
  */
 
-public class Backend {
+public class BackendUser {
 
     Core core;
 
-    public Backend (Core cre){
+    public BackendUser(Core cre) {
         core = cre;
     }
 
-    public void init(String authId,String authkey,String storage){
+    public void init(String authId, String authkey, String storage) {
         BacktoryClient.Android.init(Config.newBuilder().
-                        initAuth(authId, authkey).
-                        initObjectStorage(storage).
-                        build(), core.context);
+                initAuth(authId, authkey).
+                initObjectStorage(storage).
+                build(), core.context);
     }
 
     public void guestLogin(final Response resp) {
@@ -39,6 +43,7 @@ public class Backend {
                     resp.onSuccess();
                 } else {
                     resp.onFailure();
+                    core.toast(core.getString(R.string.connection_error));
                 }
             }
         });
@@ -53,6 +58,7 @@ public class Backend {
                             resp.onSuccess();
                         } else {
                             resp.onFailure();
+                            core.toast(core.getString(R.string.connection_error));
                         }
                     }
                 });
@@ -88,7 +94,7 @@ public class Backend {
 
     public void compeleteRegistration(String name, String address, String email, final String username,
                                       final String number, final String password, final Response resp) {
-        if(BacktoryUser.getCurrentUser().isGuest()){
+        if (BacktoryUser.getCurrentUser().isGuest()) {
             GuestRegistrationParam params = new GuestRegistrationParam
                     .Builder()
                     .setFirstName(name)
@@ -114,7 +120,7 @@ public class Backend {
                             }
                         }
                     });
-        }else{
+        } else {
             core.toast(core.getString(R.string.not_guest));
         }
     }
@@ -144,13 +150,46 @@ public class Backend {
                 });
     }
 
-    public interface Response{
+    public void changeAddress(String address, final Response resp) {
+        BacktoryUser user = BacktoryUser.getCurrentUser();
+        user.setLastName(address);
+
+        user.updateInBackground(new BacktoryCallBack<BacktoryUser>() {
+            @Override
+            public void onResponse(BacktoryResponse<BacktoryUser> backtoryResponse) {
+                if (backtoryResponse.isSuccessful()) {
+                    resp.onSuccess();
+                    core.toast(core.getString(R.string.address_changed));
+                } else {
+                    resp.onFailure();
+                    core.toast(core.getString(R.string.connection_error));
+                }
+            }
+        });
+    }
+
+    public void changePhoneNumber(String number, final Response resp) {
+        BacktoryUser user = BacktoryUser.getCurrentUser();
+        user.setPhoneNumber(number);
+        user.updateInBackground(new BacktoryCallBack<BacktoryUser>() {
+            @Override
+            public void onResponse(BacktoryResponse<BacktoryUser> backtoryResponse) {
+                if (backtoryResponse.isSuccessful()) {
+                    resp.onSuccess();
+                    core.toast(core.getString(R.string.phone_changed));
+                } else {
+                    resp.onFailure();
+                    core.toast(core.getString(R.string.connection_error));
+                }
+            }
+        });
+    }
+
+    public interface Response {
         void onSuccess();
+
         void onFailure();
     }
 
-    public void uploadFile(File file, BacktoryCallBack<String> callBack) {
-        new BacktoryFile().beginUpload(file).commitInBackground(callBack);
-    }
 
 }

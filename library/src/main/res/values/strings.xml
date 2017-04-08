@@ -5,5 +5,7 @@
     <string name="password_changed">رمز با موفقیت تغییر کرد</string>
     <string name="wrong_password">رمز اشتباه است</string>
     <string name="not_guest">شما کاربر میهمان نیستید</string>
+    <string name="address_changed">آدرس با موفقیت تغییر کرد</string>
+    <string name="phone_changed">شماره تماس با موفقیت تغییر کرد</string>
 
 </resources>
