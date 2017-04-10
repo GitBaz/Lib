@@ -1,14 +1,8 @@
 package ir.myandroidapp.library.backend;
 
-import android.app.Activity;
-import android.content.Intent;
-
 import com.backtory.java.internal.BacktoryCallBack;
 import com.backtory.java.internal.BacktoryFile;
 import com.backtory.java.internal.BacktoryObject;
-import com.backtory.java.internal.BacktoryQuery;
-import com.backtory.java.realtime.core.BacktorySender;
-import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
 import java.util.List;
