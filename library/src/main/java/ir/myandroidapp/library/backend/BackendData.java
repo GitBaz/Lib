@@ -21,39 +21,37 @@ public class BackendData {
 
     String table = "";
 
-    public BackendData(String tbl){
-        table=tbl;
+    public BackendData(String tbl) {
+        table = tbl;
     }
 
     public void getById(String id, BacktoryCallBack<BacktoryObject> callBack) {
         BacktoryObject.GetQuery(table).getInBackground(id, callBack);
     }
 
-    public void getMathes(String where,String is,BacktoryCallBack<List<BacktoryObject>> callBack){
-        BacktoryObject.GetQuery(table).whereMatches(where,is).findInBackground(callBack);
+    public void getMathes(String where, String is, BacktoryCallBack<List<BacktoryObject>> callBack) {
+        BacktoryObject.GetQuery(table).whereMatches(where, is).findInBackground(callBack);
     }
 
-    public void getContains(String where,String is,BacktoryCallBack<List<BacktoryObject>> callBack){
-        BacktoryObject.GetQuery(table).whereContains(where,is).findInBackground(callBack);
+    public void getContains(String where, String is, BacktoryCallBack<List<BacktoryObject>> callBack) {
+        BacktoryObject.GetQuery(table).whereContains(where, is).findInBackground(callBack);
     }
 
-    public void getAll(BacktoryCallBack<List<BacktoryObject>> callBack){
+    public void getAll(BacktoryCallBack<List<BacktoryObject>> callBack) {
         BacktoryObject.GetQuery(table).findInBackground(callBack);
     }
 
-    public void uploadImage(String path){
+    public void uploadImage(String path) {
         new BacktoryFile().beginUpload(new File(path));
     }
 
-    public void addItem(){
+    public void addItem() {
 //        BacktoryQuery.getQuery(table).
     }
 
-    interface Result{
+    interface Result {
 //        void result(String name,String );
     }
-
-
 
 
 }
