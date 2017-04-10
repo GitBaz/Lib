@@ -17,11 +17,11 @@ public class ImagePicker {
 
     Activity activity;
 
-    public ImagePicker(Activity act){
-        activity=act;
+    public ImagePicker(Activity act) {
+        activity = act;
     }
 
-    public void pick(Activity activity){
+    public void pick(Activity activity) {
         Crop.pickImage(activity);
     }
 
