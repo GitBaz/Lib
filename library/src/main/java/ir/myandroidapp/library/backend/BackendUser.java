@@ -28,10 +28,11 @@ public class BackendUser {
         core = cre;
     }
 
-    public void init(String authId, String authkey, String storage) {
+    public void init(String authId, String authkey, String objectStorage,String fileStorage) {
         BacktoryClient.Android.init(Config.newBuilder().
                 initAuth(authId, authkey).
-                initObjectStorage(storage).
+                initObjectStorage(objectStorage).
+                initFileStorage(fileStorage).
                 build(), core.context);
     }
 

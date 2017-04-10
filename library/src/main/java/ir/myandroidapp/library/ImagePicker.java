@@ -21,7 +21,7 @@ public class ImagePicker {
         activity = act;
     }
 
-    public void pick(Activity activity) {
+    public void pick() {
         Crop.pickImage(activity);
     }
 
