@@ -1,7 +1,6 @@
 package ir.myandroidapp.library;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
@@ -25,17 +24,21 @@ public class ImagePicker {
         Crop.pickImage(activity);
     }
 
-    public void result(int requestCode, int resultCode, Intent data, Runnable cropped) {
+    public void result(int requestCode, int resultCode, Intent data, GetPath path) {
         if (requestCode == Crop.REQUEST_PICK && resultCode == activity.RESULT_OK) {
             startCrop(data.getData());
         } else if (requestCode == Crop.REQUEST_CROP) {
-            cropped.run();
+            path.path(Crop.getOutput(data).getPath());
         }
     }
 
     private void startCrop(Uri source) {
         Uri destination = Uri.fromFile(new File(activity.getCacheDir(), "cropped"));
         Crop.of(source, destination).asSquare().start(activity);
+    }
+
+    public interface GetPath{
+        void path(String path);
     }
 
 
