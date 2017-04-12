@@ -7,6 +7,8 @@ import android.net.Uri;
 import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 
 /**
  * Created by kam.amir on 4/10/17.
@@ -33,13 +35,20 @@ public class ImagePicker {
     }
 
     private void startCrop(Uri source) {
-        Uri destination = Uri.fromFile(new File(activity.getCacheDir(), "cropped"));
+        Uri destination = Uri.fromFile(new File(activity.getCacheDir(), generateId()));
         Crop.of(source, destination).asSquare().start(activity);
     }
 
-    public interface GetPath{
+    public interface GetPath {
         void path(String path);
     }
 
+    private final class SIG {
+        private SecureRandom random = new SecureRandom();
+    }
+
+    public String generateId(){
+        return new BigInteger(130,new SIG().random).toString();
+    }
 
 }

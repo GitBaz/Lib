@@ -22,6 +22,9 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
+
 public class Core {
 
     public Context context;
