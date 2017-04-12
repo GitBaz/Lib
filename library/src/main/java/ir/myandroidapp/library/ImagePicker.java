@@ -17,6 +17,7 @@ import java.security.SecureRandom;
 public class ImagePicker {
 
     Activity activity;
+    String link="";
 
     public ImagePicker(Activity act) {
         activity = act;
@@ -30,17 +31,19 @@ public class ImagePicker {
         if (requestCode == Crop.REQUEST_PICK && resultCode == activity.RESULT_OK) {
             startCrop(data.getData());
         } else if (requestCode == Crop.REQUEST_CROP) {
-            path.path(Crop.getOutput(data).getPath());
+            path.path(Crop.getOutput(data).getPath(),link);
         }
     }
 
     private void startCrop(Uri source) {
-        Uri destination = Uri.fromFile(new File(activity.getCacheDir(), generateId()));
+        String id = generateId();
+        link = "https://storage.backtory.com/images/"+id+".jpg";
+        Uri destination = Uri.fromFile(new File(activity.getCacheDir(), id));
         Crop.of(source, destination).asSquare().start(activity);
     }
 
     public interface GetPath {
-        void path(String path);
+        void path(String path,String name);
     }
 
     private final class SIG {
