@@ -3,18 +3,15 @@ package ir.myandroidapp.library.backend;
 import com.backtory.java.HttpStatusCode;
 import com.backtory.java.internal.BacktoryCallBack;
 import com.backtory.java.internal.BacktoryClient;
-import com.backtory.java.internal.BacktoryFile;
 import com.backtory.java.internal.BacktoryResponse;
 import com.backtory.java.internal.BacktoryUser;
 import com.backtory.java.internal.Config;
 import com.backtory.java.internal.GuestRegistrationParam;
 import com.backtory.java.internal.LoginResponse;
 
-import java.io.File;
 
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.R;
-import ir.myandroidapp.library.Remember;
 
 /**
  * Created by kam.amir on 4/7/17.
@@ -128,7 +125,6 @@ public class BackendUser {
 
     public void logout() {
         BacktoryUser.logoutInBackground();
-        Remember.clear();
     }
 
     public void changePassword(String oldPass, final String newPass) {
@@ -140,7 +136,6 @@ public class BackendUser {
                     @Override
                     public void onResponse(BacktoryResponse<Void> response) {
                         if (response.isSuccessful()) {
-                            Remember.putString("PASSWORD", newPass);
                             core.toast(core.getString(R.string.password_changed));
                         } else if (response.code() == HttpStatusCode.Forbidden.code()) {
                             core.toast(core.getString(R.string.wrong_password));

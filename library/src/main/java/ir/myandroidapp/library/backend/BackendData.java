@@ -49,8 +49,31 @@ public class BackendData {
         });
     }
 
-    public void getMathes(String where, String is, BacktoryCallBack<List<BacktoryObject>> callBack) {
-        BacktoryObject.GetQuery(table).whereMatches(where, is).findInBackground(callBack);
+    public void getMathes(String where, String is, final List<BackendItem> items) {
+        BacktoryObject.GetQuery(table).whereMatches(where, is).findInBackground(
+                new BacktoryCallBack<List<BacktoryObject>>() {
+            @Override
+            public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
+                if(backtoryResponse.isSuccessful()){
+
+                    for(int i=0;i<backtoryResponse.body().size();i++)
+
+                    items.get(i).item(backtoryResponse.body().get(i).getString("name"),
+                            backtoryResponse.body().get(i).getString("pics"),
+                            backtoryResponse.body().get(i).getString("pp"),
+                            backtoryResponse.body().get(i).getString("sp"),
+                            backtoryResponse.body().get(i).getString("info"),
+                            backtoryResponse.body().get(i).getString("details"),
+                            backtoryResponse.body().get(i).getString("cat"),
+                            backtoryResponse.body().get(i).getString("checked"),
+                            backtoryResponse.body().get(i).getString("place"));
+                }else{
+
+                    items.get(0).onFailure();
+                    core.toast(core.getString(R.string.connection_error));
+                }
+            }
+        });
     }
 
     public void getContains(String where, String is, BacktoryCallBack<List<BacktoryObject>> callBack) {
@@ -74,7 +97,6 @@ public class BackendData {
             }
         });
     }
-
 
     public void writeImageOnDataBase(String name, String pics, String pp, String sp, String info, String details,
                                       String cat, String checked, String place, final SimpleResponse response){
