@@ -16,11 +16,11 @@ import ir.myandroidapp.library.R;
 /**
  * Created by kam.amir on 1/5/17.
  */
-public class DecideView extends Dialog{
+public class DecideView extends Dialog {
 
     Core core;
 
-    public DecideView(Context context, Core cre, String textMessage, final Runnable run){
+    public DecideView(Context context, Core cre, String textMessage, final Runnable run) {
         super(context);
         core = cre;
 
@@ -66,7 +66,7 @@ public class DecideView extends Dialog{
         setCanceledOnTouchOutside(true);
     }
 
-    public void cancel(){
+    public void cancel() {
         cancel();
     }
 
