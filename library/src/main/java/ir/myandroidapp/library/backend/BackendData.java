@@ -58,10 +58,29 @@ public class BackendData {
     }
 
 
-    private void writeImageOnDataBase(String name){
+    public void writeImageOnDataBase(String name, String pics, String pp, String sp, String info, String details,
+                                      String cat, String checked, String place, final SimpleResponse response){
         BacktoryObject object = new BacktoryObject(table);
-      //  object.put();
-        new BacktoryObject(table).put("name","ali");
+        object.put("name",name);
+        object.put("pics",pics);
+        object.put("pp",pp);
+        object.put("sp",sp);
+        object.put("info",info);
+        object.put("details",details);
+        object.put("cat",cat);
+        object.put("checked",checked);
+        object.put("place",place);
+        object.saveInBackground(new BacktoryCallBack<Void>() {
+            @Override
+            public void onResponse(BacktoryResponse<Void> backtoryResponse) {
+                if(backtoryResponse.isSuccessful()){
+                    response.onSuccess();
+                }else{
+                    response.onFailure();
+                    core.toast(core.getString(R.string.upload_error));
+                }
+            }
+        });
     }
 
     public void addItem() {
