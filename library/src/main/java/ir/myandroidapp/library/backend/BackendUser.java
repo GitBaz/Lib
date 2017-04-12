@@ -9,7 +9,6 @@ import com.backtory.java.internal.Config;
 import com.backtory.java.internal.GuestRegistrationParam;
 import com.backtory.java.internal.LoginResponse;
 
-
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.R;
 
@@ -183,9 +182,7 @@ public class BackendUser {
 
     public interface Response {
         void onSuccess();
-
         void onFailure();
     }
-
 
 }
