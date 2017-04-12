@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:drawableRight="@drawable/ic_name_dark"
+            android:drawablePadding="16dp"
+            android:id="@+id/layout_sign_up_name"
+            android:layout_gravity="center_horizontal"
+            android:gravity="right"
+            android:hint="نام و نام خانوادگی"
+            android:enabled="true" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:drawableRight="@drawable/ic_login_dark"
+            android:drawablePadding="16dp"
+            android:id="@+id/layout_sign_up_user"
+            android:layout_gravity="center_horizontal"
+            android:gravity="right"
+            android:hint="نام کاربری"
+            android:enabled="true" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:drawableRight="@drawable/ic_password_dark"
+            android:id="@+id/layout_sign_up_pass"
+            android:drawablePadding="16dp"
+            android:gravity="right"
+            android:hint="رمز عبور"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:drawableRight="@drawable/ic_mail_dark"
+            android:drawablePadding="16dp"
+            android:id="@+id/layout_sign_up_mail"
+            android:layout_gravity="center_horizontal"
+            android:gravity="right"
+            android:hint="پست الکترونیکی"
+            android:enabled="true" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_phone_dark"
+            android:drawablePadding="16dp"
+            android:inputType="phone"
+            android:ems="10"
+            android:id="@+id/layout_sign_up_phone"
+            android:layout_gravity="center_horizontal"
+            android:hint="شماره تماس" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="16dp"
+            android:drawableRight="@drawable/ic_address_dark"
+            android:id="@+id/layout_sign_up_address"
+            android:layout_gravity="center_horizontal"
+            android:hint="آدرس" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top">
+
+        <Button
+            style="?android:buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorSecondaryText"
+            android:text="ورود"
+            android:id="@+id/layout_sign_up_secondary_btn" />
+
+        <Button
+            style="?android:buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorSecondaryText"
+            android:id="@+id/layout_sign_up_guest_btn"
+            android:text="ورود به عنوان مهمان" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/layout_sign_up_progress"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryPrice"
+            android:textColor="@color/white"
+            android:text="ثبت نام"
+            android:id="@+id/layout_sign_up_main_btn"
+            android:foreground="?attr/selectableItemBackground"
+            style="?android:buttonBarButtonStyle"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+</LinearLayout>
