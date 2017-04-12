@@ -32,7 +32,6 @@ public class BackendData {
             @Override
             public void onResponse(BacktoryResponse<BacktoryObject> backtoryResponse) {
                 if(backtoryResponse.isSuccessful()){
-                    response.onSuccess();
                     item.item(backtoryResponse.body().getString("name"),
                             backtoryResponse.body().getString("pics"),
                             backtoryResponse.body().getString("pp"),
@@ -43,7 +42,7 @@ public class BackendData {
                             backtoryResponse.body().getString("checked"),
                             backtoryResponse.body().getString("place"));
                 }else{
-                    response.onFailure();
+                    item.onFailure();
                     core.toast(core.getString(R.string.connection_error));
                 }
             }

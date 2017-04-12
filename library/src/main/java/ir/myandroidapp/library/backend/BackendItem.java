@@ -7,4 +7,5 @@ package ir.myandroidapp.library.backend;
 public interface BackendItem {
     void item(String name, String pics, String pp, String sp, String info, String details,
               String cat, String checked, String place);
+    void onFailure();
 }
