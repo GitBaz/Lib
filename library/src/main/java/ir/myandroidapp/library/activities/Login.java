@@ -32,7 +32,7 @@ public class Login extends LinearLayout {
         core = new Core(context);
 
         LayoutInflater.from(context).inflate(R.layout.register, this);
-        thisLayout=this;
+        thisLayout = this;
 
         name = (EditText) findViewById(R.id.layout_sign_up_name);
         user = (EditText) findViewById(R.id.layout_sign_up_user);
@@ -59,15 +59,18 @@ public class Login extends LinearLayout {
         main.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                String sName ,sUser, sPass, sMail, sNumber, sAddress;
-                sName = name.getText().toString(); sUser=user.getText().toString();
-                sPass = pass.getText().toString(); sMail=mail.getText().toString();
-                sNumber = number.getText().toString(); sAddress = address.getText().toString();
+                String sName, sUser, sPass, sMail, sNumber, sAddress;
+                sName = name.getText().toString();
+                sUser = user.getText().toString();
+                sPass = pass.getText().toString();
+                sMail = mail.getText().toString();
+                sNumber = number.getText().toString();
+                sAddress = address.getText().toString();
 
                 if (isSignIn) {
-                    onSignIn.onLogin(sUser,sPass);
+                    onSignIn.onLogin(sUser, sPass);
                 } else {
-                    onSignIn.onRegister(sName,sUser,sMail,sPass,sNumber,sAddress);
+                    onSignIn.onRegister(sName, sUser, sMail, sPass, sNumber, sAddress);
                 }
             }
         });
@@ -91,7 +94,6 @@ public class Login extends LinearLayout {
         });
 
         layoutSignIn();
-
     }
 
 
@@ -121,9 +123,11 @@ public class Login extends LinearLayout {
         isSignIn = true;
     }
 
-    public interface onSignIn{
+    public interface onSignIn {
         void onLogin(String username, String password);
+
         void onRegister(String firstname, String username, String email, String password, String number, String address);
+
         void onGuestLogin();
     }
 
