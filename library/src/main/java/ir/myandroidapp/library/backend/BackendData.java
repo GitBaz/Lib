@@ -27,8 +27,27 @@ public class BackendData {
         core = cre;
     }
 
-    public void getById(String id, BacktoryCallBack<BacktoryObject> callBack) {
-        BacktoryObject.GetQuery(table).getInBackground(id, callBack);
+    public void getById(String id, final SimpleResponse response, final BackendItem item) {
+        BacktoryObject.GetQuery(table).getInBackground(id, new BacktoryCallBack<BacktoryObject>() {
+            @Override
+            public void onResponse(BacktoryResponse<BacktoryObject> backtoryResponse) {
+                if(backtoryResponse.isSuccessful()){
+                    response.onSuccess();
+                    item.item(backtoryResponse.body().getString("name"),
+                            backtoryResponse.body().getString("pics"),
+                            backtoryResponse.body().getString("pp"),
+                            backtoryResponse.body().getString("sp"),
+                            backtoryResponse.body().getString("info"),
+                            backtoryResponse.body().getString("details"),
+                            backtoryResponse.body().getString("cat"),
+                            backtoryResponse.body().getString("checked"),
+                            backtoryResponse.body().getString("place"));
+                }else{
+                    response.onFailure();
+                    core.toast(core.getString(R.string.connection_error));
+                }
+            }
+        });
     }
 
     public void getMathes(String where, String is, BacktoryCallBack<List<BacktoryObject>> callBack) {
@@ -44,7 +63,7 @@ public class BackendData {
     }
 
     public void uploadImage(String path, final SimpleResponse response) {
-        new BacktoryFile().beginUpload(new File(path)).commitInBackground(new BacktoryCallBack<String>() {
+        new BacktoryFile().beginUpload(new File(path),"usersPics/").commitInBackground(new BacktoryCallBack<String>() {
             @Override
             public void onResponse(BacktoryResponse<String> backtoryResponse) {
                 if(backtoryResponse.isSuccessful()){
