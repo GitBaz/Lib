@@ -27,7 +27,7 @@ public class BackendData {
         core = cre;
     }
 
-    public void getById(String id, final SimpleResponse response, final BackendItem item) {
+    public void getById(String id, final BackendItem item) {
         BacktoryObject.GetQuery(table).getInBackground(id, new BacktoryCallBack<BacktoryObject>() {
             @Override
             public void onResponse(BacktoryResponse<BacktoryObject> backtoryResponse) {
