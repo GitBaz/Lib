@@ -6,10 +6,26 @@ package ir.myandroidapp.library;
 
 public class Primary {
 
-    private String brand="";
-    private int colorPrimary=0;
-    private int colorPrimaryLight=0;
-    private int colorPrimaryDark=0;
+    private static String brand="";
+    private static int colorPrimary=0;
+    private static int colorPrimaryLight=0;
+    private static int colorPrimaryDark=0;
+
+    public void setBrand(String brnd){
+        brand=brand;
+    }
+
+    public void setprimary(int colorPrimary){
+        brand=brand;
+    }
+
+    public void setColorPrimaryLight(int colorPrimaryLight){
+        brand=brand;
+    }
+
+    public void setColorPrimaryDark(int colorPrimaryDark){
+        brand=brand;
+    }
 
     public String getBrand(){
         return brand;
