@@ -8,4 +8,8 @@
     <color name="colorPrimaryPrice">#4caf50</color> 
     <color name="colorSecondaryPrice">#f44336</color>
 
+     <color name="colorBackground">#f0f0f0</color>
+     <color name="colorCard">#fafafa</color>
+    <color name="colorDivider">#BDBDBD</color>
+
 </resources>

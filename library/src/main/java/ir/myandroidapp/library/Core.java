@@ -62,7 +62,7 @@ public class Core {
         return span;
     }
 
-    public Typeface setTypeFace(){
+    public Typeface setTypeFace() {
         return Typeface.createFromAsset(context.getAssets(), "fonts/iran_sans.ttf");
     }
 
@@ -168,6 +168,17 @@ public class Core {
 
     public String getString(int string) {
         return (context).getResources().getString(string);
+    }
+
+    public String priceString(String price) {
+        int count = price.length();
+        StringBuilder reversed = new StringBuilder(price).reverse();
+
+        for (int i = 3; i < count; i += 4) {
+            reversed.insert(i, ",");
+            count++;
+        }
+        return reversed.reverse().toString();
     }
 
     //Checkers
