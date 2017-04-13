@@ -66,8 +66,4 @@ public class DecideView extends Dialog {
         setCanceledOnTouchOutside(true);
     }
 
-    public void cancel() {
-        cancel();
-    }
-
 }
