@@ -37,7 +37,7 @@ public class ImagePicker {
 
     private void startCrop(Uri source) {
         String id = generateId();
-        link = "https://storage.backtory.com/images/usersPics/"+id+".jpg";
+        link = "https://storage.backtory.com/images/usersPics/"+id;
         Uri destination = Uri.fromFile(new File(activity.getCacheDir(), id));
         Crop.of(source, destination).asSquare().start(activity);
     }
