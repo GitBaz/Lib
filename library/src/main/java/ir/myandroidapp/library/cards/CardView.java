@@ -42,6 +42,5 @@ public class CardView extends LinearLayout {
         core.drawRedLine(secondary);
 
         Picasso.with(context).load(link).into(imageView);
-
     }
 }

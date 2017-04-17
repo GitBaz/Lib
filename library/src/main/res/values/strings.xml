@@ -2,11 +2,28 @@
     <string name="app_name">library</string>
     <string name="user_exists">نام کاربری یا ایمیل تکراری است</string>
     <string name="connection_error">خطا در اتصال</string>
+    <string name="not_guest">شما کاربر میهمان نیستید</string>
+    <string name="upload_error">خطا در آپلود فایل</string>
+    <string name="empty_error">شما چیزی وارد نکردید.</string>
+    <string name="touch_to_retry">خطا در اتصال ، برای تلاش مجدد صفحه را لمس کنید.</string>
+
+    <string name="phone_changed">شماره تماس با موفقیت تغییر کرد</string>
+    <string name="enter_your_phone">شماره تماس خود را وارد کنید</string>
+    <string name="phone_change">تغییر شماره تماس</string>
+
+    <string name="address_change">تغییر آدرس</string>
+    <string name="enter_your_address">آدرس خود را وارد کنید</string>
+    <string name="address_changed">آدرس با موفقیت تغییر کرد</string>
+
+    <string name="password_change">تغییر رمز عبور</string>
+    <string name="enter_your_password">رمز عبور فعلی خود را وارد کنید</string>
+    <string name="enter_your_new_password">رمز عبور جدید خود را وارد کنید</string>
+    <string name="password_repeat">تکرار رمز عبور</string>
+    <string name="passwords_doesnt_match">رمز های جدید یکسان نیستند</string>
     <string name="password_changed">رمز با موفقیت تغییر کرد</string>
     <string name="wrong_password">رمز اشتباه است</string>
-    <string name="not_guest">شما کاربر میهمان نیستید</string>
-    <string name="address_changed">آدرس با موفقیت تغییر کرد</string>
-    <string name="phone_changed">شماره تماس با موفقیت تغییر کرد</string>
-    <string name="upload_error">خطا در آپلود فایل</string>
+
+    <string name="exit_sure">آیا مایل به خروج از حساب خود میباشید ؟</string>
+    <string name="are_you_sure">آیا اطمینان دارید ؟</string>
 
 </resources>

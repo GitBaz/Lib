@@ -1,4 +1,4 @@
-package ir.myandroidapp.library.activities;
+package ir.myandroidapp.library.Dialogs;
 
 import android.app.Dialog;
 import android.content.Context;

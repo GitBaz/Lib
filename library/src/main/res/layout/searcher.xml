@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:imeOptions="actionSearch"
+        android:drawableRight="@drawable/ic_search_dark"
+        android:drawablePadding="8dp"
+        android:inputType="textPersonName"
+        android:ems="20"
+        android:background="@color/white"
+        android:id="@+id/searcher_edittext"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorSecondaryText"
+        android:hint="جستجو" />
+
+</LinearLayout>

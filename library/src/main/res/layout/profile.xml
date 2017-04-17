@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_login_dark"
+            android:drawablePadding="16dp"
+            android:id="@+id/profile_username"
+            android:text="نام کاربری"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorSecondaryText" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_name_dark"
+            android:drawablePadding="16dp"
+            android:id="@+id/profile_name"
+            android:gravity="right"
+            android:text="نام و نام خانوادگی"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorSecondaryText" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_mail_dark"
+            android:drawablePadding="16dp"
+            android:id="@+id/profile_email"
+            android:gravity="right"
+            android:text="پست الکترونیکی"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorSecondaryText" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_phone_dark"
+            android:drawablePadding="16dp"
+            android:id="@+id/profile_number"
+            android:text="شماره تماس"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorSecondaryText" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="16dp"
+            android:drawableRight="@drawable/ic_address_dark"
+            android:id="@+id/profile_address"
+            android:text="آدرس"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorSecondaryText" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_password_dark"
+            android:id="@+id/profile_password"
+            android:drawablePadding="16dp"
+            android:gravity="right"
+            android:text="رمز عبور"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorSecondaryText"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="خروج"
+            android:id="@+id/profile_exit"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="4dp"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:textColor="@color/colorSecondaryPrice"
+            android:paddingBottom="4dp"
+            android:gravity="center" />
+    </LinearLayout>
+
+</LinearLayout>
