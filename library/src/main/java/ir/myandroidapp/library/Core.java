@@ -181,6 +181,29 @@ public class Core {
         return reversed.reverse().toString();
     }
 
+    public String[] divide(String in, char divider) {
+        String[] result;
+        int count = 0;
+        int start = 0;
+        int resultCount=0;
+
+        for (int i = 0; i < in.length(); i++)
+            if (in.charAt(i) == divider)
+                count++;
+
+        result = new String[count];
+
+        for (int i = 0; i < in.length(); i++)
+            if (in.charAt(i) == divider) {
+                result[resultCount] = in.substring(start, i);
+                start = i + 1;
+                resultCount++;
+            }
+
+        return result;
+    }
+
+
     //Checkers
     public boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
