@@ -14,6 +14,10 @@ public class ActionBar {
     Toolbar tool;
     Core core;
 
+    public ActionBar(Core cre){
+        core=cre;
+    }
+
     public void actionBarInit(Toolbar toolbar) {
         tool = toolbar;
     }
