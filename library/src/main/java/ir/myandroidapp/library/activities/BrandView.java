@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.Primary;
-import ir.myandroidapp.library.R;
 import ir.myandroidapp.library.Size;
 
 /**
@@ -48,5 +47,4 @@ public class BrandView extends LinearLayout {
         addView(pb);
 
     }
-
 }

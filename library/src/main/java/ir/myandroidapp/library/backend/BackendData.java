@@ -13,7 +13,6 @@ import ir.myandroidapp.library.R;
 /**
  * Created by kam.amir on 4/8/17.
  */
-
 public class BackendData {
 
     String table = "";

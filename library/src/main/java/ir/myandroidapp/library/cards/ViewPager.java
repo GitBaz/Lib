@@ -1,13 +1,11 @@
 package ir.myandroidapp.library.cards;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.squareup.picasso.Picasso;
 
@@ -28,7 +26,6 @@ public class ViewPager extends android.support.v4.view.ViewPager {
         core = cre;
 
         this.setLayoutParams(new ViewGroup.LayoutParams(size.getW(), size.getW() / 2));
-
         this.setAdapter(new PagerAdapter() {
             @Override
             public int getCount() {

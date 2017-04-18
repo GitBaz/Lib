@@ -15,7 +15,6 @@ import ir.myandroidapp.library.R;
 /**
  * Created by kam.amir on 4/7/17.
  */
-
 public class BackendUser {
 
     Core core;
