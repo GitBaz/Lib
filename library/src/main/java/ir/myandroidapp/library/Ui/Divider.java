@@ -19,7 +19,7 @@ public class Divider extends LinearLayout {
         Size size = new Size(context,wm);
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 size.getdp(1));
-        params.setMargins(size.getdp(16),size.getdp(16),size.getdp(16),size.getdp(16));
+        params.setMargins(size.getdp(16),size.getdp(16),size.getdp(16),0);
         setLayoutParams(params);
         setBackgroundColor(context.getResources().getColor(R.color.colorDivider));
     }
