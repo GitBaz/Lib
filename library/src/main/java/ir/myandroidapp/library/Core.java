@@ -22,6 +22,7 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
@@ -126,7 +127,7 @@ public class Core {
             public CharSequence filter(CharSequence source, int start, int end,
                                        Spanned dest, int dstart, int dend) {
                 for (int i = start; i < end; i++) {
-                    if (!Character.isLetterOrDigit(source.charAt(i))) {
+                    if (!Character.isLetterOrDigit(source.charAt(i)) && !Character.isSpaceChar(source.charAt(i))) {
                         return "";
                     }
                 }
@@ -185,7 +186,7 @@ public class Core {
         String[] result;
         int count = 0;
         int start = 0;
-        int resultCount=0;
+        int resultCount = 0;
 
         for (int i = 0; i < in.length(); i++)
             if (in.charAt(i) == divider)
@@ -203,6 +204,54 @@ public class Core {
         return result;
     }
 
+    public String combine(String[] in, char divider) {
+        String combined = "";
+        for (String cmb : in) {
+            combined = combined + cmb + divider;
+        }
+        return combined;
+    }
+
+    public String combineNoNull(String[] in, char divider) {
+        String combined = "";
+
+        for (String cmb : in) {
+            if (!cmb.equals(""))
+                combined = combined + cmb + divider;
+        }
+        return combined;
+    }
+
+    public void For(int count, ForAction action) {
+        for (int i = 0; i < count; i++)
+            action.act(i);
+    }
+
+    public interface ForAction {
+        void act(int i);
+    }
+
+    public int stringNotNullCounter(String [] in){
+        int count = 0;
+
+        for (String cmb : in) {
+            if (!cmb.equals(""))
+                count++;
+        }
+        return count;
+    }
+
+    public String[] removeNullStrings(String [] in){
+        String[] result = new String[stringNotNullCounter(in)];
+        int step = 0;
+        for(String s : in){
+            if(!s.equals("")) {
+                result[step] = s;
+                step++;
+            }
+        }
+        return result;
+    }
 
     //Checkers
     public boolean isNetworkAvailable() {
@@ -210,6 +259,10 @@ public class Core {
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public boolean fileMoreThan(String path, int size) {
+        return new File(path).length() / 1024 > size;
     }
 
 }

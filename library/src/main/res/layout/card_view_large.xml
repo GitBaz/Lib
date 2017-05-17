@@ -7,12 +7,12 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:cardCornerRadius="0dp"
-        android:foreground="?attr/selectableItemBackground">
+        android:foreground="?attr/selectableItemBackground"
+        app:cardCornerRadius="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,130 +26,121 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/card_view_large_iv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/card_view_large_iv" />
+                    android:layout_weight="1" />
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:padding="8dp"
-                        android:gravity="bottom">
+                        android:gravity="bottom"
+                        android:orientation="vertical"
+                        android:padding="8dp">
 
                         <TextView
+                            android:id="@+id/card_view_large_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="نام محصول"
-                            android:textColor="@color/colorPrimaryText"
-                            android:paddingLeft="8dp"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:layout_gravity="right"
+                            android:gravity="right"
                             android:paddingBottom="8dp"
+                            android:paddingLeft="8dp"
                             android:paddingRight="8dp"
                             android:paddingTop="4dp"
-                            android:gravity="right"
-                            android:id="@+id/card_view_large_title"
-                            android:layout_gravity="right" />
+                            android:text="نام محصول"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/colorPrimaryText" />
 
                         <TextView
+                            android:id="@+id/card_view_large_sub_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="Small Text"
-                            android:id="@+id/card_view_large_sub_title"
                             android:layout_gravity="right"
                             android:paddingLeft="8dp"
                             android:paddingRight="8dp"
+                            android:text="Small Text"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
                             android:textColor="@color/colorSecondaryText" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/colorDivider"
+                        android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
-                        android:layout_marginLeft="8dp"></LinearLayout>
+                        android:background="@color/colorDivider"
+                        android:orientation="vertical"></LinearLayout>
 
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:padding="8dp">
 
                         <TextView
+                            android:id="@+id/card_view_large_secondary_price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:gravity="left"
                             android:text="Secondary Price"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/colorSecondaryPrice"
-                            android:id="@+id/card_view_large_secondary_price"
-                            android:gravity="left"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp" />
+                            android:textColor="@color/colorSecondaryPrice" />
 
                         <TextView
+                            android:id="@+id/card_view_large_primary_price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:gravity="left"
                             android:text="Primary Price"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/colorPrimaryPrice"
-                            android:id="@+id/card_view_large_primary_price"
-                            android:gravity="left"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp" />
+                            android:textColor="@color/colorPrimaryPrice" />
                     </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorDivider"></LinearLayout>
+                android:background="@color/colorDivider"
+                android:orientation="vertical"></LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:background="@color/colorBackground">
+                android:background="@color/colorBackground"
+                android:orientation="horizontal"
+                android:padding="4dp">
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/card_view_large_add_fav"
-                    android:src="@drawable/ic_fav_dark"
-                    android:padding="4dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:clickable="true"/>
-
-                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/card_view_large_add_cart"
-                    android:src="@drawable/ic_cart_dark"
-                    android:padding="4dp"
+                    android:clickable="true"
                     android:foreground="?attr/selectableItemBackground"
-                    android:clickable="true"/>
+                    android:padding="4dp"
+                    android:src="@drawable/ic_fav_dark" />
 
             </LinearLayout>
         </LinearLayout>

@@ -17,11 +17,10 @@ import ir.myandroidapp.library.R;
 public class CardViewLarge extends LinearLayout{
 
     Core core;
-    ImageView fav,cart;
+    ImageView fav;
 
     public CardViewLarge(Context context, Core cre, String link, String title, String subTitle,
-                         String primaryPrice, String secondaryPrice, OnClickListener onFav,
-                         OnClickListener onCart){
+                         String primaryPrice, String secondaryPrice, OnClickListener onFav){
         super(context);
         core= cre;
 
@@ -33,7 +32,6 @@ public class CardViewLarge extends LinearLayout{
         TextView titleView = (TextView) findViewById(R.id.card_view_large_title);
         TextView subTitleView = (TextView) findViewById(R.id.card_view_large_sub_title);
         fav = (ImageView) findViewById(R.id.card_view_large_add_fav);
-        cart = (ImageView) findViewById(R.id.card_view_large_add_cart);
 
         primary.setTypeface(core.setTypeFace());
         secondary.setTypeface(core.setTypeFace());
@@ -50,7 +48,6 @@ public class CardViewLarge extends LinearLayout{
         Picasso.with(context).load(link).into(imageView);
 
         fav.setOnClickListener(onFav);
-        cart.setOnClickListener(onCart);
 
     }
 

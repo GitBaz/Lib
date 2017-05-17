@@ -25,5 +25,16 @@
 
     <string name="exit_sure">آیا مایل به خروج از حساب خود میباشید ؟</string>
     <string name="are_you_sure">آیا اطمینان دارید ؟</string>
+    <string name="remove_sure">آیا مایل به حذف این بخش میباشید ؟</string>
+    <string name="remove_pic_sure">آیا مایل به حذف تصویر میباشید ؟</string>
+    <string name="replace_pic_sure">آیا مایل به جایگزین کردن تصویر جدید میباشید ؟</string>
+
+    <string name="new_item">محصول جدید</string>
+
+    <string name="more_than_200_kb">حجم تصویر نباید بیشتر از ۲۰۰ کیلو بایت باشد</string>
+    <string name="put_success">آگهی با موفقیت ثبت شد .</string>
+    <string name="page_success">کسب و کار شما ثبت شد .</string>
+
+    <string name="purchasable_item">این بخش نیاز به پرداخت دارد .</string>
 
 </resources>
