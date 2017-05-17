@@ -216,17 +216,17 @@ public class BackendData {
 
                     for(int i =0;i<objects.size();i++){
                         bo[i]=new BackendObject();
-                        bo[i].setName("name");
-                        bo[i].setPics("pics");
-                        bo[i].setPrimaryPrice("pp");
-                        bo[i].setSecondaryPrice("sp");
-                        bo[i].setInfo("info");
-                        bo[i].setDetails("details");
-                        bo[i].setCat("cat");
-                        bo[i].setPlace("place");
-                        bo[i].setUser("user");
-                        bo[i].setPage("page");
-                        bo[i].setPermission("permission");
+                        bo[i].setName(objects.get(i).get("name").toString());
+                        bo[i].setPics(objects.get(i).get("pics").toString());
+                        bo[i].setPrimaryPrice(objects.get(i).get("pp").toString());
+                        bo[i].setSecondaryPrice(objects.get(i).get("sp").toString());
+                        bo[i].setInfo(objects.get(i).get("info").toString());
+                        bo[i].setDetails(objects.get(i).get("details").toString());
+                        bo[i].setCat(objects.get(i).get("cat").toString());
+                        bo[i].setPlace(objects.get(i).get("place").toString());
+                        bo[i].setUser(objects.get(i).get("user").toString());
+                        bo[i].setPage(objects.get(i).get("page").toString());
+                        bo[i].setPermission(objects.get(i).get("permission").toString());
                     }
 
                     object.onSuccess(bo);
