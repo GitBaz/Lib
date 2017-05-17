@@ -137,28 +137,6 @@ public class Core {
         return new InputFilter[]{filter};
     }
 
-    public String[] stringDivide(String in, char divider) {
-        String[] result;
-        int count = 0;
-        int start = 0;
-        int resultCount = 0;
-
-        for (int i = 0; i < in.length(); i++)
-            if (in.charAt(i) == divider)
-                count++;
-
-        result = new String[count];
-
-        for (int i = 0; i < in.length(); i++)
-            if (in.charAt(i) == divider) {
-                result[resultCount] = in.substring(start, i);
-                start = i + 1;
-                resultCount++;
-            }
-
-        return result;
-    }
-
     public void drawRedLine(TextView textView) {
         textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     }
@@ -231,7 +209,7 @@ public class Core {
         void act(int i);
     }
 
-    public int stringNotNullCounter(String [] in){
+    public int stringNotNullCounter(String[] in) {
         int count = 0;
 
         for (String cmb : in) {
@@ -241,15 +219,22 @@ public class Core {
         return count;
     }
 
-    public String[] removeNullStrings(String [] in){
+    public String[] removeNullStrings(String[] in) {
         String[] result = new String[stringNotNullCounter(in)];
         int step = 0;
-        for(String s : in){
-            if(!s.equals("")) {
+        for (String s : in) {
+            if (!s.equals("")) {
                 result[step] = s;
                 step++;
             }
         }
+        return result;
+    }
+
+    public String stringLimit(String s, int i) {
+        String result = s;
+        if (result.length() > i)
+            result = result.substring(0, i)+" ...";
         return result;
     }
 

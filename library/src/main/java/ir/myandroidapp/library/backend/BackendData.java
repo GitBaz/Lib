@@ -68,7 +68,6 @@ public class BackendData {
         object.put("info", obj.getInfo());
         object.put("details", obj.getDetails());
         object.put("cat", obj.getCat());
-        object.put("checked", obj.getChecked());
         object.put("place", obj.getPlace());
         object.put("user", BacktoryUser.getCurrentUser().getUserId());
         object.put("page",obj.getPage());
@@ -207,8 +206,44 @@ public class BackendData {
 
     }
 
+    public void getSearch(String name, final GetObject object){
+        BacktoryQuery.getQuery("Products").whereContains("name",name).findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
+            @Override
+            public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
+                if(backtoryResponse.isSuccessful()) {
+                    List<BacktoryObject> objects = backtoryResponse.body();
+                    BackendObject[] bo = new BackendObject[objects.size()];
+
+                    for(int i =0;i<objects.size();i++){
+                        bo[i]=new BackendObject();
+                        bo[i].setName("name");
+                        bo[i].setPics("pics");
+                        bo[i].setPrimaryPrice("pp");
+                        bo[i].setSecondaryPrice("sp");
+                        bo[i].setInfo("info");
+                        bo[i].setDetails("details");
+                        bo[i].setCat("cat");
+                        bo[i].setPlace("place");
+                        bo[i].setUser("user");
+                        bo[i].setPage("page");
+                        bo[i].setPermission("permission");
+                    }
+
+                    object.onSuccess(bo);
+                }
+                else
+                    object.onFailure();
+            }
+        });
+    }
+
     public interface GetUserPage{
         void onSuccess(BackendPage page);
+        void onFailure();
+    }
+
+    public interface GetObject{
+        void onSuccess(BackendObject[] obj);
         void onFailure();
     }
 

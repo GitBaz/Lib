@@ -173,7 +173,6 @@ public class AddItem extends Activity {
     public BackendObject getObject() {
         BackendObject obj = new BackendObject();
         obj.setPics(core.combineNoNull(picker.getLinks(), '|'));
-        obj.setChecked("0");
         obj.setInfo(etInfo.getText().toString());
         obj.setDetails(dve.getTotal());
         obj.setName(etName.getText().toString());

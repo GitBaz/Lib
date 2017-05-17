@@ -12,9 +12,10 @@ public class BackendObject {
     private String info = "";
     private String details = "";
     private String cat = "";
-    private String checked = "";
     private String place = "";
     private String page = "";
+    private String user = "";
+    private String permission = "";
 
     public BackendObject() {
     }
@@ -47,16 +48,20 @@ public class BackendObject {
         cat = s;
     }
 
-    public void setChecked(String s) {
-        checked = s;
-    }
-
     public void setPlace(String s) {
         place = s;
     }
 
     public void setPage(String s) {
         page = s;
+    }
+
+    public void setUser(String s) {
+        user = s;
+    }
+
+    public void setPermission(String s) {
+        permission = s;
     }
 
 
@@ -88,10 +93,6 @@ public class BackendObject {
         return cat;
     }
 
-    public String getChecked() {
-        return checked;
-    }
-
     public String getPlace() {
         return place;
     }
@@ -99,5 +100,14 @@ public class BackendObject {
     public String getPage() {
         return page;
     }
+
+    public String getUser() {
+        return user;
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
 
 }

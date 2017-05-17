@@ -10,6 +10,7 @@ import com.squareup.picasso.Picasso;
 
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.R;
+import ir.myandroidapp.library.backend.BackendObject;
 
 /**
  * Created by kam.amir on 1/11/17.
@@ -19,7 +20,7 @@ public class CardView extends LinearLayout {
     Core core;
     android.support.v7.widget.CardView cardView;
 
-    public CardView(Context context, Core cre, String link, String primaryPrice, String secondaryPrice){
+    public CardView(Context context, Core cre, BackendObject object){
         super(context);
         core= cre;
 
@@ -33,14 +34,14 @@ public class CardView extends LinearLayout {
         primary.setTypeface(core.setTypeFace());
         secondary.setTypeface(core.setTypeFace());
 
-        primary.setText(core.priceString(primaryPrice)+" تومان");
-        secondary.setText(core.priceString(secondaryPrice)+" تومان");
+        primary.setText(core.priceString(object.getPrimaryPrice())+" تومان");
+        secondary.setText(core.priceString(object.getSecondaryPrice())+" تومان");
 
-        if(secondaryPrice.equals(""))
+        if(object.getSecondaryPrice().equals(""))
             secondary.setVisibility(GONE);
 
         core.drawRedLine(secondary);
 
-        Picasso.with(context).load(link).into(imageView);
+        Picasso.with(context).load(core.divide(object.getPics(),'|')[0]).into(imageView);
     }
 }

@@ -10,6 +10,7 @@ import com.squareup.picasso.Picasso;
 
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.R;
+import ir.myandroidapp.library.backend.BackendObject;
 
 /**
  * Created by kam.amir on 2/16/17.
@@ -19,8 +20,7 @@ public class CardViewLarge extends LinearLayout{
     Core core;
     ImageView fav;
 
-    public CardViewLarge(Context context, Core cre, String link, String title, String subTitle,
-                         String primaryPrice, String secondaryPrice, OnClickListener onFav){
+    public CardViewLarge(Context context, Core cre, BackendObject obj, OnClickListener onFav){
         super(context);
         core= cre;
 
@@ -38,14 +38,14 @@ public class CardViewLarge extends LinearLayout{
         titleView.setTypeface(core.setTypeFace());
         subTitleView.setTypeface(core.setTypeFace());
 
-        titleView.setText(title);
-        subTitleView.setText(subTitle);
+        titleView.setText(obj.getName());
+        subTitleView.setText(core.stringLimit(obj.getInfo(),15));
 
-        primary.setText(core.priceString(primaryPrice)+" تومان");
-        secondary.setText(core.priceString(secondaryPrice)+" تومان");
+        primary.setText(core.priceString(obj.getPrimaryPrice())+" تومان");
+        secondary.setText(core.priceString(obj.getSecondaryPrice())+" تومان");
         core.drawRedLine(secondary);
 
-        Picasso.with(context).load(link).into(imageView);
+        Picasso.with(context).load(core.divide(obj.getPics(),'|')[0]).into(imageView);
 
         fav.setOnClickListener(onFav);
 
