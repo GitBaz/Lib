@@ -231,8 +231,10 @@ public class BackendData {
 
                     object.onSuccess(bo);
                 }
-                else
+                else {
                     object.onFailure();
+                    core.toast(backtoryResponse.message());
+                }
             }
         });
     }
