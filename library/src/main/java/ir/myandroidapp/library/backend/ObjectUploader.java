@@ -37,7 +37,6 @@ public class ObjectUploader {
         object.setSecondaryPrice(sp);
         object.setPrimaryPrice(pp);
         object.setInfo(info);
-        object.setChecked("0");
         object.setPlace("");
         object.setCat("");
         object.setDetails(details);
