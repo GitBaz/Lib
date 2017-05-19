@@ -11,6 +11,7 @@ import com.backtory.java.internal.LoginResponse;
 
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.R;
+import ir.myandroidapp.library.Remember;
 
 /**
  * Created by kam.amir on 4/7/17.

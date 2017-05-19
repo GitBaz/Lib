@@ -146,10 +146,11 @@ public class AddItem extends Activity {
 
                     data.getUserPage(new BackendData.GetUserPage() {
                         @Override
-                        public void onSuccess(BackendPage page) {
+                        public void onSuccess(BackendPage page,boolean exists) {
                             waiter.cancel();
                             addPageContainer.addView(addPage);
                             core.toast("به کسب کار '"+page.getBrand()+"' متصل شد");
+                            //exist error
                         }
 
                         @Override

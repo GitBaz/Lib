@@ -17,6 +17,7 @@ import ir.myandroidapp.library.activities.AddPage;
 import ir.myandroidapp.library.backend.BackendComment;
 import ir.myandroidapp.library.backend.BackendData;
 import ir.myandroidapp.library.backend.BackendObject;
+import ir.myandroidapp.library.backend.BackendPage;
 import ir.myandroidapp.library.backend.BackendUser;
 import ir.myandroidapp.library.backend.SimpleResponse;
 import ir.myandroidapp.library.cards.CardComment;
@@ -53,4 +54,22 @@ public class MainActivity extends Activity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        new BackendData(core).getUserPage(new BackendData.GetUserPage() {
+            @Override
+            public void onSuccess(BackendPage page, boolean exists) {
+                if (exists)
+                    core.toast("");
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
+
+    }
+
 }
