@@ -59,9 +59,13 @@ public class MainActivity extends Activity {
     public void onBackPressed() {
         new BackendData(core).getUserPage(new BackendData.GetUserPage() {
             @Override
-            public void onSuccess(BackendPage page, boolean exists) {
-                if (exists)
-                    core.toast("");
+            public void onExists(BackendPage page) {
+                core.toast(page.getBrand());
+            }
+
+            @Override
+            public void onNotExists() {
+                core.toast("not exists");
             }
 
             @Override

@@ -113,10 +113,11 @@ public class BackendData {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
                         if (backtoryResponse.isSuccessful()) {
-                            BackendPage page = new BackendPage();
-                            if (backtoryResponse.body().toString().equals("[]")) {
-                                response.onSuccess(page, false);
+
+                            if (backtoryResponse.body().isEmpty()) {
+                                response.onNotExists();
                             } else {
+                                BackendPage page = new BackendPage();
                                 BacktoryObject obj = backtoryResponse.body().get(0);
                                 page.setBrand(obj.get("brand").toString());
                                 page.setLogo(obj.get("logo").toString());
@@ -124,7 +125,7 @@ public class BackendData {
                                 page.setNumber(obj.get("number").toString());
                                 page.setWebLink(obj.get("webLink").toString());
                                 page.setTelegramLink(obj.get("telegramLink").toString());
-                                response.onSuccess(page, true);
+                                response.onExists(page);
                             }
                         } else {
                             response.onFailure();
@@ -243,14 +244,13 @@ public class BackendData {
     }
 
     public interface GetUserPage {
-        void onSuccess(BackendPage page, boolean exists);
-
+        void onExists(BackendPage page);
+        void onNotExists();
         void onFailure();
     }
 
     public interface GetObject {
         void onSuccess(BackendObject[] obj);
-
         void onFailure();
     }
 

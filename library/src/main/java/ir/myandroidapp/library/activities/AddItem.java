@@ -146,48 +146,55 @@ public class AddItem extends Activity {
 
                     data.getUserPage(new BackendData.GetUserPage() {
                         @Override
-                        public void onSuccess(BackendPage page,boolean exists) {
+                        public void onExists(BackendPage page) {
                             waiter.cancel();
                             addPageContainer.addView(addPage);
-                            core.toast("به کسب کار '"+page.getBrand()+"' متصل شد");
-                            //exist error
+                            core.toast("به کسب کار '" + page.getBrand() + "' متصل شد");
+                        }
+
+                        @Override
+                        public void onNotExists() {
+                            core.toast("کسب و کاری یافت نشد !");
                         }
 
                         @Override
                         public void onFailure() {
 
                         }
+
                     });
                 }
 
+
             }
+
         });
+    }
+
+            @Override
+            protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+                picker.result(requestCode, resultCode, data);
+            }
+
+            public BackendObject getObject() {
+                BackendObject obj = new BackendObject();
+                obj.setPics(core.combineNoNull(picker.getLinks(), '|'));
+                obj.setInfo(etInfo.getText().toString());
+                obj.setDetails(dve.getTotal());
+                obj.setName(etName.getText().toString());
+                obj.setPlace("");
+                obj.setPrimaryPrice(etPp.getText().toString());
+                obj.setSecondaryPrice(etSp.getText().toString());
+                obj.setCat("");
+                if (addPage.isChecked())
+                    obj.setPage("1");
+                else
+                    obj.setPage("0");
+
+                return obj;
+            }
+
+
 
 
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        picker.result(requestCode, resultCode, data);
-    }
-
-    public BackendObject getObject() {
-        BackendObject obj = new BackendObject();
-        obj.setPics(core.combineNoNull(picker.getLinks(), '|'));
-        obj.setInfo(etInfo.getText().toString());
-        obj.setDetails(dve.getTotal());
-        obj.setName(etName.getText().toString());
-        obj.setPlace("");
-        obj.setPrimaryPrice(etPp.getText().toString());
-        obj.setSecondaryPrice(etSp.getText().toString());
-        obj.setCat("");
-        if(addPage.isChecked())
-        obj.setPage("1");
-        else
-            obj.setPage("0");
-
-        return obj;
-    }
-
-
-}
