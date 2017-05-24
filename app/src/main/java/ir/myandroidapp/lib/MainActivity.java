@@ -1,28 +1,17 @@
 package ir.myandroidapp.lib;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.Space;
-
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.Primary;
-import ir.myandroidapp.library.Ui.Waiter;
 import ir.myandroidapp.library.activities.AddItem;
-import ir.myandroidapp.library.activities.AddPage;
-import ir.myandroidapp.library.backend.BackendComment;
+import ir.myandroidapp.library.activities.Page;
 import ir.myandroidapp.library.backend.BackendData;
 import ir.myandroidapp.library.backend.BackendObject;
 import ir.myandroidapp.library.backend.BackendPage;
 import ir.myandroidapp.library.backend.BackendUser;
-import ir.myandroidapp.library.backend.SimpleResponse;
-import ir.myandroidapp.library.cards.CardComment;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AddItem {
 
     Core core;
 
@@ -59,8 +48,26 @@ public class MainActivity extends Activity {
     public void onBackPressed() {
         new BackendData(core).getUserPage(new BackendData.GetUserPage() {
             @Override
-            public void onExists(BackendPage page) {
-                core.toast(page.getBrand());
+            public void onExists(final BackendPage page) {
+
+                new BackendData(core).getUserPagePosts(page.getUser(), new BackendData.GetUserPagePosts() {
+                    @Override
+                    public void onExists(BackendObject[] objects) {
+                        setContentView(new Page(core.context,core,page,objects));
+
+                    }
+
+                    @Override
+                    public void onNotExists() {
+
+                    }
+
+                    @Override
+                    public void onFailure() {
+
+                    }
+                });
+
             }
 
             @Override

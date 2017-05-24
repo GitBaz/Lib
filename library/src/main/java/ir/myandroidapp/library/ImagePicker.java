@@ -26,7 +26,7 @@ import ir.myandroidapp.library.Ui.Rounder;
 public class ImagePicker {
 
     Activity activity;
-    String link = new Primary().getUploadLink();
+    String link = "";
     ImageView[] imageViews;
 
     int number = 0;
@@ -40,7 +40,6 @@ public class ImagePicker {
 
     public ImagePicker(Activity act, Core cre, ImageView[] images, ContentResolver cr, int radius) {
         activity = act;
-        link = new Primary().getUploadLink();
         imageViews = images;
         resolver = cr;
         round = radius;
@@ -66,7 +65,6 @@ public class ImagePicker {
 
     public ImagePicker(Activity act, Core cre, ImageView image, ContentResolver cr, int radius) {
         activity = act;
-        link = new Primary().getUploadLink();
         imageViews = new ImageView[1];
         imageViews[0] = image;
         resolver = cr;
@@ -117,7 +115,7 @@ public class ImagePicker {
 
     private void startCrop(Uri source) {
         String id = generateId();
-        link += id;
+        link = new Primary().getUploadLink()+id;
         Uri destination = Uri.fromFile(new File(activity.getCacheDir(), id));
         Crop.of(source, destination).asSquare().start(activity);
     }

@@ -113,7 +113,6 @@ public class BackendData {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
                         if (backtoryResponse.isSuccessful()) {
-
                             if (backtoryResponse.body().isEmpty()) {
                                 response.onNotExists();
                             } else {
@@ -125,6 +124,7 @@ public class BackendData {
                                 page.setNumber(obj.get("number").toString());
                                 page.setWebLink(obj.get("webLink").toString());
                                 page.setTelegramLink(obj.get("telegramLink").toString());
+                                page.setUser(obj.get("user").toString());
                                 response.onExists(page);
                             }
                         } else {
@@ -133,6 +133,45 @@ public class BackendData {
                         }
                     }
                 });
+
+    }
+
+    public void getUserPagePosts(String user, final GetUserPagePosts getPosts){
+        BacktoryQuery.getQuery("Products").whereMatches("user",user).whereMatches("page","1").
+                findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
+            @Override
+            public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
+                if(backtoryResponse.isSuccessful()){
+                    if(backtoryResponse.body().isEmpty()){
+                        getPosts.onNotExists();
+                    }else{
+                        List<BacktoryObject> obj = backtoryResponse.body();
+                        int count = obj.size();
+                        BackendObject[] objects = new BackendObject[count];
+                        for(int i = 0;i<count;i++){
+                            BacktoryObject bo = obj.get(i);
+                            objects[i] = new BackendObject();
+                            objects[i].setName(bo.get("name").toString());
+                            objects[i].setPics(bo.get("pics").toString());
+                            objects[i].setPrimaryPrice(bo.get("pp").toString());
+                            objects[i].setSecondaryPrice(bo.get("sp").toString());
+                            objects[i].setInfo(bo.get("info").toString());
+                            objects[i].setDetails(bo.get("details").toString());
+                            objects[i].setCat(bo.get("cat").toString());
+                            objects[i].setPlace(bo.get("place").toString());
+                            objects[i].setUser(bo.get("user").toString());
+                            objects[i].setPage(bo.get("page").toString());
+                            objects[i].setPermission(bo.get("permission").toString());
+                        }
+                        getPosts.onExists(objects);
+                    }
+
+                }else{
+                    getPosts.onFailure();
+                    core.toast(core.getString(R.string.connection_error));
+                }
+            }
+        });
 
     }
 
@@ -251,6 +290,12 @@ public class BackendData {
 
     public interface GetObject {
         void onSuccess(BackendObject[] obj);
+        void onFailure();
+    }
+
+    public interface GetUserPagePosts{
+        void onExists(BackendObject[] objects);
+        void onNotExists();
         void onFailure();
     }
 
