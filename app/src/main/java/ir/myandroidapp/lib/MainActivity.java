@@ -53,7 +53,7 @@ public class MainActivity extends AddItem {
                 new BackendData(core).getUserPagePosts(page.getUser(), new BackendData.GetUserPagePosts() {
                     @Override
                     public void onExists(BackendObject[] objects) {
-                        setContentView(new Page(core.context,core,page,objects));
+                        setContentView(new Page(core.context,core,page));
 
                     }
 

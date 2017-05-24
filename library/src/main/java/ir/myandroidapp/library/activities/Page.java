@@ -28,7 +28,7 @@ public class Page extends LinearLayout {
     Button edit;
     LinearLayout itemContainer;
 
-    public Page(Context context, Core cre, BackendPage page, BackendObject[] objects) {
+    public Page(Context context, Core cre, BackendPage page) {
         super(context);
         core = cre;
 
@@ -47,14 +47,17 @@ public class Page extends LinearLayout {
         Picasso.with(context).load(page.getLogo()).into(pic);
         name.setText(page.getBrand());
 
+    }
+
+    public Page addObjects(BackendObject[] objects){
         int itemCount = objects.length;
         CardView[] cards = new CardView[itemCount];
 
         for (int i = 0; i < itemCount; i++) {
-            cards[i] = new CardView(context,core,objects[i]);
+            cards[i] = new CardView(core.context,core,objects[i]);
             itemContainer.addView(cards[i]);
         }
-
+        return this;
     }
 
 
