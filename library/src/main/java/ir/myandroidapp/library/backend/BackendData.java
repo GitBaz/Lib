@@ -142,20 +142,34 @@ public class BackendData {
 
     public void get(String[] id,final GetObject object){
 
-        final BackendObject[] obj = new BackendObject[id.length];
+        final BackendObject[] bo = new BackendObject[id.length];
 
         for(int i=0;i<id.length;i++) {
             final int j = i;
             BacktoryQuery.getQuery("Products").getInBackground(id[i], new BacktoryCallBack<BacktoryObject>() {
                 @Override
                 public void onResponse(BacktoryResponse<BacktoryObject> backtoryResponse) {
-                    if (backtoryResponse.isSuccessful())
-                        obj[j] = new BackendObject();
+                    if (backtoryResponse.isSuccessful()) {
+                        BacktoryObject object = backtoryResponse.body();
+                        bo[j] = new BackendObject();
+                        bo[j].setId(object.getObjectId().toString());
+                        bo[j].setName(object.get("name").toString());
+                        bo[j].setPics(object.get("pics").toString());
+                        bo[j].setPrimaryPrice(object.get("pp").toString());
+                        bo[j].setSecondaryPrice(object.get("sp").toString());
+                        bo[j].setInfo(object.get("info").toString());
+                        bo[j].setDetails(object.get("details").toString());
+                        bo[j].setCat(object.get("cat").toString());
+                        bo[j].setPlace(object.get("place").toString());
+                        bo[j].setUser(object.get("user").toString());
+                        bo[j].setPage(object.get("page").toString());
+                        bo[j].setPermission(object.get("permission").toString());
+                    }
                 }
             });
         }
 
-        object.onSuccess(obj);
+        object.onSuccess(bo);
     }
 
     public void getUserPage(final GetUserPage response) {
