@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ir.myandroidapp.library.ActionBar;
@@ -36,12 +37,10 @@ public class AddPage extends Activity {
     ImagePicker picker;
     Core core;
 
-    Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_page_action);
 
         core = new Core(this);
         core.forceRTLIfSupported(getWindow());
@@ -76,11 +75,9 @@ public class AddPage extends Activity {
         telegramLink.setTypeface(core.setTypeFace());
         webLink.setTypeface(core.setTypeFace());
 
-        toolbar = (Toolbar) findViewById(R.id.add_toolbar);
-        action = new ActionBar(core);
-        action.actionBarInit(toolbar);
-        action.actionBarTitle("کسب و کار جدید");
-        action.actionbarTickIcon(new View.OnClickListener() {
+        action = new ActionBar(this,core,R.layout.add_page);
+        action.setTitle("کسب و کار جدید");
+        action.setTickIcon(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new BackendPageUploader(core, "Pages",picker.getPaths()[0]).create(getPage()).upload();
@@ -88,6 +85,8 @@ public class AddPage extends Activity {
         });
 
         phone = (EditText) findViewById(R.id.add_page_phone);
+
+        setContentView(action);
 
     }
 

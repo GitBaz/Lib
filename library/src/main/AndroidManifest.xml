@@ -8,6 +8,7 @@
         android:supportsRtl="true">
         <activity android:name=".activities.AddItem"></activity>
         <activity android:name=".activities.AddPage"></activity>
+        <activity android:name=".activities.ItemActivity"></activity>
 
     </application>
 

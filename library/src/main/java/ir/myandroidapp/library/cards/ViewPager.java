@@ -20,12 +20,12 @@ public class ViewPager extends android.support.v4.view.ViewPager {
 
     Core core;
 
-    public ViewPager(Context context, Core cre, WindowManager wm, final int count, final Set set) {
+    public ViewPager(Context context,int height, Core cre, WindowManager wm, final int count, final Set set) {
         super(context);
         Size size = new Size(context, wm);
         core = cre;
 
-        this.setLayoutParams(new ViewGroup.LayoutParams(size.getW(), size.getW() / 2));
+        this.setLayoutParams(new ViewGroup.LayoutParams(size.getW(), size.getW() / height));
         this.setAdapter(new PagerAdapter() {
             @Override
             public int getCount() {

@@ -16,7 +16,7 @@ import ir.myandroidapp.library.Size;
  */
 public class DetailView extends LinearLayout {
 
-    public DetailView(Context context, Core core, WindowManager wm, String[] names, String[] values){
+    public DetailView(Context context, Core core, WindowManager wm, String details){
         super(context);
 
         Size size = new Size(context,wm);
@@ -29,13 +29,16 @@ public class DetailView extends LinearLayout {
         LinearLayout nameLayout = (LinearLayout) layout.findViewById(R.id.detail_view_name_layout);
         LinearLayout valueLayout = (LinearLayout) layout.findViewById(R.id.detail_view_value_layout);
 
-        for (int i = 0; i < names.length; i++) {
+        String[] dtls = core.divide(details,'|');
+
+
+        for (int i = 0; i < dtls.length; i++) {
             TextView name = new TextView(context);
             TextView value = new TextView(context);
             name.setTypeface(core.setTypeFace());
             value.setTypeface(core.setTypeFace());
-            name.setText(names[i]);
-            value.setText(values[i]);
+            name.setText(core.divide(dtls[i],':')[0]);
+            value.setText(core.divide(dtls[i],':')[1]);
             name.setTextSize(size.getdp(5));
             value.setTextSize(size.getdp(5));
 

@@ -4,28 +4,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.backtory.java.internal.BacktoryUser;
-
 import ir.myandroidapp.library.ActionBar;
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.ImagePicker;
-import ir.myandroidapp.library.Primary;
 import ir.myandroidapp.library.R;
 import ir.myandroidapp.library.Ui.Waiter;
 import ir.myandroidapp.library.backend.BackendData;
 import ir.myandroidapp.library.backend.BackendObject;
 import ir.myandroidapp.library.backend.BackendPage;
-import ir.myandroidapp.library.backend.BackendUser;
 import ir.myandroidapp.library.backend.ObjectUploader;
 import ir.myandroidapp.library.cards.DetailViewEditable;
 
@@ -57,8 +50,6 @@ public class AddItem extends Activity {
     LinearLayout detailsLayout;
     DetailViewEditable dve;
 
-    FloatingActionButton floatingButton;
-    Toolbar toolbar;
     ActionBar action;
 
     ImagePicker picker;
@@ -68,23 +59,32 @@ public class AddItem extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_item_action);
 
         core = new Core(this);
         core.forceRTLIfSupported(getWindow());
 
-        detailsLayout = (LinearLayout) findViewById(R.id.ai_details);
-        dve = new DetailViewEditable(this, core, getWindowManager(), detailsLayout);
-
-        data = new BackendData(core);
-
-        floatingButton = (FloatingActionButton) findViewById(R.id.fab);
-        floatingButton.setOnClickListener(new View.OnClickListener() {
+        action = new ActionBar(this,core,R.layout.add_item);
+        action.setTitle("محصول جدید");
+        action.setTickIcon(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new ObjectUploader(core, "Products", picker.getPaths()).create(getObject()).upload();
+            }
+        });
+        action.turnOnFloatingButton(true);
+        action.getFloatingButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dve.add();
             }
         });
+
+        setContentView(action);
+
+        detailsLayout = (LinearLayout) findViewById(R.id.ai_details);
+        dve = new DetailViewEditable(this, core, getWindowManager(), detailsLayout);
+
+        data = new BackendData(core);
 
         tvName = (TextView) findViewById(R.id.ai_name_tv);
         etName = (EditText) findViewById(R.id.ai_name_et);
@@ -122,17 +122,6 @@ public class AddItem extends Activity {
 
         picker = new ImagePicker(this, core, iv, getContentResolver(), 100);
 
-        toolbar = (Toolbar) findViewById(R.id.add_toolbar);
-        action = new ActionBar(core);
-        action.actionBarInit(toolbar);
-        action.actionBarTitle("محصول جدید");
-        action.actionbarTickIcon(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new ObjectUploader(core, "Products", picker.getPaths()).create(getObject()).upload();
-            }
-        });
-
         addPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,13 +150,9 @@ public class AddItem extends Activity {
                         public void onFailure() {
 
                         }
-
                     });
                 }
-
-
             }
-
         });
     }
 

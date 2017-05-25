@@ -1,5 +1,6 @@
 package ir.myandroidapp.library.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.widget.Button;
@@ -27,11 +28,12 @@ public class Page extends LinearLayout {
     TextView name, add;
     Button edit;
     LinearLayout itemContainer;
+    Activity activity;
 
-    public Page(Context context, Core cre, BackendPage page) {
+    public Page(Context context, Core cre, BackendPage page, Activity act) {
         super(context);
         core = cre;
-
+        activity = act;
         LayoutInflater.from(context).inflate(R.layout.page, this);
 
         pic = (ImageView) findViewById(R.id.page_pic);
@@ -54,7 +56,7 @@ public class Page extends LinearLayout {
         CardView[] cards = new CardView[itemCount];
 
         for (int i = 0; i < itemCount; i++) {
-            cards[i] = new CardView(core.context,core,objects[i]);
+            cards[i] = new CardView(core.context,core,objects[i],activity);
             itemContainer.addView(cards[i]);
         }
         return this;

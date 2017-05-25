@@ -66,7 +66,8 @@ public class BackendData {
         object.put("pp", obj.getPrimaryPrice());
         object.put("sp", obj.getSecondaryPrice());
         object.put("info", obj.getInfo());
-        object.put("details", obj.getDetails());
+        object.put("details", "شماره تلفن : "+
+                BacktoryUser.getCurrentUser().getPhoneNumber().toString()+":|"+obj.getDetails());
         object.put("cat", obj.getCat());
         object.put("place", obj.getPlace());
         object.put("user", BacktoryUser.getCurrentUser().getUserId());
@@ -104,6 +105,38 @@ public class BackendData {
                     core.toast(core.getString(R.string.upload_error));
                 }
             }
+        });
+    }
+
+    public void get(String id,final Getobj objct){
+        BacktoryObject.getQuery("Products").getInBackground(id,new BacktoryCallBack<BacktoryObject>() {
+            @Override
+            public void onResponse(BacktoryResponse<BacktoryObject> backtoryResponse) {
+                if (backtoryResponse.isSuccessful()) {
+                    BacktoryObject object = backtoryResponse.body();
+                    BackendObject bo = new BackendObject();
+
+                        bo.setId(object.getObjectId().toString());
+                        bo.setName(object.get("name").toString());
+                        bo.setPics(object.get("pics").toString());
+                        bo.setPrimaryPrice(object.get("pp").toString());
+                        bo.setSecondaryPrice(object.get("sp").toString());
+                        bo.setInfo(object.get("info").toString());
+                        bo.setDetails(object.get("details").toString());
+                        bo.setCat(object.get("cat").toString());
+                        bo.setPlace(object.get("place").toString());
+                        bo.setUser(object.get("user").toString());
+                        bo.setPage(object.get("page").toString());
+                        bo.setPermission(object.get("permission").toString());
+
+                    objct.onSuccess(bo);
+
+                } else {
+                    objct.onFailure();
+                    core.toast(backtoryResponse.message());
+                }
+            }
+
         });
     }
 
@@ -151,6 +184,7 @@ public class BackendData {
                         for(int i = 0;i<count;i++){
                             BacktoryObject bo = obj.get(i);
                             objects[i] = new BackendObject();
+                            objects[i].setId(bo.getObjectId().toString());
                             objects[i].setName(bo.get("name").toString());
                             objects[i].setPics(bo.get("pics").toString());
                             objects[i].setPrimaryPrice(bo.get("pp").toString());
@@ -175,81 +209,6 @@ public class BackendData {
 
     }
 
-    public void createUser(final SimpleResponse response) {
-        BacktoryObject object = new BacktoryObject("user");
-        object.put("userId", BacktoryUser.getCurrentUser().getUserId());
-        object.saveInBackground(new BacktoryCallBack<Void>() {
-            @Override
-            public void onResponse(BacktoryResponse<Void> backtoryResponse) {
-                if (backtoryResponse.isSuccessful())
-                    response.onSuccess();
-                else
-                    response.onFailure();
-            }
-        });
-
-    }
-
-    public void likePost(final String postId, final boolean like) {
-        new BacktoryQuery("user").whereMatches("userId", BacktoryUser.getCurrentUser().getUserId())
-                .findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
-                    @Override
-                    public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
-                        if (backtoryResponse.isSuccessful()) {
-                            if (backtoryResponse.body().size() == 0)
-                                createUser(new SimpleResponse() {
-                                    @Override
-                                    public void onSuccess() {
-                                        likePost(postId, like);
-                                    }
-
-                                    @Override
-                                    public void onFailure() {
-                                        core.toast(core.getString(R.string.connection_error));
-                                    }
-                                });
-                            else {
-
-                                String postLike = "";
-
-                                if (backtoryResponse.body().get(0).get("postLike") != null)
-                                    postLike = backtoryResponse.body().get(0).get("postLike").toString();
-
-
-                                BacktoryObject object = backtoryResponse.body().get(0);
-
-                                if (!postLike.contains(postId) && like)
-                                    postLike += postId + ":1|";
-                                else if (!postLike.contains(postId) && !like)
-                                    postLike += postId + ":0|";
-                                else if (postLike.contains(postId + ":0|") && like)
-                                    postLike = postLike.replace(postId + ":0|", postId + ":1|");
-                                else if (postLike.contains(postId + ":1|") && like)
-                                    postLike = postLike.replace(postId + ":1|", "");
-                                else if (postLike.contains(postId + ":0|") && !like)
-                                    postLike = postLike.replace(postId + ":0|", "");
-                                else if (postLike.contains(postId + ":1|") && !like)
-                                    postLike = postLike.replace(postId + ":1|", postId + ":0|");
-
-                                object.put("postLike", postLike);
-                                object.saveInBackground(new BacktoryCallBack<Void>() {
-                                    @Override
-                                    public void onResponse(BacktoryResponse<Void> backtoryResponse) {
-
-                                    }
-                                });
-                            }
-
-                        } else {
-                            core.toast(core.getString(R.string.connection_error));
-                        }
-
-                    }
-
-                });
-
-    }
-
     public void getSearch(String name, final GetObject object) {
         BacktoryQuery.getQuery("Products").whereContains("name", name).findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
             @Override
@@ -260,6 +219,7 @@ public class BackendData {
 
                     for (int i = 0; i < objects.size(); i++) {
                         bo[i] = new BackendObject();
+                        bo[i].setId(objects.get(i).getObjectId().toString());
                         bo[i].setName(objects.get(i).get("name").toString());
                         bo[i].setPics(objects.get(i).get("pics").toString());
                         bo[i].setPrimaryPrice(objects.get(i).get("pp").toString());
@@ -293,10 +253,16 @@ public class BackendData {
         void onFailure();
     }
 
+    public interface Getobj {
+        void onSuccess(BackendObject obj);
+        void onFailure();
+    }
+
     public interface GetUserPagePosts{
         void onExists(BackendObject[] objects);
         void onNotExists();
         void onFailure();
     }
+
 
 }

@@ -234,8 +234,21 @@ public class Core {
     public String stringLimit(String s, int i) {
         String result = s;
         if (result.length() > i)
-            result = result.substring(0, i)+" ...";
+            result = result.substring(0, i) + " ...";
         return result;
+    }
+
+    public void fav(String id) {
+        String f = Remember.getString("fav", "");
+        if (f.contains(id)) {
+            f=f.replace(id + "|", "");
+            toast("حذف شد");
+            Remember.putString("fav", f);
+        } else {
+            f += id + "|";
+            toast("اضافه شد");
+            Remember.putString("fav", f);
+        }
     }
 
     //Checkers

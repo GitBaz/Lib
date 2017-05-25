@@ -1,10 +1,13 @@
 package ir.myandroidapp.library.backend;
 
+import ir.myandroidapp.library.Core;
+
 /**
  * Created by kam.amir on 4/24/17.
  */
 public class BackendObject {
 
+    private String id = "";
     private String name = "";
     private String pics = "";
     private String pp = "";
@@ -18,6 +21,10 @@ public class BackendObject {
     private String permission = "";
 
     public BackendObject() {
+    }
+
+    public void setId(String s) {
+        id = s;
     }
 
     public void setName(String s) {
@@ -64,6 +71,10 @@ public class BackendObject {
         permission = s;
     }
 
+
+    public String getId() {
+        return id;
+    }
 
     public String getName() {
         return name;

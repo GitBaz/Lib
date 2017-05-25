@@ -1,7 +1,10 @@
 package ir.myandroidapp.library.cards;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -10,6 +13,8 @@ import com.squareup.picasso.Picasso;
 
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.R;
+import ir.myandroidapp.library.Remember;
+import ir.myandroidapp.library.activities.ItemActivity;
 import ir.myandroidapp.library.backend.BackendObject;
 
 /**
@@ -20,9 +25,19 @@ public class CardViewLarge extends LinearLayout{
     Core core;
     ImageView fav;
 
-    public CardViewLarge(Context context, Core cre, BackendObject obj, OnClickListener onFav){
+    public CardViewLarge(final Context context, Core cre, final Activity act, final BackendObject obj){
         super(context);
         core= cre;
+
+
+        this.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(act, ItemActivity.class);
+                intent.putExtra("id",obj.getId());
+                context.startActivity(intent);
+            }
+        });
 
         LayoutInflater.from(context).inflate(R.layout.card_view_large,this);
 
@@ -47,7 +62,12 @@ public class CardViewLarge extends LinearLayout{
 
         Picasso.with(context).load(core.divide(obj.getPics(),'|')[0]).into(imageView);
 
-        fav.setOnClickListener(onFav);
+        fav.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                core.fav(obj.getId());
+            }
+        });
 
     }
 
