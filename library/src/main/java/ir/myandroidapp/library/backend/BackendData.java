@@ -140,6 +140,24 @@ public class BackendData {
         });
     }
 
+    public void get(String[] id,final GetObject object){
+
+        final BackendObject[] obj = new BackendObject[id.length];
+
+        for(int i=0;i<id.length;i++) {
+            final int j = i;
+            BacktoryQuery.getQuery("Products").getInBackground(id[i], new BacktoryCallBack<BacktoryObject>() {
+                @Override
+                public void onResponse(BacktoryResponse<BacktoryObject> backtoryResponse) {
+                    if (backtoryResponse.isSuccessful())
+                        obj[j] = new BackendObject();
+                }
+            });
+        }
+
+        object.onSuccess(obj);
+    }
+
     public void getUserPage(final GetUserPage response) {
         BacktoryQuery.getQuery("Pages").whereMatches("user", BacktoryUser.getCurrentUser().getUserId()).
                 findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
