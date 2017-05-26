@@ -22,6 +22,7 @@ import ir.myandroidapp.library.R;
 public class BackendData {
 
     Core core;
+    int getCounter=0;
 
     public BackendData(Core cre) {
         core = cre;
@@ -164,6 +165,7 @@ public class BackendData {
                         bo[j].setUser(object.get("user").toString());
                         bo[j].setPage(object.get("page").toString());
                         bo[j].setPermission(object.get("permission").toString());
+                        getCounter++;
                     }
                 }
             });

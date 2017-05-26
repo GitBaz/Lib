@@ -20,7 +20,7 @@ public class CatView extends LinearLayout {
     TextView tv;
     LinearLayout main;
 
-    public CatView(Context context, Core core, String title, String icon){
+    public CatView(Context context, Core core, String title, int icon){
         super(context);
         LayoutInflater.from(context).inflate(R.layout.cat_view,this);
         iv = (ImageView) findViewById(R.id.cat_view_iv);
@@ -28,7 +28,7 @@ public class CatView extends LinearLayout {
         tv.setTypeface(core.setTypeFace());
         main = (LinearLayout) findViewById(R.id.cat_view_click);
 
-        Picasso.with(context).load(icon).into(iv);
+        iv.setImageResource(icon);
         tv.setText(title);
 
     }
