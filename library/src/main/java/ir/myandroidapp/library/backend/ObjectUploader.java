@@ -1,5 +1,7 @@
 package ir.myandroidapp.library.backend;
 
+import android.app.Activity;
+
 import com.backtory.java.internal.BacktoryObject;
 import com.backtory.java.internal.BacktoryUser;
 
@@ -18,8 +20,9 @@ public class ObjectUploader {
     BackendData data;
     String[] paths;
     String table = "";
+    Activity activity;
 
-    public ObjectUploader(Core cre, String tbl, String[] path) {
+    public ObjectUploader(Core cre, String tbl, String[] path, Activity act) {
         core = cre;
         object = new BackendObject();
         data = new BackendData(cre);
@@ -30,6 +33,7 @@ public class ObjectUploader {
             paths[i] = "";
         }
         paths = path;
+        activity = act;
     }
 
     public ObjectUploader create(String name, String sp, String pp, String info, String[] links, String details) {
@@ -61,6 +65,7 @@ public class ObjectUploader {
                 public void onSuccess() {
                     pv.cancel();
                     core.toast(core.getString(R.string.put_success));
+                    activity.finish();
                 }
 
                 @Override
@@ -78,6 +83,7 @@ public class ObjectUploader {
                         public void onSuccess() {
                             pv.cancel();
                             core.toast(core.getString(R.string.put_success));
+                            activity.finish();
                         }
 
                         @Override

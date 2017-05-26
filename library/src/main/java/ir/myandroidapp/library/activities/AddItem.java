@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +14,7 @@ import android.widget.ToggleButton;
 
 import ir.myandroidapp.library.ActionBar;
 import ir.myandroidapp.library.Core;
+import ir.myandroidapp.library.Dialogs.CatDialog;
 import ir.myandroidapp.library.ImagePicker;
 import ir.myandroidapp.library.R;
 import ir.myandroidapp.library.Ui.Waiter;
@@ -42,7 +44,7 @@ public class AddItem extends Activity {
     EditText etInfo;
 
     LinearLayout addPageContainer;
-    ToggleButton addPage;
+    ToggleButton addPage, catButton;
 
     TextView iv_title;
     ImageView[] iv = new ImageView[5];
@@ -56,6 +58,8 @@ public class AddItem extends Activity {
 
     BackendData data;
 
+    String address = "";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,12 +67,13 @@ public class AddItem extends Activity {
         core = new Core(this);
         core.forceRTLIfSupported(getWindow());
 
-        action = new ActionBar(this,core,R.layout.add_item);
+        action = new ActionBar(this, core, R.layout.add_item);
         action.setTitle("محصول جدید");
         action.setTickIcon(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new ObjectUploader(core, "Products", picker.getPaths()).create(getObject()).upload();
+                if (checkers())
+                    new ObjectUploader(core, "Products", picker.getPaths(),AddItem.this).create(getObject()).upload();
             }
         });
         action.turnOnFloatingButton(true);
@@ -111,6 +116,24 @@ public class AddItem extends Activity {
 
         addPage = (ToggleButton) findViewById(R.id.ai_add_page);
         addPage.setTypeface(core.setTypeFace());
+
+        catButton = (ToggleButton) findViewById(R.id.ai_cat_btn);
+        catButton.setTypeface(core.setTypeFace());
+
+        catButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                CatDialog cat = new CatDialog(core.context, core, new CatDialog.GetAddress() {
+                    @Override
+                    public void address(String s) {
+                        address = s;
+                        core.toast(s);
+                    }
+                });
+                if(b)
+                cat.show();
+            }
+        });
 
         addPageContainer = (LinearLayout) findViewById(R.id.ai_add_page_container);
 
@@ -156,31 +179,38 @@ public class AddItem extends Activity {
         });
     }
 
-            @Override
-            protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-                picker.result(requestCode, resultCode, data);
-            }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        picker.result(requestCode, resultCode, data);
+    }
 
-            public BackendObject getObject() {
-                BackendObject obj = new BackendObject();
-                obj.setPics(core.combineNoNull(picker.getLinks(), '|'));
-                obj.setInfo(etInfo.getText().toString());
-                obj.setDetails(dve.getTotal());
-                obj.setName(etName.getText().toString());
-                obj.setPlace("");
-                obj.setPrimaryPrice(etPp.getText().toString());
-                obj.setSecondaryPrice(etSp.getText().toString());
-                obj.setCat("");
-                if (addPage.isChecked())
-                    obj.setPage("1");
-                else
-                    obj.setPage("0");
+    public BackendObject getObject() {
+        BackendObject obj = new BackendObject();
+        obj.setPics(core.combineNoNull(picker.getLinks(), '|'));
+        obj.setInfo(etInfo.getText().toString());
+        obj.setDetails(dve.getTotal());
+        obj.setName(etName.getText().toString());
+        obj.setPlace("");
+        obj.setPrimaryPrice(etPp.getText().toString());
+        obj.setSecondaryPrice(etSp.getText().toString());
+        obj.setCat(address);
+        if (addPage.isChecked())
+            obj.setPage("1");
+        else
+            obj.setPage("0");
 
-                return obj;
-
-            }
-
-
-
+        return obj;
 
     }
+
+    boolean checkers() {
+        if ((catButton.isChecked() && !address.equals("")) || addPage.isChecked())
+            return true;
+        else {
+            core.toast("دسته بندی انتخاب نشده");
+            return false;
+        }
+    }
+
+
+}

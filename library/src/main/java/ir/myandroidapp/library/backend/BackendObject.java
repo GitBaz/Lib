@@ -19,6 +19,7 @@ public class BackendObject {
     private String page = "";
     private String user = "";
     private String permission = "";
+    private String location = "";
 
     public BackendObject() {
     }
@@ -71,6 +72,10 @@ public class BackendObject {
         permission = s;
     }
 
+    public void setLocation(String s){
+        location = s;
+    }
+
 
     public String getId() {
         return id;
@@ -118,6 +123,10 @@ public class BackendObject {
 
     public String getPermission() {
         return permission;
+    }
+
+    public String getLocation(){
+        return location;
     }
 
 

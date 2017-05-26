@@ -30,6 +30,16 @@ public class ActionBar extends LinearLayout {
         tool = (Toolbar) findViewById(R.id.toolbar);
     }
 
+    public ActionBar(Context ctx, Core cre, LinearLayout lay){
+        super(ctx);
+        core = cre;
+        LayoutInflater.from(ctx).inflate(R.layout.action_bar, this);
+        btn = (FloatingActionButton) findViewById(R.id.fab);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.action_content);
+        layout.addView(lay);
+        tool = (Toolbar) findViewById(R.id.toolbar);
+    }
+
     public void setTitle(String title) {
         tool.setTitle(core.spannableString(title));
         tool.setTitleTextColor(core.getColor(R.color.white));
@@ -42,6 +52,10 @@ public class ActionBar extends LinearLayout {
             tool.getMenu().getItem(0).getSubMenu().getItem(i).setTitle(core.spannableString(
                     tool.getMenu().getItem(0).getSubMenu().getItem(i).getTitle().toString()));
         }
+    }
+
+    public void setMenu(int menu){
+        tool.inflateMenu(menu);
     }
 
     public void setOnItemClick(Toolbar.OnMenuItemClickListener listener) {

@@ -1,5 +1,7 @@
 package ir.myandroidapp.library.backend;
 
+import android.app.Activity;
+
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.Dialogs.ProgressView;
 import ir.myandroidapp.library.R;
@@ -16,12 +18,14 @@ public class BackendPageUploader {
     Core core;
     String table;
     String path;
+    Activity activity;
 
-    public BackendPageUploader(Core cre, String tbl,String iconPath) {
+    public BackendPageUploader(Core cre, String tbl,String iconPath,Activity act) {
         core = cre;
         table = tbl;
         data = new BackendData(cre);
         path = iconPath;
+        activity = act;
     }
 
     public BackendPageUploader create(BackendPage p) {
@@ -39,6 +43,7 @@ public class BackendPageUploader {
                 public void onSuccess() {
                     pv.cancel();
                     core.toast(core.getString(R.string.page_success));
+                    activity.finish();
                 }
 
                 @Override
@@ -56,6 +61,7 @@ public class BackendPageUploader {
                         public void onSuccess() {
                             pv.cancel();
                             core.toast(core.getString(R.string.page_success));
+                            activity.finish();
                         }
 
                         @Override

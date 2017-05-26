@@ -22,7 +22,7 @@ import ir.myandroidapp.library.R;
 public class BackendData {
 
     Core core;
-    int getCounter=0;
+    int getCounter = 0;
 
     public BackendData(Core cre) {
         core = cre;
@@ -67,13 +67,14 @@ public class BackendData {
         object.put("pp", obj.getPrimaryPrice());
         object.put("sp", obj.getSecondaryPrice());
         object.put("info", obj.getInfo());
-        object.put("details", "شماره تلفن : "+
-                BacktoryUser.getCurrentUser().getPhoneNumber().toString()+":|"+obj.getDetails());
+        object.put("details", "شماره تلفن : " +
+                BacktoryUser.getCurrentUser().getPhoneNumber().toString() + ":|" + obj.getDetails());
         object.put("cat", obj.getCat());
         object.put("place", obj.getPlace());
         object.put("user", BacktoryUser.getCurrentUser().getUserId());
         object.put("page", obj.getPage());
         object.put("permission", "0");
+        object.put("location",obj.getLocation());
         object.saveInBackground(new BacktoryCallBack<Void>() {
             @Override
             public void onResponse(BacktoryResponse<Void> backtoryResponse) {
@@ -93,9 +94,12 @@ public class BackendData {
         object.put("logo", page.getLogo());
         object.put("info", page.getInfo());
         object.put("number", page.getNumber());
-        object.put("telegramLink", page.getTelegramLink());
-        object.put("webLink", page.getWebLink());
+        object.put("detail", page.getDetail());
         object.put("user", BacktoryUser.getCurrentUser().getUserId());
+        object.put("cat", page.getCat());
+        object.put("permission", "0");
+        object.put("place", "0");
+        object.put("location",page.getLocation());
         object.saveInBackground(new BacktoryCallBack<Void>() {
             @Override
             public void onResponse(BacktoryResponse<Void> backtoryResponse) {
@@ -109,26 +113,27 @@ public class BackendData {
         });
     }
 
-    public void get(String id,final Getobj objct){
-        BacktoryObject.getQuery("Products").getInBackground(id,new BacktoryCallBack<BacktoryObject>() {
+    public void get(String id, final Getobj objct) {
+        BacktoryObject.getQuery("Products").getInBackground(id, new BacktoryCallBack<BacktoryObject>() {
             @Override
             public void onResponse(BacktoryResponse<BacktoryObject> backtoryResponse) {
                 if (backtoryResponse.isSuccessful()) {
                     BacktoryObject object = backtoryResponse.body();
                     BackendObject bo = new BackendObject();
 
-                        bo.setId(object.getObjectId().toString());
-                        bo.setName(object.get("name").toString());
-                        bo.setPics(object.get("pics").toString());
-                        bo.setPrimaryPrice(object.get("pp").toString());
-                        bo.setSecondaryPrice(object.get("sp").toString());
-                        bo.setInfo(object.get("info").toString());
-                        bo.setDetails(object.get("details").toString());
-                        bo.setCat(object.get("cat").toString());
-                        bo.setPlace(object.get("place").toString());
-                        bo.setUser(object.get("user").toString());
-                        bo.setPage(object.get("page").toString());
-                        bo.setPermission(object.get("permission").toString());
+                    bo.setId(object.getObjectId().toString());
+                    bo.setName(object.get("name").toString());
+                    bo.setPics(object.get("pics").toString());
+                    bo.setPrimaryPrice(object.get("pp").toString());
+                    bo.setSecondaryPrice(object.get("sp").toString());
+                    bo.setInfo(object.get("info").toString());
+                    bo.setDetails(object.get("details").toString());
+                    bo.setCat(object.get("cat").toString());
+                    bo.setPlace(object.get("place").toString());
+                    bo.setUser(object.get("user").toString());
+                    bo.setPage(object.get("page").toString());
+                    bo.setPermission(object.get("permission").toString());
+                    bo.setLocation(object.get("location").toString());
 
                     objct.onSuccess(bo);
 
@@ -141,11 +146,11 @@ public class BackendData {
         });
     }
 
-    public void get(String[] id,final GetObject object){
+    public void get(String[] id, final GetObject object) {
 
         final BackendObject[] bo = new BackendObject[id.length];
 
-        for(int i=0;i<id.length;i++) {
+        for (int i = 0; i < id.length; i++) {
             final int j = i;
             BacktoryQuery.getQuery("Products").getInBackground(id[i], new BacktoryCallBack<BacktoryObject>() {
                 @Override
@@ -165,6 +170,7 @@ public class BackendData {
                         bo[j].setUser(object.get("user").toString());
                         bo[j].setPage(object.get("page").toString());
                         bo[j].setPermission(object.get("permission").toString());
+                        bo[j].setLocation(object.get("location").toString());
                         getCounter++;
                     }
                 }
@@ -185,13 +191,17 @@ public class BackendData {
                             } else {
                                 BackendPage page = new BackendPage();
                                 BacktoryObject obj = backtoryResponse.body().get(0);
+                                page.setId(obj.getObjectId().toString());
                                 page.setBrand(obj.get("brand").toString());
                                 page.setLogo(obj.get("logo").toString());
                                 page.setInfo(obj.get("info").toString());
                                 page.setNumber(obj.get("number").toString());
-                                page.setWebLink(obj.get("webLink").toString());
-                                page.setTelegramLink(obj.get("telegramLink").toString());
+                                page.setDetail(obj.get("detail").toString());
                                 page.setUser(obj.get("user").toString());
+                                page.setPermission(obj.get("permission").toString());
+                                page.setPlace(obj.get("place").toString());
+                                page.setCat(obj.get("cat").toString());
+                                page.setLocation(obj.get("location").toString());
                                 response.onExists(page);
                             }
                         } else {
@@ -203,43 +213,76 @@ public class BackendData {
 
     }
 
-    public void getUserPagePosts(String user, final GetUserPagePosts getPosts){
-        BacktoryQuery.getQuery("Products").whereMatches("user",user).whereMatches("page","1").
-                findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
-            @Override
-            public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
-                if(backtoryResponse.isSuccessful()){
-                    if(backtoryResponse.body().isEmpty()){
-                        getPosts.onNotExists();
-                    }else{
-                        List<BacktoryObject> obj = backtoryResponse.body();
-                        int count = obj.size();
-                        BackendObject[] objects = new BackendObject[count];
-                        for(int i = 0;i<count;i++){
-                            BacktoryObject bo = obj.get(i);
-                            objects[i] = new BackendObject();
-                            objects[i].setId(bo.getObjectId().toString());
-                            objects[i].setName(bo.get("name").toString());
-                            objects[i].setPics(bo.get("pics").toString());
-                            objects[i].setPrimaryPrice(bo.get("pp").toString());
-                            objects[i].setSecondaryPrice(bo.get("sp").toString());
-                            objects[i].setInfo(bo.get("info").toString());
-                            objects[i].setDetails(bo.get("details").toString());
-                            objects[i].setCat(bo.get("cat").toString());
-                            objects[i].setPlace(bo.get("place").toString());
-                            objects[i].setUser(bo.get("user").toString());
-                            objects[i].setPage(bo.get("page").toString());
-                            objects[i].setPermission(bo.get("permission").toString());
+    public void getPageById(String id,final GetUserPage response){
+        BacktoryQuery.getQuery("Pages").whereMatches("user", id).findInBackground(
+                new BacktoryCallBack<List<BacktoryObject>>() {
+                    @Override
+                    public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
+                        if (backtoryResponse.isSuccessful()) {
+                            if (backtoryResponse.body().isEmpty()) {
+                                response.onNotExists();
+                            } else {
+                                BackendPage page = new BackendPage();
+                                BacktoryObject obj = backtoryResponse.body().get(0);
+                                page.setId(obj.getObjectId().toString());
+                                page.setBrand(obj.get("brand").toString());
+                                page.setLogo(obj.get("logo").toString());
+                                page.setInfo(obj.get("info").toString());
+                                page.setNumber(obj.get("number").toString());
+                                page.setDetail(obj.get("detail").toString());
+                                page.setUser(obj.get("user").toString());
+                                page.setPermission(obj.get("permission").toString());
+                                page.setPlace(obj.get("place").toString());
+                                page.setCat(obj.get("cat").toString());
+                                page.setLocation(obj.get("location").toString());
+                                response.onExists(page);
+                            }
+                        } else {
+                            response.onFailure();
+                            core.toast(core.getString(R.string.connection_error));
                         }
-                        getPosts.onExists(objects);
                     }
+                });
+    }
 
-                }else{
-                    getPosts.onFailure();
-                    core.toast(core.getString(R.string.connection_error));
-                }
-            }
-        });
+    public void getUserPagePosts(String user, final GetUserPagePosts getPosts) {
+        BacktoryQuery.getQuery("Products").whereMatches("user", user).whereMatches("page", "1").
+                findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
+                    @Override
+                    public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
+                        if (backtoryResponse.isSuccessful()) {
+                            if (backtoryResponse.body().isEmpty()) {
+                                getPosts.onNotExists();
+                            } else {
+                                List<BacktoryObject> obj = backtoryResponse.body();
+                                int count = obj.size();
+                                BackendObject[] objects = new BackendObject[count];
+                                for (int i = 0; i < count; i++) {
+                                    BacktoryObject bo = obj.get(i);
+                                    objects[i] = new BackendObject();
+                                    objects[i].setId(bo.getObjectId().toString());
+                                    objects[i].setName(bo.get("name").toString());
+                                    objects[i].setPics(bo.get("pics").toString());
+                                    objects[i].setPrimaryPrice(bo.get("pp").toString());
+                                    objects[i].setSecondaryPrice(bo.get("sp").toString());
+                                    objects[i].setInfo(bo.get("info").toString());
+                                    objects[i].setDetails(bo.get("details").toString());
+                                    objects[i].setCat(bo.get("cat").toString());
+                                    objects[i].setPlace(bo.get("place").toString());
+                                    objects[i].setUser(bo.get("user").toString());
+                                    objects[i].setPage(bo.get("page").toString());
+                                    objects[i].setPermission(bo.get("permission").toString());
+                                    objects[i].setLocation(bo.get("location").toString());
+                                }
+                                getPosts.onExists(objects);
+                            }
+
+                        } else {
+                            getPosts.onFailure();
+                            core.toast(core.getString(R.string.connection_error));
+                        }
+                    }
+                });
 
     }
 
@@ -265,6 +308,7 @@ public class BackendData {
                         bo[i].setUser(objects.get(i).get("user").toString());
                         bo[i].setPage(objects.get(i).get("page").toString());
                         bo[i].setPermission(objects.get(i).get("permission").toString());
+                        bo[i].setLocation(objects.get(i).get("location").toString());
                     }
 
                     object.onSuccess(bo);
@@ -278,24 +322,117 @@ public class BackendData {
 
     public interface GetUserPage {
         void onExists(BackendPage page);
+
         void onNotExists();
+
+        void onFailure();
+    }
+
+    public interface GetPages {
+        void onExists(BackendPage[] page);
+
+        void onNotExists();
+
         void onFailure();
     }
 
     public interface GetObject {
         void onSuccess(BackendObject[] obj);
+
         void onFailure();
+    }
+
+    public interface GetObjects {
+        void onExists(BackendObject[] obj);
+
+        void onNotExists();
+
+        void onFailure();
+
     }
 
     public interface Getobj {
         void onSuccess(BackendObject obj);
+
         void onFailure();
     }
 
-    public interface GetUserPagePosts{
+    public interface GetUserPagePosts {
         void onExists(BackendObject[] objects);
+
         void onNotExists();
+
         void onFailure();
+    }
+
+    //wetJob
+
+    public void getPageByPlace(String s, final GetPages obj) {
+        BacktoryQuery.getQuery("Pages").whereMatches("place", s).findInBackground(
+                new BacktoryCallBack<List<BacktoryObject>>() {
+                    @Override
+                    public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
+                        if (backtoryResponse.isSuccessful()) {
+                            if (backtoryResponse.body().size() > 0) {
+                                BackendPage[] objects = new BackendPage[backtoryResponse.body().size()];
+                                for (int i = 0; i < backtoryResponse.body().size(); i++) {
+                                    BacktoryObject bo = backtoryResponse.body().get(i);
+                                    objects[i] = new BackendPage();
+                                    objects[i].setId(bo.getObjectId().toString());
+                                    objects[i].setBrand(bo.get("brand").toString());
+                                    objects[i].setLogo(bo.get("logo").toString());
+                                    objects[i].setInfo(bo.get("info").toString());
+                                    objects[i].setNumber(bo.get("number").toString());
+                                    objects[i].setDetail(bo.get("detail").toString());
+                                    objects[i].setUser(bo.get("user").toString());
+                                    objects[i].setPermission(bo.get("permission").toString());
+                                    objects[i].setPlace(bo.get("place").toString());
+                                    objects[i].setCat(bo.get("cat").toString());
+                                    objects[i].setLocation(bo.get("location").toString());
+                                }
+                                obj.onExists(objects);
+                            } else
+                                obj.onNotExists();
+                        } else {
+                            obj.onFailure();
+                        }
+                    }
+                });
+    }
+
+    public void getObjectByPlace(String s, final GetObjects obj) {
+        BacktoryQuery.getQuery("Products").whereMatches("place", s).findInBackground(
+                new BacktoryCallBack<List<BacktoryObject>>() {
+                    @Override
+                    public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
+                        if (backtoryResponse.isSuccessful()) {
+                            if (backtoryResponse.body().size() > 0) {
+                                BackendObject[] objects = new BackendObject[backtoryResponse.body().size()];
+                                for (int i = 0; i < backtoryResponse.body().size(); i++) {
+                                    BacktoryObject bo = backtoryResponse.body().get(i);
+                                    objects[i] = new BackendObject();
+                                    objects[i].setId(bo.getObjectId().toString());
+                                    objects[i].setName(bo.get("name").toString());
+                                    objects[i].setPics(bo.get("pics").toString());
+                                    objects[i].setPrimaryPrice(bo.get("pp").toString());
+                                    objects[i].setSecondaryPrice(bo.get("sp").toString());
+                                    objects[i].setInfo(bo.get("info").toString());
+                                    objects[i].setDetails(bo.get("details").toString());
+                                    objects[i].setCat(bo.get("cat").toString());
+                                    objects[i].setPlace(bo.get("place").toString());
+                                    objects[i].setUser(bo.get("user").toString());
+                                    objects[i].setPage(bo.get("page").toString());
+                                    objects[i].setPermission(bo.get("permission").toString());
+                                    objects[i].setLocation(bo.get("location").toString());
+                                }
+                                obj.onExists(objects);
+                            } else
+                                obj.onNotExists();
+                        } else {
+                            obj.onFailure();
+                        }
+                    }
+                });
     }
 
 

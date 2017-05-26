@@ -6,16 +6,24 @@ package ir.myandroidapp.library.backend;
 
 public class BackendPage {
 
+    private String id = "";
     private String logo = "";
     private String brand = "";
     private String info = "";
     private String number = "";
-    private String telegramLink = "";
-    private String webLink = "";
+    private String detail = "";
     private String user = "";
+    private String permission = "";
+    private String cat = "";
+    private String place = "";
+    private String location = "";
 
     public BackendPage() {
 
+    }
+
+    public void setId(String s){
+        id = s;
     }
 
     public void setLogo(String s) {
@@ -34,16 +42,33 @@ public class BackendPage {
         number = s;
     }
 
-    public void setTelegramLink(String s) {
-        telegramLink = s;
-    }
-
-    public void setWebLink(String s) {
-        webLink = s;
+    public void setDetail(String s) {
+        detail = s;
     }
 
     public void setUser(String s) {
         user = s;
+    }
+
+    public void setPermission(String s){
+        permission = s;
+    }
+
+    public void setCat(String s){
+        cat = s;
+    }
+
+    public void setPlace(String s){
+        place = s;
+    }
+
+    public void setLocation(String s){
+        location = s;
+    }
+
+
+    public String getId(){
+        return id;
     }
 
     public String getLogo() {
@@ -62,16 +87,28 @@ public class BackendPage {
         return number;
     }
 
-    public String getTelegramLink() {
-        return telegramLink;
-    }
-
-    public String getWebLink() {
-        return webLink;
+    public String getDetail() {
+        return detail;
     }
 
     public String getUser() {
         return user;
+    }
+
+    public String getPermission(){
+        return permission;
+    }
+
+    public String getCat(){
+        return cat;
+    }
+
+    public String getPlace(){
+        return place;
+    }
+
+    public String getLocation(){
+        return location;
     }
 
 }

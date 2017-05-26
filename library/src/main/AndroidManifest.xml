@@ -9,6 +9,8 @@
         <activity android:name=".activities.AddItem"></activity>
         <activity android:name=".activities.AddPage"></activity>
         <activity android:name=".activities.ItemActivity"></activity>
+        <activity android:name=".activities.SubMain"></activity>
+        <activity android:name=".activities.PageActivity"></activity>
 
     </application>
 
