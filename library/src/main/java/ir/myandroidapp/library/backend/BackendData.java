@@ -286,8 +286,9 @@ public class BackendData {
 
     }
 
-    public void getSearch(String name, final GetObject object) {
-        BacktoryQuery.getQuery("Products").whereContains("name", name).findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
+    public void getSearch(String name, final GetObject object,String cat,String loc) {
+        BacktoryQuery.getQuery("Products").whereContains("name", name).whereMatches("cat",cat).whereMatches("location",loc).
+                findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
             @Override
             public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
                 if (backtoryResponse.isSuccessful()) {

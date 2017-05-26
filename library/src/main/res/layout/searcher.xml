@@ -3,20 +3,43 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
+    <ToggleButton
+        android:id="@+id/searcher_add_cat"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp"
-        android:padding="8dp"
-        android:imeOptions="actionSearch"
-        android:drawableRight="@drawable/ic_search_dark"
-        android:drawablePadding="8dp"
-        android:inputType="textPersonName"
-        android:ems="20"
-        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:textOff="انتخاب دسته بندی"
+        android:textOn="انتخاب شد"
+        android:textColor="@color/white" />
+
+    <ToggleButton
+        android:id="@+id/searcher_add_loc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:textOff="انتخاب مکان"
+        android:textOn="انتخاب شد"
+        android:textColor="@color/white" />
+
+
+    <EditText
         android:id="@+id/searcher_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/colorSecondaryText"
-        android:hint="جستجو" />
+        android:layout_margin="8dp"
+        android:background="@color/white"
+        android:drawablePadding="8dp"
+        android:drawableRight="@drawable/ic_search_dark"
+        android:ems="20"
+        android:hint="جستجو"
+        android:imeOptions="actionSearch"
+        android:inputType="textPersonName"
+        android:padding="8dp"
+        android:textColor="@color/colorSecondaryText" />
 
 </LinearLayout>
