@@ -62,12 +62,23 @@ public class Profile extends LinearLayout {
                 new DialogInput(core.context, core, core.getString(R.string.phone_change),
                         core.getString(R.string.enter_your_phone), 0, new DialogInput.Response() {
                     @Override
-                    public void resp(String result) {
+                    public void resp(final String result) {
                         new DecideView(context, core, core.getString(R.string.are_you_sure), new Runnable() {
                             @Override
                             public void run() {
-                                core.toast(core.getString(R.string.phone_changed));
-                                setText();
+                                backend.changePhoneNumber(result, new BackendUser.Response() {
+                                    @Override
+                                    public void onSuccess() {
+                                        core.toast(core.getString(R.string.phone_changed));
+                                        setText();
+                                    }
+
+                                    @Override
+                                    public void onFailure() {
+
+                                    }
+                                });
+
                             }
                         });
                     }
@@ -81,12 +92,23 @@ public class Profile extends LinearLayout {
                 new DialogInput(core.context, core, core.getString(R.string.address_change),
                         core.getString(R.string.enter_your_address), 0, new DialogInput.Response() {
                     @Override
-                    public void resp(String result) {
+                    public void resp(final String result) {
                         new DecideView(context, core, core.getString(R.string.are_you_sure), new Runnable() {
                             @Override
                             public void run() {
-                                core.toast(core.getString(R.string.address_changed));
-                                setText();
+                                backend.changeAddress(result, new BackendUser.Response() {
+                                    @Override
+                                    public void onSuccess() {
+                                        core.toast(core.getString(R.string.address_changed));
+                                        setText();
+                                    }
+
+                                    @Override
+                                    public void onFailure() {
+
+                                    }
+                                });
+
                             }
                         });
                     }

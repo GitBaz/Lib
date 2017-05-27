@@ -1,6 +1,7 @@
 package ir.myandroidapp.library.activities;
 
 import android.content.Context;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -63,6 +64,17 @@ public class Searcher extends LinearLayout {
                     });
                     ld.show();
                 }
+            }
+        });
+
+
+        searcher.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+
+
+
+                return true;
             }
         });
     }

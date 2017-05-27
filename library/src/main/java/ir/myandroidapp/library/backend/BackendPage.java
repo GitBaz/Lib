@@ -78,7 +78,7 @@ public class BackendPage {
         if (!logo.equals(""))
             return logo;
         else
-            return "https://storage.backtory.com/nokchefile/usersPics/gray.png|";    }
+            return "https://storage.backtory.com/nokchefile/usersPics/gray.png";    }
 
     public String getBrand() {
         if (!brand.equals(""))

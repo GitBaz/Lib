@@ -12,12 +12,14 @@ import ir.myandroidapp.library.activities.AddItem;
 import ir.myandroidapp.library.activities.AddPage;
 import ir.myandroidapp.library.activities.ListView;
 import ir.myandroidapp.library.activities.Page;
+import ir.myandroidapp.library.activities.Profile;
 import ir.myandroidapp.library.activities.SubMain;
+import ir.myandroidapp.library.activities.main;
 import ir.myandroidapp.library.backend.BackendData;
 import ir.myandroidapp.library.backend.BackendPage;
 import ir.myandroidapp.library.backend.BackendUser;
 
-public class MainActivity extends AddPage {
+public class MainActivity extends Activity {
 
     Core core;
 
@@ -53,6 +55,7 @@ public class MainActivity extends AddPage {
             }
         });
 
+
 //        LocationDialog loc = new LocationDialog(this, core, new LocationDialog.GetAddress() {
 //            @Override
 //            public void address(String s) {
@@ -80,8 +83,7 @@ public class MainActivity extends AddPage {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(MainActivity.this, SubMain.class);
-        intent.putExtra("subMain", "no");
-        startActivity(intent);
+        setContentView(new main(this,core,getWindowManager(),this));
+
     }
 }
