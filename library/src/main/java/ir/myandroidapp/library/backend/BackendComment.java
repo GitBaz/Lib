@@ -11,6 +11,7 @@ import com.backtory.java.internal.BacktoryUser;
 import java.util.List;
 
 import ir.myandroidapp.library.Core;
+import ir.myandroidapp.library.ImagePicker;
 import ir.myandroidapp.library.R;
 
 /**
@@ -19,6 +20,7 @@ import ir.myandroidapp.library.R;
 
 public class BackendComment {
 
+    private String Id = "";
     private String comment = "";
     private String itemId = "";
     private String username = "";
@@ -39,6 +41,10 @@ public class BackendComment {
         return itemId;
     }
 
+    public String getId(){
+        return Id;
+    }
+
     public String getUserName() {
         return username;
     }
@@ -48,10 +54,11 @@ public class BackendComment {
         itemId = item;
     }
 
-    private void create(String cmnt, String item, String un) {
+    private void create(String cmnt, String item, String un, String id) {
         comment = cmnt;
         itemId = item;
         username = un;
+        Id = id;
     }
 
     public void writeComment(final SimpleResponse response) {
@@ -76,7 +83,6 @@ public class BackendComment {
 
     public void readComment(String id, final CommentResponse response) {
         new BacktoryQuery("Comments").whereMatches("itemId", id).whereMatches("permission", "1")
-                .orderByDescending("likes")
                 .findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
@@ -89,7 +95,8 @@ public class BackendComment {
                                 bcmt[i] = new BackendComment(core);
                                 BacktoryObject obj = backtoryResponse.body().get(i);
                                 bcmt[i].create(obj.get("comment").toString(),
-                                        obj.get("itemId").toString(), obj.get("username").toString());
+                                        obj.get("itemId").toString(), obj.get("username").toString(),
+                                        obj.getObjectId().toString());
                             }
 
                             exist = true;
@@ -110,7 +117,6 @@ public class BackendComment {
     public boolean exists() {
         return exist;
     }
-
 
 
 }

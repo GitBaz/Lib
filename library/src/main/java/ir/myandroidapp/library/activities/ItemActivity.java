@@ -1,6 +1,7 @@
 package ir.myandroidapp.library.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -84,10 +85,19 @@ public class ItemActivity extends Activity {
             public void onClick(View view) {
                 core.fav(object.getId());
             }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ItemActivity.this,CommentList.class);
+                intent.putExtra("commentId",object.getId());
+                startActivity(intent);
+            }
         }));
 
         if(!object.getDetails().equals(""))
             container.addView(new DetailView(this,core,getWindowManager(),object.getDetails()));
+
+
 
 
     }

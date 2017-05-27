@@ -74,6 +74,7 @@ public class BackendData {
         object.put("user", BacktoryUser.getCurrentUser().getUserId());
         object.put("page", obj.getPage());
         object.put("permission", "0");
+        object.put("comments","0");
         object.put("location", obj.getLocation());
         object.saveInBackground(new BacktoryCallBack<Void>() {
             @Override
@@ -139,7 +140,6 @@ public class BackendData {
 
                 } else {
                     objct.onFailure();
-                    core.toast(backtoryResponse.message());
                 }
             }
 
@@ -505,7 +505,6 @@ public class BackendData {
     }
 
     public void deletePage(final Runnable run) {
-
         BacktoryQuery.getQuery("Pages").whereMatches("user", BacktoryUser.getCurrentUser().getUserId()).
                 findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override

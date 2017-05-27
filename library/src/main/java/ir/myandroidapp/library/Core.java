@@ -12,13 +12,18 @@ import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.style.TypefaceSpan;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -261,6 +266,13 @@ public class Core {
 
     public boolean fileMoreThan(String path, int size) {
         return new File(path).length() / 1024 > size;
+    }
+
+    public LinearLayout space(int height, WindowManager wm){
+        LinearLayout sp = new LinearLayout(context);
+        sp.setLayoutParams(new LinearLayout.LayoutParams(new Size(context,wm).getdp(height)
+                , ViewGroup.LayoutParams.WRAP_CONTENT));
+        return sp;
     }
 
 }

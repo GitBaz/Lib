@@ -10,6 +10,7 @@ import android.widget.TextView;
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.Dialogs.DialogInput;
 import ir.myandroidapp.library.R;
+import ir.myandroidapp.library.activities.CommentList;
 import ir.myandroidapp.library.backend.BackendComment;
 
 /**
@@ -46,6 +47,13 @@ public class CardComment extends LinearLayout {
 
         username.setText(bc.getUserName());
         comment.setText(bc.getComment());
+
+        reply.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                core.intentActivityPutExtra(CommentList.class,"commentId",bc.getId());
+            }
+        });
 
     }
 

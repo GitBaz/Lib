@@ -72,90 +72,100 @@ public class BackendObject {
         permission = s;
     }
 
-    public void setLocation(String s){
+    public void setLocation(String s) {
         location = s;
     }
 
 
     public String getId() {
-        if(!id.equals(""))
-        return id;
+        if (!id.equals(""))
+            return id;
         else
             return "0";
     }
 
     public String getName() {
-        if(!name.equals(""))
+        if (!name.equals(""))
             return name;
         else
             return "0";
     }
 
     public String getPics() {
-        if(!pics.equals(""))
+        if (!pics.equals(""))
             return pics;
         else
             return "https://storage.backtory.com/nokchefile/usersPics/gray.png|";
     }
 
     public String getPrimaryPrice() {
-        if(!pp.equals(""))
+        if (!pp.equals(""))
             return pp;
         else
-            return "0";    }
+            return "0";
+    }
 
     public String getSecondaryPrice() {
-        if(!sp.equals(""))
+        if (!sp.equals(""))
             return sp;
         else
-            return "0";    }
+            return "0";
+    }
 
     public String getInfo() {
-        if(!info.equals(""))
+        if (!info.equals(""))
             return info;
         else
-            return "0";    }
+            return "0";
+    }
 
     public String getDetails() {
-        if(!details.equals(""))
+        if (!details.equals(""))
             return details;
         else
-            return "0";    }
+            return "0";
+    }
 
     public String getCat() {
-        if(!cat.equals(""))
+        if (!cat.equals(""))
             return cat;
         else
-            return "0";    }
+            return "0";
+    }
 
     public String getPlace() {
-        if(!place.equals(""))
+        if (!place.equals(""))
             return place;
         else
-            return "0";    }
+            return "0";
+    }
 
     public String getPage() {
-        if(!page.equals(""))
+        if (!page.equals(""))
             return page;
         else
-            return "0";    }
+            return "0";
+    }
 
     public String getUser() {
-        if(!user.equals(""))
+        if (!user.equals(""))
             return user;
         else
-            return "0";    }
+            return "0";
+    }
 
     public String getPermission() {
-        if(!permission.equals(""))
+        if (!permission.equals(""))
             return permission;
         else
-            return "0";    }
+            return "0";
+    }
 
-    public String getLocation(){
-        if(!location.equals(""))
+    public String getLocation() {
+        if (!location.equals(""))
             return location;
         else
-            return "0";    }
+            return "0";
+    }
 
 }

@@ -99,6 +99,17 @@
                     android:textColor="@color/colorPrimaryPrice"
                     android:layout_gravity="left"
                     android:gravity="left" />
+
+                <Button
+                    android:id="@+id/comment_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:text="نظرات"
+                    android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
 

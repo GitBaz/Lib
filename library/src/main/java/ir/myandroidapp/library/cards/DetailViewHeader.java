@@ -2,6 +2,7 @@ package ir.myandroidapp.library.cards;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,8 +17,9 @@ import ir.myandroidapp.library.backend.BackendObject;
 public class DetailViewHeader extends LinearLayout{
 
     ImageView fav;
+    Button comment;
 
-    public DetailViewHeader(Context context, Core core, BackendObject object, OnClickListener onFav){
+    public DetailViewHeader(Context context, Core core, BackendObject object, OnClickListener onFav,OnClickListener cmnt){
         super(context);
 
         LayoutInflater.from(context).inflate(R.layout.detail_view_header,this);
@@ -26,6 +28,9 @@ public class DetailViewHeader extends LinearLayout{
         TextView subtitleView = (TextView) findViewById(R.id.detail_view_header_subtitle);
         TextView primaryPrice = (TextView) findViewById(R.id.detail_view_header_primary_price);
         TextView secondaryPrice = (TextView) findViewById(R.id.detail_view_header_secondary_price);
+        comment = (Button) findViewById(R.id.comment_btn);
+
+        comment.setOnClickListener(cmnt);
 
         fav = (ImageView) findViewById(R.id.detail_view_header_add_fav);
 
@@ -33,6 +38,7 @@ public class DetailViewHeader extends LinearLayout{
         subtitleView.setTypeface(core.setTypeFace());
         primaryPrice.setTypeface(core.setTypeFace());
         secondaryPrice.setTypeface(core.setTypeFace());
+        comment.setTypeface(core.setTypeFace());
 
         core.drawRedLine(secondaryPrice);
 
@@ -44,5 +50,4 @@ public class DetailViewHeader extends LinearLayout{
         fav.setOnClickListener(onFav);
 
     }
-
 }
