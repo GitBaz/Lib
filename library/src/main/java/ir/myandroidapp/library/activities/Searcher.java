@@ -1,6 +1,8 @@
 package ir.myandroidapp.library.activities;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.widget.CompoundButton;
@@ -21,18 +23,18 @@ public class Searcher extends LinearLayout {
 
     EditText searcher;
 
-    ToggleButton cat,loc;
-    String strCat="",strLoc="";
+    ToggleButton cat, loc;
+    String strCat = "", strLoc = "";
 
-    public Searcher(Context context, final Core core) {
+    public Searcher(Context context, final Core core, final Activity activity) {
         super(context);
 
         LayoutInflater.from(context).inflate(R.layout.searcher, this);
         searcher = (EditText) findViewById(R.id.searcher_edittext);
         searcher.setTypeface(core.setTypeFace());
 
-        cat = (ToggleButton) findViewById(R.id.ap_add_cat);
-        loc = (ToggleButton) findViewById(R.id.ap_add_loc);
+        cat = (ToggleButton) findViewById(R.id.searcher_add_cat);
+        loc = (ToggleButton) findViewById(R.id.searcher_add_loc);
 
         cat.setTypeface(core.setTypeFace());
         loc.setTypeface(core.setTypeFace());
@@ -40,7 +42,7 @@ public class Searcher extends LinearLayout {
         cat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     CatDialog cd = new CatDialog(core.context, core, new CatDialog.GetAddress() {
                         @Override
                         public void address(String s) {
@@ -55,7 +57,7 @@ public class Searcher extends LinearLayout {
         loc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     LocationDialog ld = new LocationDialog(core.context, core, new LocationDialog.GetAddress() {
                         @Override
                         public void address(String s) {
@@ -72,6 +74,11 @@ public class Searcher extends LinearLayout {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
 
+                Intent intent = new Intent(activity,SearchPostsActivity.class);
+                intent.putExtra("cat",strCat);
+                intent.putExtra("city",strLoc);
+                intent.putExtra("name",textView.getText().toString());
+                activity.startActivity(intent);
 
 
                 return true;
@@ -79,12 +86,4 @@ public class Searcher extends LinearLayout {
         });
     }
 
-    public void setOnSearchListener(final TextView.OnEditorActionListener listener,GetStatus status) {
-        searcher.setOnEditorActionListener(listener);
-        status.status(strCat,strLoc);
-    }
-
-    public interface GetStatus{
-        void status(String cat,String loc);
-    }
 }

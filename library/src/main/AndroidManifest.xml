@@ -12,6 +12,8 @@
         <activity android:name=".activities.SubMain"></activity>
         <activity android:name=".activities.PageActivity"></activity>
         <activity android:name=".activities.CommentList"></activity>
+        <activity android:name=".activities.PostsActivity"></activity>
+        <activity android:name=".activities.SearchPostsActivity"></activity>
 
     </application>
 

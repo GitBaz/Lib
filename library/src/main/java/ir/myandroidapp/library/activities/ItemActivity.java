@@ -17,6 +17,7 @@ import ir.myandroidapp.library.R;
 import ir.myandroidapp.library.Remember;
 import ir.myandroidapp.library.backend.BackendData;
 import ir.myandroidapp.library.backend.BackendObject;
+import ir.myandroidapp.library.backend.BackendPage;
 import ir.myandroidapp.library.cards.DetailView;
 import ir.myandroidapp.library.cards.DetailViewHeader;
 import ir.myandroidapp.library.cards.ViewPager;
@@ -63,6 +64,31 @@ public class ItemActivity extends Activity {
         action = new ActionBar(this, core, R.layout.item_view);
         action.setTitle(object.getName());
         action.setBackIcon(this);
+        action.setNavIcon(R.drawable.ic_shop_white, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(object.getPage().equals("0")){
+                    core.toast("کسب و کاری وجود ندارد.");
+                }else{
+                    new BackendData(core).getPageByUser(object.getUser(), new BackendData.GetUserPage() {
+                        @Override
+                        public void onExists(BackendPage page) {
+                            core.intentActivityPutExtra(PageActivity.class,"pageId",page.getId());
+                        }
+
+                        @Override
+                        public void onNotExists() {
+                            core.toast("کسب و کاری وجود ندارد.");
+                        }
+
+                        @Override
+                        public void onFailure() {
+
+                        }
+                    });
+                }
+            }
+        });
         setContentView(action);
 
         container = (LinearLayout) findViewById(R.id.item_view_container);

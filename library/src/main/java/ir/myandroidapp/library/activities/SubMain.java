@@ -14,12 +14,14 @@ import com.squareup.picasso.Picasso;
 
 import ir.myandroidapp.library.ActionBar;
 import ir.myandroidapp.library.Core;
+import ir.myandroidapp.library.Dialogs.CatDialog;
 import ir.myandroidapp.library.R;
 import ir.myandroidapp.library.Ui.Roller;
 import ir.myandroidapp.library.backend.BackendData;
 import ir.myandroidapp.library.backend.BackendObject;
 import ir.myandroidapp.library.backend.BackendPage;
 import ir.myandroidapp.library.cards.CardView;
+import ir.myandroidapp.library.cards.CatView;
 import ir.myandroidapp.library.cards.Picture;
 import ir.myandroidapp.library.cards.ViewPager;
 
@@ -65,6 +67,17 @@ public class SubMain extends Activity {
         action = new ActionBar(this, core, scrollContainer);
         action.setTitle("نخچه");
         action.setBackIcon(this);
+        action.setNavIcon(R.drawable.ic_list_white, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new CatDialog(core.context, core, new CatDialog.GetAddress() {
+                    @Override
+                    public void address(String s) {
+                        core.intentActivityPutExtra(PostsActivity.class,"cat",s);
+                    }
+                }).show();
+            }
+        });
         layout.setBackgroundColor(core.getColor(R.color.colorBackground));
 
         scrollContainer.addView(sv);

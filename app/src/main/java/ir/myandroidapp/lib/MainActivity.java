@@ -13,6 +13,7 @@ import ir.myandroidapp.library.activities.AddPage;
 import ir.myandroidapp.library.activities.ListView;
 import ir.myandroidapp.library.activities.Page;
 import ir.myandroidapp.library.activities.Profile;
+import ir.myandroidapp.library.activities.Searcher;
 import ir.myandroidapp.library.activities.SubMain;
 import ir.myandroidapp.library.activities.main;
 import ir.myandroidapp.library.backend.BackendData;
@@ -83,7 +84,7 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        setContentView(new main(this,core,getWindowManager(),this));
+        setContentView(new Searcher(core.context,core,this));
 
     }
 }
