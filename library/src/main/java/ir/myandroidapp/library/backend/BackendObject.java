@@ -7,19 +7,19 @@ import ir.myandroidapp.library.Core;
  */
 public class BackendObject {
 
-    private String id = "";
-    private String name = "";
-    private String pics = "";
-    private String pp = "";
-    private String sp = "";
-    private String info = "";
-    private String details = "";
-    private String cat = "";
-    private String place = "";
-    private String page = "";
-    private String user = "";
-    private String permission = "";
-    private String location = "";
+    private String id = "0";
+    private String name = "0";
+    private String pics = "0";
+    private String pp = "0";
+    private String sp = "0";
+    private String info = "0";
+    private String details = "0";
+    private String cat = "0";
+    private String place = "0";
+    private String page = "0";
+    private String user = "0";
+    private String permission = "0";
+    private String location = "0";
 
     public BackendObject() {
     }

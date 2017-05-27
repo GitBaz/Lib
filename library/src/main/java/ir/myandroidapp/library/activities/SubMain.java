@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.squareup.picasso.Picasso;
 
@@ -19,6 +19,7 @@ import ir.myandroidapp.library.Ui.Roller;
 import ir.myandroidapp.library.backend.BackendData;
 import ir.myandroidapp.library.backend.BackendObject;
 import ir.myandroidapp.library.backend.BackendPage;
+import ir.myandroidapp.library.cards.CardView;
 import ir.myandroidapp.library.cards.Picture;
 import ir.myandroidapp.library.cards.ViewPager;
 
@@ -28,49 +29,71 @@ import ir.myandroidapp.library.cards.ViewPager;
 
 public class SubMain extends Activity {
 
-    String[] sliders;
-    BackendObject[] objSliders;
-
-    String[] lastItems;
-    BackendObject[] objLastItems;
-
-    String[] specials;
-    BackendObject[] objSpecials;
-
-    String[] lastPages;
-    BackendObject[] objLastPages;
-
-    String[] sponsers;
-    BackendObject[] objSponsers;
-
-
     Core core;
     ActionBar action;
-    LinearLayout layout;
+    LinearLayout layout, pagerLayout, roller1Layout, roller2Layout, roller3Layout, pictureLayout;
 
     ViewPager pager;
     Roller roller, roller2, roller3;
 
-    Picture pic;
-
     String extra = "";
+
+    String a = "کسب و کار ها";
+    String b = "نخچه";
+    String c = "بازاریابی شبکه ای";
+    String d = "استخدام و کاریابی";
+
+    String keya = "bz";
+    String keyb = "no";
+    String keyc = "net";
+    String keyd = "mark";
+
+    String main = "";
+
+    Picture picture;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LinearLayout scrollContainer = new LinearLayout(this);
+        ScrollView sv = new ScrollView(this);
         layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
         core = new Core(this);
-        action = new ActionBar(this, core, layout);
+        action = new ActionBar(this, core, scrollContainer);
         action.setTitle("نخچه");
         action.setBackIcon(this);
+        layout.setBackgroundColor(core.getColor(R.color.colorBackground));
 
+        scrollContainer.addView(sv);
+        sv.addView(layout);
+        pagerLayout = new LinearLayout(this);
+        roller1Layout = new LinearLayout(this);
+        roller2Layout = new LinearLayout(this);
+        roller3Layout = new LinearLayout(this);
+        pictureLayout = new LinearLayout(this);
+        pictureLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        layout.addView(pagerLayout);
+        layout.addView(roller2Layout);
+        layout.addView(roller1Layout);
+        layout.addView(pictureLayout);
+        layout.addView(roller3Layout);
         setContentView(action);
+
         core.forceRTLIfSupported(getWindow());
 
         extra = getIntent().getStringExtra("subMain");
+        unlock();
+
+        roller = new Roller(this, core, "آخرین پست ها");
+        roller2 = new Roller(this, core, "پست های ویژه");
+        roller3 = new Roller(this, core, "آخرین کسب و کارها");
+
+        picture = new Picture(this, core, getWindowManager());
 
         new BackendData(core).getPageByPlace("SLIDER" + extra, new BackendData.GetPages() {
             @Override
@@ -89,8 +112,8 @@ public class SubMain extends Activity {
                         imageView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Intent intent = new Intent(SubMain.this,PageActivity.class);
-                                intent.putExtra("pageId",page[i].getId());
+                                Intent intent = new Intent(SubMain.this, PageActivity.class);
+                                intent.putExtra("pageId", page[i].getId());
                                 startActivity(intent);
                             }
                         });
@@ -98,48 +121,129 @@ public class SubMain extends Activity {
 
                     }
                 });
-
-                layout.addView(pager);
+                pagerLayout.addView(pager);
+                if(page.length>0)
+                pagerLayout.setVisibility(View.VISIBLE);
 
             }
 
             @Override
             public void onNotExists() {
-core.toast("notExists");
             }
 
             @Override
             public void onFailure() {
-core.toast("faild");
             }
         });
 
-
-
-
-        roller = new Roller(this, core, "آخرین پست ها", new View.OnClickListener() {
+        new BackendData(core).getObjectByPlace("SPECIAL" + extra, new BackendData.GetObjects() {
             @Override
-            public void onClick(View view) {
-                core.toast("bests");
+            public void onExists(BackendObject[] obj) {
+                int len = obj.length;
+                if(len>0) {
+                    for (int i = 0; i < len; i++)
+                        roller2.getContainer().addView(new CardView(core.context, core, obj[i], SubMain.this));
+                    roller2Layout.setVisibility(View.VISIBLE);
+                }
             }
-        });
 
-        roller2 = new Roller(this, core, "پست های ویژه", new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                core.toast("bests");
+            public void onNotExists() {
             }
-        });
 
-        roller3 = new Roller(this, core, "آخرین کسب و کارها", new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                core.toast("bests");
+            public void onFailure() {
+
             }
         });
 
-    //    pic = new Picture()
+        new BackendData(core).getObjectByCat(main, new BackendData.GetObjects() {
+            @Override
+            public void onExists(BackendObject[] obj) {
+                int len = obj.length;
+                if(len>0) {
+                    for (int i = 0; i < len; i++)
+                        roller.getContainer().addView(new CardView(core.context, core, obj[i], SubMain.this));
+                    roller1Layout.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNotExists() {
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
+
+        new BackendData(core).getPageByPlace("SPONSER" + extra, new BackendData.GetPages() {
+            @Override
+            public void onExists(BackendPage[] obj) {
+                if(obj.length==2) {
+                    picture.setObjects(obj[0], obj[1]);
+                    pictureLayout.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNotExists() {
+
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
+
+        new BackendData(core).getPageByCat(main, new BackendData.GetPages() {
+            @Override
+            public void onExists(BackendPage[] page) {
+                int len = page.length;
+                if(len>0) {
+                    for (int i = 0; i < len; i++)
+                        roller3.getContainer().addView(new CardView(core.context, core, page[i], SubMain.this));
+                    roller3Layout.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNotExists() {
+
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
+
+        roller1Layout.addView(roller);
+        roller2Layout.addView(roller2);
+        roller3Layout.addView(roller3);
+        pictureLayout.addView(picture);
+
+        roller1Layout.setVisibility(View.GONE);
+        roller2Layout.setVisibility(View.GONE);
+        roller3Layout.setVisibility(View.GONE);
+        pictureLayout.setVisibility(View.GONE);
+        pagerLayout.setVisibility(View.GONE);
+
 
 
     }
+
+    private void unlock() {
+        if (extra.equals(keya))
+            main = a;
+        else if (extra.equals(keyb))
+            main = b;
+        else if (extra.equals(keyc))
+            main = c;
+        else if (extra.equals(keyd))
+            main = d;
+    }
+
 }

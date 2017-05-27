@@ -162,10 +162,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <ToggleButton
-                        android:textOn="متصل شد"
+                        android:textOn="انتخاب شد"
                         android:id="@+id/ai_cat_btn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -175,6 +175,20 @@
                         android:gravity="center"
                         android:textOff="انتخاب دسته بندی"
                         android:textColor="@color/white" />
+
+                    <ToggleButton
+                        android:textOn="انتخاب شد"
+                        android:id="@+id/ai_loc_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:textSize="18sp"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:textOff="انتخاب مکان"
+                        android:textColor="@color/white" />
+
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 

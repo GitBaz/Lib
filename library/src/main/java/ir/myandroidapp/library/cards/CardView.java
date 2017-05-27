@@ -14,7 +14,9 @@ import com.squareup.picasso.Picasso;
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.R;
 import ir.myandroidapp.library.activities.ItemActivity;
+import ir.myandroidapp.library.activities.PageActivity;
 import ir.myandroidapp.library.backend.BackendObject;
+import ir.myandroidapp.library.backend.BackendPage;
 
 /**
  * Created by kam.amir on 1/11/17.
@@ -56,5 +58,37 @@ public class CardView extends LinearLayout {
         core.drawRedLine(secondary);
 
         Picasso.with(context).load(core.divide(object.getPics(),'|')[0]).into(imageView);
+    }
+
+    public CardView(final Context context, Core cre, final BackendPage page, final Activity act){
+        super(context);
+        core= cre;
+
+        this.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(act, PageActivity.class);
+                intent.putExtra("pageId",page.getId());
+                context.startActivity(intent);
+            }
+        });
+
+        LayoutInflater.from(context).inflate(R.layout.card_view,this);
+        cardView = (android.support.v7.widget.CardView) findViewById(R.id.card_view_card);
+
+        TextView primary = (TextView) findViewById(R.id.card_view_primary_price);
+        TextView secondary = (TextView) findViewById(R.id.card_view_secondary_price);
+        ImageView imageView = (ImageView) findViewById(R.id.card_view_imageView);
+
+        primary.setTypeface(core.setTypeFace());
+        secondary.setTypeface(core.setTypeFace());
+
+        primary.setText(page.getBrand());
+        secondary.setVisibility(GONE);
+
+
+        core.drawRedLine(secondary);
+
+        Picasso.with(context).load(page.getLogo()).into(imageView);
     }
 }

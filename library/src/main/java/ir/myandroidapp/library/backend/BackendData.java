@@ -74,7 +74,7 @@ public class BackendData {
         object.put("user", BacktoryUser.getCurrentUser().getUserId());
         object.put("page", obj.getPage());
         object.put("permission", "0");
-        object.put("location",obj.getLocation());
+        object.put("location", obj.getLocation());
         object.saveInBackground(new BacktoryCallBack<Void>() {
             @Override
             public void onResponse(BacktoryResponse<Void> backtoryResponse) {
@@ -99,7 +99,7 @@ public class BackendData {
         object.put("cat", page.getCat());
         object.put("permission", "0");
         object.put("place", "0");
-        object.put("location",page.getLocation());
+        object.put("location", page.getLocation());
         object.saveInBackground(new BacktoryCallBack<Void>() {
             @Override
             public void onResponse(BacktoryResponse<Void> backtoryResponse) {
@@ -213,7 +213,7 @@ public class BackendData {
 
     }
 
-    public void getPageById(String id,final GetUserPage response){
+    public void getPageById(String id, final GetUserPage response) {
         BacktoryQuery.getQuery("Pages").whereMatches("user", id).findInBackground(
                 new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
@@ -286,39 +286,39 @@ public class BackendData {
 
     }
 
-    public void getSearch(String name, final GetObject object,String cat,String loc) {
-        BacktoryQuery.getQuery("Products").whereContains("name", name).whereMatches("cat",cat).whereMatches("location",loc).
+    public void getSearch(String name, final GetObject object, String cat, String loc) {
+        BacktoryQuery.getQuery("Products").whereContains("name", name).whereMatches("cat", cat).whereMatches("location", loc).
                 findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
-            @Override
-            public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
-                if (backtoryResponse.isSuccessful()) {
-                    List<BacktoryObject> objects = backtoryResponse.body();
-                    BackendObject[] bo = new BackendObject[objects.size()];
+                    @Override
+                    public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
+                        if (backtoryResponse.isSuccessful()) {
+                            List<BacktoryObject> objects = backtoryResponse.body();
+                            BackendObject[] bo = new BackendObject[objects.size()];
 
-                    for (int i = 0; i < objects.size(); i++) {
-                        bo[i] = new BackendObject();
-                        bo[i].setId(objects.get(i).getObjectId().toString());
-                        bo[i].setName(objects.get(i).get("name").toString());
-                        bo[i].setPics(objects.get(i).get("pics").toString());
-                        bo[i].setPrimaryPrice(objects.get(i).get("pp").toString());
-                        bo[i].setSecondaryPrice(objects.get(i).get("sp").toString());
-                        bo[i].setInfo(objects.get(i).get("info").toString());
-                        bo[i].setDetails(objects.get(i).get("details").toString());
-                        bo[i].setCat(objects.get(i).get("cat").toString());
-                        bo[i].setPlace(objects.get(i).get("place").toString());
-                        bo[i].setUser(objects.get(i).get("user").toString());
-                        bo[i].setPage(objects.get(i).get("page").toString());
-                        bo[i].setPermission(objects.get(i).get("permission").toString());
-                        bo[i].setLocation(objects.get(i).get("location").toString());
+                            for (int i = 0; i < objects.size(); i++) {
+                                bo[i] = new BackendObject();
+                                bo[i].setId(objects.get(i).getObjectId().toString());
+                                bo[i].setName(objects.get(i).get("name").toString());
+                                bo[i].setPics(objects.get(i).get("pics").toString());
+                                bo[i].setPrimaryPrice(objects.get(i).get("pp").toString());
+                                bo[i].setSecondaryPrice(objects.get(i).get("sp").toString());
+                                bo[i].setInfo(objects.get(i).get("info").toString());
+                                bo[i].setDetails(objects.get(i).get("details").toString());
+                                bo[i].setCat(objects.get(i).get("cat").toString());
+                                bo[i].setPlace(objects.get(i).get("place").toString());
+                                bo[i].setUser(objects.get(i).get("user").toString());
+                                bo[i].setPage(objects.get(i).get("page").toString());
+                                bo[i].setPermission(objects.get(i).get("permission").toString());
+                                bo[i].setLocation(objects.get(i).get("location").toString());
+                            }
+
+                            object.onSuccess(bo);
+                        } else {
+                            object.onFailure();
+                            core.toast(backtoryResponse.message());
+                        }
                     }
-
-                    object.onSuccess(bo);
-                } else {
-                    object.onFailure();
-                    core.toast(backtoryResponse.message());
-                }
-            }
-        });
+                });
     }
 
     public interface GetUserPage {
@@ -369,7 +369,40 @@ public class BackendData {
     //wetJob
 
     public void getPageByPlace(String s, final GetPages obj) {
-        BacktoryQuery.getQuery("Pages").whereMatches("place", s).findInBackground(
+        BacktoryQuery.getQuery("Pages").whereContains("place", s).findInBackground(
+                new BacktoryCallBack<List<BacktoryObject>>() {
+                    @Override
+                    public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
+                        if (backtoryResponse.isSuccessful()) {
+                            if (backtoryResponse.body().size() > 0) {
+                                BackendPage[] objects = new BackendPage[backtoryResponse.body().size()];
+                                for (int i = 0; i < backtoryResponse.body().size(); i++) {
+                                    BacktoryObject bo = backtoryResponse.body().get(i);
+                                    objects[i] = new BackendPage();
+                                    objects[i].setId(bo.getObjectId().toString());
+                                    objects[i].setBrand(bo.get("brand").toString());
+                                    objects[i].setLogo(bo.get("logo").toString());
+                                    objects[i].setInfo(bo.get("info").toString());
+                                    objects[i].setNumber(bo.get("number").toString());
+                                    objects[i].setDetail(bo.get("detail").toString());
+                                    objects[i].setUser(bo.get("user").toString());
+                                    objects[i].setPermission(bo.get("permission").toString());
+                                    objects[i].setPlace(bo.get("place").toString());
+                                    objects[i].setCat(bo.get("cat").toString());
+                                    objects[i].setLocation(bo.get("location").toString());
+                                }
+                                obj.onExists(objects);
+                            } else
+                                obj.onNotExists();
+                        } else {
+                            obj.onFailure();
+                        }
+                    }
+                });
+    }
+
+    public void getPageByCat(String s, final GetPages obj) {
+        BacktoryQuery.getQuery("Pages").whereContains("cat", s).findInBackground(
                 new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
@@ -402,7 +435,42 @@ public class BackendData {
     }
 
     public void getObjectByPlace(String s, final GetObjects obj) {
-        BacktoryQuery.getQuery("Products").whereMatches("place", s).findInBackground(
+        BacktoryQuery.getQuery("Products").whereContains("place", s).findInBackground(
+                new BacktoryCallBack<List<BacktoryObject>>() {
+                    @Override
+                    public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
+                        if (backtoryResponse.isSuccessful()) {
+                            if (backtoryResponse.body().size() > 0) {
+                                BackendObject[] objects = new BackendObject[backtoryResponse.body().size()];
+                                for (int i = 0; i < backtoryResponse.body().size(); i++) {
+                                    BacktoryObject bo = backtoryResponse.body().get(i);
+                                    objects[i] = new BackendObject();
+                                    objects[i].setId(bo.getObjectId().toString());
+                                    objects[i].setName(bo.get("name").toString());
+                                    objects[i].setPics(bo.get("pics").toString());
+                                    objects[i].setPrimaryPrice(bo.get("pp").toString());
+                                    objects[i].setSecondaryPrice(bo.get("sp").toString());
+                                    objects[i].setInfo(bo.get("info").toString());
+                                    objects[i].setDetails(bo.get("details").toString());
+                                    objects[i].setCat(bo.get("cat").toString());
+                                    objects[i].setPlace(bo.get("place").toString());
+                                    objects[i].setUser(bo.get("user").toString());
+                                    objects[i].setPage(bo.get("page").toString());
+                                    objects[i].setPermission(bo.get("permission").toString());
+                                    objects[i].setLocation(bo.get("location").toString());
+                                }
+                                obj.onExists(objects);
+                            } else
+                                obj.onNotExists();
+                        } else {
+                            obj.onFailure();
+                        }
+                    }
+                });
+    }
+
+    public void getObjectByCat(String s, final GetObjects obj) {
+        BacktoryQuery.getQuery("Products").whereContains("cat", s).findInBackground(
                 new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {

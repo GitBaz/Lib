@@ -15,6 +15,7 @@ import android.widget.ToggleButton;
 import ir.myandroidapp.library.ActionBar;
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.Dialogs.CatDialog;
+import ir.myandroidapp.library.Dialogs.LocationDialog;
 import ir.myandroidapp.library.ImagePicker;
 import ir.myandroidapp.library.R;
 import ir.myandroidapp.library.Ui.Waiter;
@@ -44,7 +45,7 @@ public class AddItem extends Activity {
     EditText etInfo;
 
     LinearLayout addPageContainer;
-    ToggleButton addPage, catButton;
+    ToggleButton addPage, catButton,locButton;
 
     TextView iv_title;
     ImageView[] iv = new ImageView[5];
@@ -59,6 +60,7 @@ public class AddItem extends Activity {
     BackendData data;
 
     String address = "";
+    String location = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,6 +85,7 @@ public class AddItem extends Activity {
                 dve.add();
             }
         });
+        action.getFloatingButton().setImageResource(R.drawable.ic_add_white);
 
         setContentView(action);
 
@@ -132,6 +135,24 @@ public class AddItem extends Activity {
                 });
                 if(b)
                 cat.show();
+            }
+        });
+
+        locButton = (ToggleButton) findViewById(R.id.ai_loc_btn);
+        locButton.setTypeface(core.setTypeFace());
+
+        locButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    LocationDialog ld = new LocationDialog(core.context, core, new LocationDialog.GetAddress() {
+                        @Override
+                        public void address(String s) {
+                            location = s;
+                        }
+                    });
+                if(b)
+                    ld.show();
+
             }
         });
 
@@ -194,6 +215,7 @@ public class AddItem extends Activity {
         obj.setPrimaryPrice(etPp.getText().toString());
         obj.setSecondaryPrice(etSp.getText().toString());
         obj.setCat(address);
+        obj.setLocation(location);
         if (addPage.isChecked())
             obj.setPage("1");
         else

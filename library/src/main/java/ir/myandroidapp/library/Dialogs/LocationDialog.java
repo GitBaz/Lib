@@ -127,7 +127,7 @@ public class LocationDialog extends Dialog {
 
                     } catch (JSONException e) {
                         cancel();
-                        address += names[j];
+                        address += names[j]+",";
                         adrs.address(address);
                     }
                 }

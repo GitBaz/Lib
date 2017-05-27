@@ -1,12 +1,8 @@
-package ir.myandroidapp.library.Dialogs;
+package ir.myandroidapp.library.activities;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,52 +20,35 @@ import ir.myandroidapp.library.R;
  * Created by kam.amir on 5/26/17.
  */
 
-public class CatDialog extends Dialog {
-
+public class ListView extends LinearLayout {
 
     Core core;
     Context ctx;
-    LinearLayout content;
-
-    String address = "";
-
+    String address="";
     GetAddress adrs;
 
-    public CatDialog(Context context, Core cre, GetAddress address) {
+    public ListView(Context context, Core cre,GetAddress ga,int cat) {
         super(context);
+        setOrientation(VERTICAL);
         core = cre;
         ctx = context;
-        adrs = address;
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.cat_dialog);
-        getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-        content = (LinearLayout) findViewById(R.id.cat_dialog_content);
-
+        adrs=ga;
         try {
-            try {
-                addJson();
 
-            } catch (JSONException e) {
+            try {
+
+                addJson(cat);
+
+            }catch (JSONException e){
 
             }
-        } catch (IOException a) {
+
+        }catch (IOException e){
 
         }
-
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        Window window = getWindow();
-        lp.copyFrom(window.getAttributes());
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        window.setAttributes(lp);
-
-        setCancelable(true);
-        setCanceledOnTouchOutside(true);
     }
 
-    public void addJson() throws JSONException, IOException {
+    public void addJson(int cat) throws JSONException, IOException {
         String json = null;
         InputStream is = ctx.getAssets().open("cat.json");
         int size = is.available();
@@ -78,9 +57,7 @@ public class CatDialog extends Dialog {
         is.close();
         json = new String(buffer, "UTF-8");
 
-        String work = json;
-
-
+        String work = new JSONObject(json).getJSONObject(new JSONObject(json).names().get(cat).toString()).toString();
         create(work);
 
     }
@@ -120,21 +97,20 @@ public class CatDialog extends Dialog {
             text.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String nj="";
+                    String nj = "";
                     try {
                         nj = new JSONObject(json).get(names[j]).toString();
-                        content.removeAllViews();
+                        removeAllViews();
                         address += names[j] + ",";
                         create(nj);
 
                     } catch (JSONException e) {
-                        cancel();
-                        address += names[j]+",";
+                        address += names[j];
                         adrs.address(address);
                     }
                 }
             });
-            content.addView(layout);
+            addView(layout);
         }
         LinearLayout layout = (LinearLayout) LayoutInflater.from(ctx).inflate(R.layout.cat_line, new LinearLayout(ctx));
         TextView text = (TextView) layout.findViewById(R.id.cat_line_text);
@@ -145,16 +121,14 @@ public class CatDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 adrs.address(address);
-                cancel();
             }
         });
-        content.addView(layout);
+        addView(layout);
 
     }
 
     public interface GetAddress {
         void address(String s);
     }
-
 
 }

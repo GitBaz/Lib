@@ -1,5 +1,7 @@
 package ir.myandroidapp.lib;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -7,9 +9,12 @@ import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.Primary;
 import ir.myandroidapp.library.Remember;
 import ir.myandroidapp.library.activities.AddItem;
+import ir.myandroidapp.library.activities.AddPage;
+import ir.myandroidapp.library.activities.ListView;
+import ir.myandroidapp.library.activities.SubMain;
 import ir.myandroidapp.library.backend.BackendUser;
 
-public class MainActivity extends AddItem {
+public class MainActivity extends AddPage {
 
     Core core;
 
@@ -18,6 +23,7 @@ public class MainActivity extends AddItem {
         super.onCreate(savedInstanceState);
 
         core = new Core(this);
+
 
         Remember.init(this, "nokhche");
 
@@ -70,17 +76,10 @@ public class MainActivity extends AddItem {
 
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        new BackendData(core).getSearch("گوجه", new BackendData.GetObject() {
-//            @Override
-//            public void onSuccess(BackendObject[] obj) {
-//                setContentView(new CardViewLarge(core.context,core,MainActivity.this,obj[0]));
-//            }
-//
-//            @Override
-//            public void onFailure() {
-//
-//            }
-//        });    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(MainActivity.this, SubMain.class);
+        intent.putExtra("subMain", "no");
+        startActivity(intent);
+    }
 }

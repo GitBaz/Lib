@@ -16,25 +16,20 @@ public class Roller extends LinearLayout {
 
     Core core;
     LinearLayout container;
-    TextView title,more;
+    TextView title;
 
-    public Roller(Context context, Core cre, String ttl, View.OnClickListener moreListener){
+    public Roller(Context context, Core cre, String ttl){
         super(context);
         core= cre;
 
         LayoutInflater.from(context).inflate(R.layout.roller,this);
 
         title = (TextView) findViewById(R.id.roller_title);
-        more = (TextView) findViewById(R.id.roller_more);
         container = (LinearLayout) findViewById(R.id.roller_container);
 
         title.setTypeface(core.setTypeFace());
-        more.setTypeface(core.setTypeFace());
 
         title.setText(ttl);
-        more.setText("بیشتر");
-
-        more.setOnClickListener(moreListener);
 
     }
 

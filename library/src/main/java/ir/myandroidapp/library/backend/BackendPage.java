@@ -6,17 +6,17 @@ package ir.myandroidapp.library.backend;
 
 public class BackendPage {
 
-    private String id = "";
-    private String logo = "";
-    private String brand = "";
-    private String info = "";
-    private String number = "";
-    private String detail = "";
-    private String user = "";
-    private String permission = "";
-    private String cat = "";
-    private String place = "";
-    private String location = "";
+    private String id = "0";
+    private String logo = "0";
+    private String brand = "0";
+    private String info = "0";
+    private String number = "0";
+    private String detail = "0";
+    private String user = "0";
+    private String permission = "0";
+    private String cat = "0";
+    private String place = "0";
+    private String location = "0";
 
     public BackendPage() {
 
