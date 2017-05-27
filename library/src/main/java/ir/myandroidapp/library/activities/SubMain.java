@@ -162,8 +162,11 @@ public class SubMain extends Activity {
             public void onExists(BackendObject[] obj) {
                 int len = obj.length;
                 if(len>0) {
-                    for (int i = 0; i < len; i++)
+                    for (int i = 0; i < len; i++) {
                         roller.getContainer().addView(new CardView(core.context, core, obj[i], SubMain.this));
+                        if(i>14)
+                            break;
+                    }
                     roller1Layout.setVisibility(View.VISIBLE);
                 }
             }
@@ -203,8 +206,11 @@ public class SubMain extends Activity {
             public void onExists(BackendPage[] page) {
                 int len = page.length;
                 if(len>0) {
-                    for (int i = 0; i < len; i++)
+                    for (int i = 0; i < len; i++) {
                         roller3.getContainer().addView(new CardView(core.context, core, page[i], SubMain.this));
+                        if(i>14)
+                            break;
+                    }
                     roller3Layout.setVisibility(View.VISIBLE);
                 }
             }
@@ -230,8 +236,6 @@ public class SubMain extends Activity {
         roller3Layout.setVisibility(View.GONE);
         pictureLayout.setVisibility(View.GONE);
         pagerLayout.setVisibility(View.GONE);
-
-
 
     }
 

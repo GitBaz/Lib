@@ -504,5 +504,25 @@ public class BackendData {
                 });
     }
 
+    public void deletePage(final Runnable run) {
+
+        BacktoryQuery.getQuery("Pages").whereMatches("user", BacktoryUser.getCurrentUser().getUserId()).
+                findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
+                    @Override
+                    public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
+                        if(backtoryResponse.isSuccessful())
+                            backtoryResponse.body().get(0).deleteInBackground(new BacktoryCallBack<Void>() {
+                                @Override
+                                public void onResponse(BacktoryResponse<Void> backtoryResponse) {
+                                    core.toast("حذف شد");
+                                    run.run();
+                                }
+                            });
+                    }
+                });
+
+    }
+
+
 
 }

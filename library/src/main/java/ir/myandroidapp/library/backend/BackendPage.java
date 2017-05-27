@@ -22,7 +22,7 @@ public class BackendPage {
 
     }
 
-    public void setId(String s){
+    public void setId(String s) {
         id = s;
     }
 
@@ -50,65 +50,88 @@ public class BackendPage {
         user = s;
     }
 
-    public void setPermission(String s){
+    public void setPermission(String s) {
         permission = s;
     }
 
-    public void setCat(String s){
+    public void setCat(String s) {
         cat = s;
     }
 
-    public void setPlace(String s){
+    public void setPlace(String s) {
         place = s;
     }
 
-    public void setLocation(String s){
+    public void setLocation(String s) {
         location = s;
     }
 
 
-    public String getId(){
-        return id;
+    public String getId() {
+        if (!id.equals(""))
+            return id;
+        else
+            return "0";
     }
 
     public String getLogo() {
-        return logo;
-    }
+        if (!logo.equals(""))
+            return logo;
+        else
+            return "https://storage.backtory.com/nokchefile/usersPics/gray.png|";    }
 
     public String getBrand() {
-        return brand;
-    }
+        if (!brand.equals(""))
+            return brand;
+        else
+            return "0";    }
 
     public String getInfo() {
-        return info;
-    }
+        if (!info.equals(""))
+            return info;
+        else
+            return "0";    }
 
     public String getNumber() {
-        return number;
-    }
+        if (!number.equals(""))
+            return number;
+        else
+            return "0";    }
 
     public String getDetail() {
-        return detail;
-    }
+        if (!detail.equals(""))
+            return detail;
+        else
+            return "0";    }
 
     public String getUser() {
-        return user;
-    }
+        if (!user.equals(""))
+            return user;
+        else
+            return "0";    }
 
-    public String getPermission(){
-        return permission;
-    }
+    public String getPermission() {
+        if (!permission.equals(""))
+            return permission;
+        else
+            return "0";    }
 
-    public String getCat(){
-        return cat;
-    }
+    public String getCat() {
+        if (!cat.equals(""))
+            return cat;
+        else
+            return "0";    }
 
-    public String getPlace(){
-        return place;
-    }
+    public String getPlace() {
+        if (!place.equals(""))
+            return place;
+        else
+            return "0";    }
 
-    public String getLocation(){
-        return location;
-    }
+    public String getLocation() {
+        if (!location.equals(""))
+            return location;
+        else
+            return "0";    }
 
 }

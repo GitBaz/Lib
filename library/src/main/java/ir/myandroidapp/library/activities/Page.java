@@ -2,7 +2,9 @@ package ir.myandroidapp.library.activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,7 +13,9 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import ir.myandroidapp.library.Core;
+import ir.myandroidapp.library.Dialogs.DecideView;
 import ir.myandroidapp.library.R;
+import ir.myandroidapp.library.backend.BackendData;
 import ir.myandroidapp.library.backend.BackendObject;
 import ir.myandroidapp.library.backend.BackendPage;
 import ir.myandroidapp.library.cards.CardView;
@@ -49,6 +53,32 @@ public class Page extends LinearLayout {
         Picasso.with(context).load(page.getLogo()).into(pic);
         name.setText(page.getBrand());
 
+        add.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity,AddItem.class);
+                activity.startActivity(intent);
+            }
+        });
+
+        edit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                new DecideView(core.context, core, "آیا مایل به حذف کسب و کار خود هستید ؟", new Runnable() {
+                    @Override
+                    public void run() {
+                        new BackendData(core).deletePage(new Runnable() {
+                            @Override
+                            public void run() {
+                                activity.finish();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
     }
 
     public Page addObjects(BackendObject[] objects){
@@ -61,6 +91,5 @@ public class Page extends LinearLayout {
         }
         return this;
     }
-
 
 }

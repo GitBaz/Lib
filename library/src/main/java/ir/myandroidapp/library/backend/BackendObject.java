@@ -78,56 +78,84 @@ public class BackendObject {
 
 
     public String getId() {
+        if(!id.equals(""))
         return id;
+        else
+            return "0";
     }
 
     public String getName() {
-        return name;
+        if(!name.equals(""))
+            return name;
+        else
+            return "0";
     }
 
     public String getPics() {
-        return pics;
+        if(!pics.equals(""))
+            return pics;
+        else
+            return "https://storage.backtory.com/nokchefile/usersPics/gray.png|";
     }
 
     public String getPrimaryPrice() {
-        return pp;
-    }
+        if(!pp.equals(""))
+            return pp;
+        else
+            return "0";    }
 
     public String getSecondaryPrice() {
-        return sp;
-    }
+        if(!sp.equals(""))
+            return sp;
+        else
+            return "0";    }
 
     public String getInfo() {
-        return info;
-    }
+        if(!info.equals(""))
+            return info;
+        else
+            return "0";    }
 
     public String getDetails() {
-        return details;
-    }
+        if(!details.equals(""))
+            return details;
+        else
+            return "0";    }
 
     public String getCat() {
-        return cat;
-    }
+        if(!cat.equals(""))
+            return cat;
+        else
+            return "0";    }
 
     public String getPlace() {
-        return place;
-    }
+        if(!place.equals(""))
+            return place;
+        else
+            return "0";    }
 
     public String getPage() {
-        return page;
-    }
+        if(!page.equals(""))
+            return page;
+        else
+            return "0";    }
 
     public String getUser() {
-        return user;
-    }
+        if(!user.equals(""))
+            return user;
+        else
+            return "0";    }
 
     public String getPermission() {
-        return permission;
-    }
+        if(!permission.equals(""))
+            return permission;
+        else
+            return "0";    }
 
     public String getLocation(){
-        return location;
-    }
-
+        if(!location.equals(""))
+            return location;
+        else
+            return "0";    }
 
 }

@@ -11,10 +11,13 @@ import ir.myandroidapp.library.Remember;
 import ir.myandroidapp.library.activities.AddItem;
 import ir.myandroidapp.library.activities.AddPage;
 import ir.myandroidapp.library.activities.ListView;
+import ir.myandroidapp.library.activities.Page;
 import ir.myandroidapp.library.activities.SubMain;
+import ir.myandroidapp.library.backend.BackendData;
+import ir.myandroidapp.library.backend.BackendPage;
 import ir.myandroidapp.library.backend.BackendUser;
 
-public class MainActivity extends AddPage {
+public class MainActivity extends AddItem {
 
     Core core;
 
@@ -23,7 +26,6 @@ public class MainActivity extends AddPage {
         super.onCreate(savedInstanceState);
 
         core = new Core(this);
-
 
         Remember.init(this, "nokhche");
 
