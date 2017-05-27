@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -47,7 +46,7 @@ public class AddPage extends Activity {
     LinearLayout detailContainer;
     DetailViewEditable dve;
 
-    ToggleButton cat,loc;
+    ToggleButton cat, loc;
 
     String strCat;
     String strLoc;
@@ -59,13 +58,13 @@ public class AddPage extends Activity {
         core = new Core(this);
         core.forceRTLIfSupported(getWindow());
 
-        action = new ActionBar(this,core,R.layout.add_page);
+        action = new ActionBar(this, core, R.layout.add_page);
         action.setTitle("کسب و کار جدید");
         action.setTickIcon(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(checkers())
-                new BackendPageUploader(core, "Pages",picker.getPaths()[0],AddPage.this).create(getPage()).upload();
+                if (checkers())
+                    new BackendPageUploader(core, "Pages", picker.getPaths()[0], AddPage.this).create(getPage()).upload();
             }
         });
 
@@ -91,7 +90,7 @@ public class AddPage extends Activity {
         cat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     CatDialog cd = new CatDialog(core.context, core, new CatDialog.GetAddress() {
                         @Override
                         public void address(String s) {
@@ -106,7 +105,7 @@ public class AddPage extends Activity {
         loc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     LocationDialog ld = new LocationDialog(core.context, core, new LocationDialog.GetAddress() {
                         @Override
                         public void address(String s) {
@@ -118,24 +117,24 @@ public class AddPage extends Activity {
             }
         });
 
-        picker = new ImagePicker(this,core,logo,getContentResolver(),1500);
+        picker = new ImagePicker(this, core, logo, getContentResolver(), 1500);
 
         brand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new DialogInput(AddPage.this, core, "نام کسب و کار", "برای مثال :‌ فروشگاه نخچه", 35,
                         new DialogInput.Response() {
-                    @Override
-                    public void resp(String result) {
-                        brand.setText(result);
-                    }
-                });
+                            @Override
+                            public void resp(String result) {
+                                brand.setText(result);
+                            }
+                        });
             }
         });
 
         detailContainer = (LinearLayout) findViewById(R.id.add_page_detail_container);
 
-        dve = new DetailViewEditable(core.context,core,getWindowManager(),detailContainer);
+        dve = new DetailViewEditable(core.context, core, getWindowManager(), detailContainer);
 
         purchaseWarning = (TextView) findViewById(R.id.add_page_purchase_warning);
         purchaseWarning.setTypeface(core.setTypeFace());
@@ -151,10 +150,10 @@ public class AddPage extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        picker.result(requestCode,resultCode,data);
+        picker.result(requestCode, resultCode, data);
     }
 
-    public BackendPage getPage(){
+    public BackendPage getPage() {
         BackendPage pg = new BackendPage();
         pg.setBrand(brand.getText().toString());
         pg.setLogo(picker.getLinks()[0]);
@@ -166,12 +165,13 @@ public class AddPage extends Activity {
         return pg;
     }
 
-    boolean checkers(){
-        if(!strLoc.equals("") && !strCat.equals("") && cat.isChecked() && loc.isChecked())
+    boolean checkers() {
+        if (strLoc!="" && strCat!="" && cat.isChecked() && loc.isChecked())
             return true;
-        else{
+        else {
             core.toast("دسته بندی یا مکان انتخاب نشده است");
             return false;
         }
     }
+
 }

@@ -27,14 +27,13 @@ import ir.myandroidapp.library.cards.CardView;
 public class Page extends LinearLayout {
 
     Core core;
-
     ImageView pic;
-    TextView name, add;
+    TextView name;
     Button edit;
     LinearLayout itemContainer;
     Activity activity;
 
-    public Page(Context context, Core cre, BackendPage page, Activity act) {
+    public Page(Context context, Core cre, BackendPage page, Activity act, final Runnable afterDelete) {
         super(context);
         core = cre;
         activity = act;
@@ -42,24 +41,15 @@ public class Page extends LinearLayout {
 
         pic = (ImageView) findViewById(R.id.page_pic);
         name = (TextView) findViewById(R.id.page_name);
-        add = (TextView) findViewById(R.id.page_add_item);
         edit = (Button) findViewById(R.id.page_edit_page);
         itemContainer = (LinearLayout) findViewById(R.id.page_item_container);
 
         name.setTypeface(core.setTypeFace());
-        add.setTypeface(core.setTypeFace());
         edit.setTypeface(core.setTypeFace());
 
         Picasso.with(context).load(page.getLogo()).into(pic);
         name.setText(page.getBrand());
 
-        add.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(activity,AddItem.class);
-                activity.startActivity(intent);
-            }
-        });
 
         edit.setOnClickListener(new OnClickListener() {
             @Override
@@ -68,12 +58,7 @@ public class Page extends LinearLayout {
                 new DecideView(core.context, core, "آیا مایل به حذف کسب و کار خود هستید ؟", new Runnable() {
                     @Override
                     public void run() {
-                        new BackendData(core).deletePage(new Runnable() {
-                            @Override
-                            public void run() {
-                                activity.finish();
-                            }
-                        });
+                        new BackendData(core).deletePage(afterDelete);
                     }
                 });
             }

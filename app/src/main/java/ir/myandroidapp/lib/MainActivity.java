@@ -17,7 +17,7 @@ import ir.myandroidapp.library.backend.BackendData;
 import ir.myandroidapp.library.backend.BackendPage;
 import ir.myandroidapp.library.backend.BackendUser;
 
-public class MainActivity extends AddItem {
+public class MainActivity extends AddPage {
 
     Core core;
 
