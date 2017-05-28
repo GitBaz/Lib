@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -16,6 +17,8 @@ import ir.myandroidapp.library.ActionBar;
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.Dialogs.MessageView;
 import ir.myandroidapp.library.Dialogs.ProgressView;
+import ir.myandroidapp.library.Loc;
+import ir.myandroidapp.library.Primary;
 import ir.myandroidapp.library.R;
 import ir.myandroidapp.library.backend.BackendData;
 import ir.myandroidapp.library.backend.BackendObject;
@@ -51,6 +54,7 @@ public class PageActivity extends Activity {
         action.setMenu(R.menu.page_about);
         action.setTitle("نخچه");
         action.setBackIcon(this);
+        action.setNavIcon(R.drawable.ic_location_light, new Primary().getMapActivity());
         action.setOnItemClick(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

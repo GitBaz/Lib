@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.Primary;
@@ -36,7 +37,12 @@ public class MainActivity extends Activity {
         new Primary().init("brand", "https://storage.backtory.com/nokchefile/usersPics/",
                 ir.myandroidapp.library.R.color.colorPrimary,
                 ir.myandroidapp.library.R.color.colorPrimaryLight,
-                ir.myandroidapp.library.R.color.colorPrimaryDark);
+                ir.myandroidapp.library.R.color.colorPrimaryDark, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
 
         core = new Core(this);
 

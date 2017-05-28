@@ -1,5 +1,7 @@
 package ir.myandroidapp.library;
 
+import android.view.View;
+
 import okhttp3.OkHttpClient;
 
 /**
@@ -13,13 +15,16 @@ public class Primary {
     private static int colorPrimaryLight = 0;
     private static int colorPrimaryDark = 0;
     private static String link = "";
+    private static View.OnClickListener listener;
 
-    public void init(String brnd, String uploadLink, int primary, int primaryLight, int primaryDark) {
+    public void init(String brnd, String uploadLink, int primary, int primaryLight, int primaryDark
+            , View.OnClickListener ls) {
         brand = brnd;
         colorPrimary = primary;
         colorPrimaryLight = primaryLight;
         colorPrimaryDark = primaryDark;
         link = uploadLink;
+        listener = ls;
     }
 
     public String getBrand() {
@@ -38,8 +43,12 @@ public class Primary {
         return colorPrimaryDark;
     }
 
-    public String getUploadLink(){
+    public String getUploadLink() {
         return link;
+    }
+
+    public View.OnClickListener getMapActivity() {
+        return listener;
     }
 
 }
