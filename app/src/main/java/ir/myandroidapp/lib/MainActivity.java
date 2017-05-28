@@ -21,7 +21,7 @@ import ir.myandroidapp.library.backend.BackendData;
 import ir.myandroidapp.library.backend.BackendPage;
 import ir.myandroidapp.library.backend.BackendUser;
 
-public class MainActivity extends PageActivity {
+public class MainActivity extends Activity {
 
     Core core;
 
@@ -61,7 +61,7 @@ public class MainActivity extends PageActivity {
 
     @Override
     public void onBackPressed() {
-        setContentView(new Searcher(core.context,core,this));
+        core.intentActivity(AddPage.class);
 
     }
 }
