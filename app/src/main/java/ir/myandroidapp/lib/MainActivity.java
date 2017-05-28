@@ -12,6 +12,7 @@ import ir.myandroidapp.library.activities.AddItem;
 import ir.myandroidapp.library.activities.AddPage;
 import ir.myandroidapp.library.activities.ListView;
 import ir.myandroidapp.library.activities.Page;
+import ir.myandroidapp.library.activities.PageActivity;
 import ir.myandroidapp.library.activities.Profile;
 import ir.myandroidapp.library.activities.Searcher;
 import ir.myandroidapp.library.activities.SubMain;
@@ -20,7 +21,7 @@ import ir.myandroidapp.library.backend.BackendData;
 import ir.myandroidapp.library.backend.BackendPage;
 import ir.myandroidapp.library.backend.BackendUser;
 
-public class MainActivity extends Activity {
+public class MainActivity extends PageActivity {
 
     Core core;
 
@@ -55,30 +56,6 @@ public class MainActivity extends Activity {
 
             }
         });
-
-
-//        LocationDialog loc = new LocationDialog(this, core, new LocationDialog.GetAddress() {
-//            @Override
-//            public void address(String s) {
-//                core.toast(s);
-//            }
-//        });
-//
-//        loc.show();
-
-//        CatView cv = new CatView(this,core,"sth",R.drawable.ic_add_photo_dark);
-//
-//        setContentView(cv);
-//
-//        cv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, SubMain.class);
-//                intent.putExtra("subMain","bz");
-//                startActivity(intent);
-//            }
-//        });
-
 
     }
 
