@@ -100,6 +100,8 @@ public class BackendData {
         object.put("cat", page.getCat());
         object.put("permission", "0");
         object.put("place", "0");
+        object.put("lat",page.getLat());
+        object.put("lng",page.getLng());
         object.put("location", page.getLocation());
         object.saveInBackground(new BacktoryCallBack<Void>() {
             @Override
@@ -115,7 +117,7 @@ public class BackendData {
     }
 
     public void get(String id, final Getobj objct) {
-        BacktoryObject.getQuery("Products").getInBackground(id, new BacktoryCallBack<BacktoryObject>() {
+        BacktoryObject.getQuery("Products").whereMatches("permission","1").getInBackground(id, new BacktoryCallBack<BacktoryObject>() {
             @Override
             public void onResponse(BacktoryResponse<BacktoryObject> backtoryResponse) {
                 if (backtoryResponse.isSuccessful()) {
@@ -152,7 +154,7 @@ public class BackendData {
 
         for (int i = 0; i < id.length; i++) {
             final int j = i;
-            BacktoryQuery.getQuery("Products").getInBackground(id[i], new BacktoryCallBack<BacktoryObject>() {
+            BacktoryQuery.getQuery("Products").whereMatches("permission","1").getInBackground(id[i], new BacktoryCallBack<BacktoryObject>() {
                 @Override
                 public void onResponse(BacktoryResponse<BacktoryObject> backtoryResponse) {
                     if (backtoryResponse.isSuccessful()) {
@@ -181,7 +183,7 @@ public class BackendData {
     }
 
     public void getUserPage(final GetUserPage response) {
-        BacktoryQuery.getQuery("Pages").whereMatches("user", BacktoryUser.getCurrentUser().getUserId()).
+        BacktoryQuery.getQuery("Pages").whereMatches("permission","1").whereMatches("user", BacktoryUser.getCurrentUser().getUserId()).
                 findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
@@ -202,6 +204,8 @@ public class BackendData {
                                 page.setPlace(obj.get("place").toString());
                                 page.setCat(obj.get("cat").toString());
                                 page.setLocation(obj.get("location").toString());
+                                page.setLat(obj.get("lat").toString());
+                                page.setLng(obj.get("lng").toString());
                                 response.onExists(page);
                             }
                         } else {
@@ -214,7 +218,7 @@ public class BackendData {
     }
 
     public void getPageById(String id, final GetUserPage response) {
-        BacktoryQuery.getQuery("Pages").whereMatches("user", id).findInBackground(
+        BacktoryQuery.getQuery("Pages").whereMatches("permission","1").whereMatches("user", id).findInBackground(
                 new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
@@ -235,6 +239,8 @@ public class BackendData {
                                 page.setPlace(obj.get("place").toString());
                                 page.setCat(obj.get("cat").toString());
                                 page.setLocation(obj.get("location").toString());
+                                page.setLat(obj.get("lat").toString());
+                                page.setLng(obj.get("lng").toString());
                                 response.onExists(page);
                             }
                         } else {
@@ -246,7 +252,7 @@ public class BackendData {
     }
 
     public void getUserPagePosts(String user, final GetUserPagePosts getPosts) {
-        BacktoryQuery.getQuery("Products").whereMatches("user", user).whereMatches("page", "1").
+        BacktoryQuery.getQuery("Products").whereMatches("permission","1").whereMatches("user", user).whereMatches("page", "1").
                 findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
@@ -287,7 +293,8 @@ public class BackendData {
     }
 
     public void getSearch(String name, String cat, String loc, final GetObject object) {
-        BacktoryQuery.getQuery("Products").whereContains("name", name).whereContains("cat", cat).whereMatches("location", loc).
+        BacktoryQuery.getQuery("Products").whereMatches("permission","1")
+                .whereContains("name", name).whereContains("cat", cat).whereMatches("location", loc).
                 findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
@@ -322,7 +329,8 @@ public class BackendData {
     }
 
     public void getSearchPages(String name, String cat, String loc, final GetPag object) {
-        BacktoryQuery.getQuery("Pages").whereContains("name", name).whereMatches("cat", cat).whereMatches("location", loc).
+        BacktoryQuery.getQuery("Pages").whereMatches("permission","1")
+                .whereContains("name", name).whereMatches("cat", cat).whereMatches("location", loc).
                 findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
@@ -343,6 +351,8 @@ public class BackendData {
                                 bo[i].setPlace(objects.get(i).get("place").toString());
                                 bo[i].setCat(objects.get(i).get("cat").toString());
                                 bo[i].setLocation(objects.get(i).get("location").toString());
+                                bo[i].setLat(objects.get(i).get("lat").toString());
+                                bo[i].setLng(objects.get(i).get("lng").toString());
                             }
 
                             object.onSuccess(bo);
@@ -429,6 +439,8 @@ public class BackendData {
                                     objects[i].setPlace(bo.get("place").toString());
                                     objects[i].setCat(bo.get("cat").toString());
                                     objects[i].setLocation(bo.get("location").toString());
+                                    objects[i].setLat(bo.get("lat").toString());
+                                    objects[i].setLng(bo.get("lng").toString());
                                 }
                                 obj.onExists(objects);
                             } else
@@ -441,7 +453,7 @@ public class BackendData {
     }
 
     public void getPageByCat(String s, final GetPages obj) {
-        BacktoryQuery.getQuery("Pages").whereContains("cat", s).findInBackground(
+        BacktoryQuery.getQuery("Pages").whereMatches("permission","0").whereContains("cat", s).findInBackground(
                 new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
@@ -462,6 +474,8 @@ public class BackendData {
                                     objects[i].setPlace(bo.get("place").toString());
                                     objects[i].setCat(bo.get("cat").toString());
                                     objects[i].setLocation(bo.get("location").toString());
+                                    objects[i].setLat(bo.get("lat").toString());
+                                    objects[i].setLng(bo.get("lng").toString());
                                 }
                                 obj.onExists(objects);
                             } else
@@ -474,7 +488,7 @@ public class BackendData {
     }
 
     public void getObjectByPlace(String s, final GetObjects obj) {
-        BacktoryQuery.getQuery("Products").whereContains("place", s).findInBackground(
+        BacktoryQuery.getQuery("Products").whereMatches("permission","1").whereContains("place", s).findInBackground(
                 new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
@@ -509,7 +523,7 @@ public class BackendData {
     }
 
     public void getObjectByCat(String s, final GetObjects obj) {
-        BacktoryQuery.getQuery("Products").whereContains("cat", s).findInBackground(
+        BacktoryQuery.getQuery("Products").whereMatches("permission","1").whereContains("cat", s).findInBackground(
                 new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
@@ -544,7 +558,7 @@ public class BackendData {
     }
 
     public void getPageByUser(String user, final GetUserPage response){
-        BacktoryQuery.getQuery("Pages").whereMatches("user", user).
+        BacktoryQuery.getQuery("Pages").whereMatches("user", user).whereMatches("permission","1").
                 findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
@@ -565,6 +579,8 @@ public class BackendData {
                                 page.setPlace(obj.get("place").toString());
                                 page.setCat(obj.get("cat").toString());
                                 page.setLocation(obj.get("location").toString());
+                                page.setLat(obj.get("lat").toString());
+                                page.setLng(obj.get("lng").toString());
                                 response.onExists(page);
                             }
                         } else {

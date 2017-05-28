@@ -19,6 +19,7 @@ import ir.myandroidapp.library.Dialogs.CatDialog;
 import ir.myandroidapp.library.Dialogs.DialogInput;
 import ir.myandroidapp.library.Dialogs.LocationDialog;
 import ir.myandroidapp.library.ImagePicker;
+import ir.myandroidapp.library.Loc;
 import ir.myandroidapp.library.R;
 import ir.myandroidapp.library.backend.BackendPage;
 import ir.myandroidapp.library.backend.BackendPageUploader;
@@ -46,10 +47,12 @@ public class AddPage extends Activity {
     LinearLayout detailContainer;
     DetailViewEditable dve;
 
-    ToggleButton cat, loc;
+    ToggleButton cat, loc, map;
 
     String strCat;
     String strLoc;
+
+    String latitude="",logitude="";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,9 +86,11 @@ public class AddPage extends Activity {
 
         cat = (ToggleButton) findViewById(R.id.ap_add_cat);
         loc = (ToggleButton) findViewById(R.id.ap_add_loc);
+        map = (ToggleButton) findViewById(R.id.ap_add_map);
 
         cat.setTypeface(core.setTypeFace());
         loc.setTypeface(core.setTypeFace());
+        map.setTypeface(core.setTypeFace());
 
         cat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -114,6 +119,19 @@ public class AddPage extends Activity {
                     });
                     ld.show();
                 }
+            }
+        });
+
+        map.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                new Loc(core,AddPage.this).getLatLong(new Loc.GetStatus() {
+                    @Override
+                    public void status(double lat, double lng) {
+                        latitude = lat+"";
+                        logitude = lng+"";
+                    }
+                });
             }
         });
 
@@ -162,6 +180,8 @@ public class AddPage extends Activity {
         pg.setDetail(dve.getTotal());
         pg.setCat(strCat);
         pg.setLocation(strLoc);
+        pg.setLng(logitude);
+        pg.setLat(latitude);
         return pg;
     }
 

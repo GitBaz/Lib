@@ -107,6 +107,17 @@
                 android:textOff="انتخاب مکان"
                 android:textOn="انتخاب شد" />
 
+            <ToggleButton
+                android:id="@+id/ap_add_map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textOff="انتخاب موقعیت روی نقشه"
+                android:textOn="انتخاب شد" />
+
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
