@@ -197,7 +197,8 @@ public class Profile extends LinearLayout {
         comp.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                new Login(context, new Login.onSignIn() {
+                removeAllViews();
+                addView(new Login(context, new Login.onSignIn() {
                     @Override
                     public void onLogin(String username, String password) {
                     }
@@ -231,7 +232,7 @@ public class Profile extends LinearLayout {
                     public void onGuestLogin() {
 
                     }
-                });
+                }));
             }
         });
 

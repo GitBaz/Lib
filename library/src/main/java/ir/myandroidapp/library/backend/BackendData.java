@@ -90,9 +90,6 @@ public class BackendData {
     }
 
     public void put(String table, BackendPage page, final SimpleResponse response) {
-        if (BacktoryUser.getCurrentUser().isGuest()) {
-            core.toast("ابتدا ثبت نام خود را تکمیل کنید.");
-        } else {
             BacktoryObject object = new BacktoryObject(table);
             object.put("brand", page.getBrand());
             object.put("logo", page.getLogo());
@@ -117,7 +114,6 @@ public class BackendData {
                     }
                 }
             });
-        }
     }
 
     public void get(String id, final Getobj objct) {

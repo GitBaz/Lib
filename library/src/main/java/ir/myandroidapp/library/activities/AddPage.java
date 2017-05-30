@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.backtory.java.internal.BacktoryUser;
+
 import ir.myandroidapp.library.ActionBar;
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.Dialogs.CatDialog;
@@ -72,6 +74,11 @@ public class AddPage extends Activity {
         });
 
         setContentView(action);
+
+        if(BacktoryUser.getCurrentUser().isGuest()){
+            core.toast("ابتدا ثبت نام خود را تکمیل کنید");
+            finish();
+        }
 
         logo = (ImageView) findViewById(R.id.add_page_logo);
         brand = (TextView) findViewById(R.id.add_page_brand);
