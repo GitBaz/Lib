@@ -58,7 +58,7 @@ public class Profile extends LinearLayout {
         exit.setTypeface(core.setTypeFace());
         comp.setTypeface(core.setTypeFace());
 
-        if (BacktoryUser.getCurrentUser().getPhoneNumber().isEmpty()) {
+        if (BacktoryUser.getCurrentUser().isGuest()) {
 
             username.setVisibility(GONE);
             name.setVisibility(GONE);

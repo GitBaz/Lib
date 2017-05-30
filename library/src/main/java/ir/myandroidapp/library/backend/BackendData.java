@@ -90,7 +90,7 @@ public class BackendData {
     }
 
     public void put(String table, BackendPage page, final SimpleResponse response) {
-        if (BacktoryUser.getCurrentUser().getPhoneNumber().isEmpty()) {
+        if (BacktoryUser.getCurrentUser().isGuest()) {
             core.toast("ابتدا ثبت نام خود را تکمیل کنید.");
         } else {
             BacktoryObject object = new BacktoryObject(table);
