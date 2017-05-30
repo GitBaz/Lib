@@ -19,6 +19,9 @@ public class BackendPage {
     private String location = "0";
     private String lat = "0";
     private String lng = "0";
+    private String sliderPic = "0";
+    private String sponserPic = "0";
+
 
     public BackendPage() {
 
@@ -74,6 +77,14 @@ public class BackendPage {
 
     public void setLng(String s){
         lng = s;
+    }
+
+    public void setSliderPic(String s) {
+        sliderPic = s;
+    }
+
+    public void setSponserPic(String s){
+        sponserPic = s;
     }
 
 
@@ -154,6 +165,20 @@ public class BackendPage {
     public String getLng(){
         if (!lng.equals(""))
             return lng;
+        else
+            return "0";
+    }
+
+    public String getSliderPic(){
+        if (!sliderPic.equals(""))
+            return sliderPic;
+        else
+            return "0";
+    }
+
+    public String getSponserPic(){
+        if (!sponserPic.equals(""))
+            return sponserPic;
         else
             return "0";
     }

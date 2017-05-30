@@ -42,8 +42,8 @@ public class Picture extends LinearLayout {
     }
 
     public void setObjects(BackendPage obj1, BackendPage obj2){
-        Picasso.with(core.context).load(obj1.getLogo()).into(image);
-        Picasso.with(core.context).load(obj2.getLogo()).into(image2);
+        Picasso.with(core.context).load(obj1.getSponserPic()).into(image);
+        Picasso.with(core.context).load(obj2.getSponserPic()).into(image2);
     }
 
     public ImageView getImage(){

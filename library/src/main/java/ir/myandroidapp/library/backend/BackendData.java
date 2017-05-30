@@ -103,6 +103,8 @@ public class BackendData {
             object.put("lat", page.getLat());
             object.put("lng", page.getLng());
             object.put("location", page.getLocation());
+            object.put("sliderpic",page.getSliderPic());
+            object.put("sponserpic",page.getSponserPic());
             object.saveInBackground(new BacktoryCallBack<Void>() {
                 @Override
                 public void onResponse(BacktoryResponse<Void> backtoryResponse) {
@@ -206,6 +208,8 @@ public class BackendData {
                                 page.setLocation(obj.get("location").toString());
                                 page.setLat(obj.get("lat").toString());
                                 page.setLng(obj.get("lng").toString());
+                                page.setSliderPic(obj.get("sliderpic").toString());
+                                page.setSponserPic(obj.get("sponserpic").toString());
                                 response.onExists(page);
                             }
                         } else {
@@ -241,6 +245,8 @@ public class BackendData {
                                 page.setLocation(obj.get("location").toString());
                                 page.setLat(obj.get("lat").toString());
                                 page.setLng(obj.get("lng").toString());
+                                page.setSliderPic(obj.get("sliderpic").toString());
+                                page.setSponserPic(obj.get("sponserpic").toString());
                                 response.onExists(page);
                             }
                         } else {
@@ -279,6 +285,7 @@ public class BackendData {
                                     objects[i].setPage(bo.get("page").toString());
                                     objects[i].setPermission(bo.get("permission").toString());
                                     objects[i].setLocation(bo.get("location").toString());
+
                                 }
                                 getPosts.onExists(objects);
                             }
@@ -317,6 +324,7 @@ public class BackendData {
                                 bo[i].setPage(objects.get(i).get("page").toString());
                                 bo[i].setPermission(objects.get(i).get("permission").toString());
                                 bo[i].setLocation(objects.get(i).get("location").toString());
+
                             }
 
                             object.onSuccess(bo);
@@ -353,6 +361,9 @@ public class BackendData {
                                 bo[i].setLocation(objects.get(i).get("location").toString());
                                 bo[i].setLat(objects.get(i).get("lat").toString());
                                 bo[i].setLng(objects.get(i).get("lng").toString());
+                                bo[i].setSliderPic(objects.get(i).get("sliderpic").toString());
+                                bo[i].setSponserPic(objects.get(i).get("sponserpic").toString());
+
                             }
 
                             object.onSuccess(bo);
@@ -415,8 +426,6 @@ public class BackendData {
         void onFailure();
     }
 
-    //wetJob
-
     public void getPageByPlace(String s, final GetPages obj) {
         BacktoryQuery.getQuery("Pages").whereMatches("permission", "1").whereMatches("place", s).findInBackground(
                 new BacktoryCallBack<List<BacktoryObject>>() {
@@ -441,6 +450,9 @@ public class BackendData {
                                     objects[i].setLocation(bo.get("location").toString());
                                     objects[i].setLat(bo.get("lat").toString());
                                     objects[i].setLng(bo.get("lng").toString());
+                                    objects[i].setSliderPic(bo.get("sliderpic").toString());
+                                    objects[i].setSponserPic(bo.get("sponserpic").toString());
+
                                 }
                                 obj.onExists(objects);
                             } else
@@ -476,6 +488,9 @@ public class BackendData {
                                     objects[i].setLocation(bo.get("location").toString());
                                     objects[i].setLat(bo.get("lat").toString());
                                     objects[i].setLng(bo.get("lng").toString());
+                                    objects[i].setSliderPic(bo.get("sliderpic").toString());
+                                    objects[i].setSponserPic(bo.get("sponserpic").toString());
+
                                 }
                                 obj.onExists(objects);
                             } else
@@ -581,6 +596,9 @@ public class BackendData {
                                 page.setLocation(obj.get("location").toString());
                                 page.setLat(obj.get("lat").toString());
                                 page.setLng(obj.get("lng").toString());
+                                page.setSliderPic(obj.get("sliderpic").toString());
+                                page.setSponserPic(obj.get("sponserpic").toString());
+
                                 response.onExists(page);
                             }
                         } else {

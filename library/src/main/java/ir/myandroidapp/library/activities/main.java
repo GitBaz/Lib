@@ -79,7 +79,7 @@ public class main extends LinearLayout {
                         imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                 ViewGroup.LayoutParams.MATCH_PARENT));
                         imageView.setBackgroundColor(core.getColor(R.color.white));
-                        Picasso.with(core.context).load(page[i].getLogo()).into(imageView);
+                        Picasso.with(core.context).load(page[i].getSliderPic()).into(imageView);
                         viewGroup.addView(imageView);
                         imageView.setOnClickListener(new View.OnClickListener() {
                             @Override
