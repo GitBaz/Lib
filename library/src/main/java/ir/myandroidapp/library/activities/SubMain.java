@@ -44,11 +44,14 @@ public class SubMain extends Activity {
     String b = "نخچه";
     String c = "بازاریابی شبکه ای";
     String d = "استخدام و کاریابی";
+    String e = "گمشده";
 
     String keya = "bz";
     String keyb = "no";
     String keyc = "net";
     String keyd = "mark";
+    String keye = "lost";
+
 
     String main = "";
 
@@ -261,6 +264,8 @@ public class SubMain extends Activity {
             main = c;
         else if (extra.equals(keyd))
             main = d;
+        else if (extra.equals(keye))
+            main = e;
     }
 
 }
