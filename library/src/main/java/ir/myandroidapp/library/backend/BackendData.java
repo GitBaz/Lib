@@ -10,6 +10,7 @@ import com.backtory.java.internal.BulkOperation;
 import com.backtory.java.internal.Request;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -418,7 +419,7 @@ public class BackendData {
     //wetJob
 
     public void getPageByPlace(String s, final GetPages obj) {
-        BacktoryQuery.getQuery("Pages").whereContains("place", s).findInBackground(
+        BacktoryQuery.getQuery("Pages").whereMatches("permission","1").whereMatches("place", s).findInBackground(
                 new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {

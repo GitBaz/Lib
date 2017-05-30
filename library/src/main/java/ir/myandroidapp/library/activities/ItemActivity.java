@@ -18,6 +18,7 @@ import ir.myandroidapp.library.Remember;
 import ir.myandroidapp.library.backend.BackendData;
 import ir.myandroidapp.library.backend.BackendObject;
 import ir.myandroidapp.library.backend.BackendPage;
+import ir.myandroidapp.library.cards.CardViewLarge;
 import ir.myandroidapp.library.cards.DetailView;
 import ir.myandroidapp.library.cards.DetailViewHeader;
 import ir.myandroidapp.library.cards.ViewPager;
@@ -123,7 +124,22 @@ public class ItemActivity extends Activity {
         if(!object.getDetails().equals(""))
             container.addView(new DetailView(this,core,getWindowManager(),object.getDetails()));
 
+        new BackendData(core).getPageByUser(object.getUser(), new BackendData.GetUserPage() {
+            @Override
+            public void onExists(BackendPage page) {
+                container.addView(new CardViewLarge(core.context,core,ItemActivity.this,page));
+            }
 
+            @Override
+            public void onNotExists() {
+
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
 
 
     }

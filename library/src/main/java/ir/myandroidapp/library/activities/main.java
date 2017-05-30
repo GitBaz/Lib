@@ -36,9 +36,11 @@ public class main extends LinearLayout {
     Roller roller, roller2, roller3;
     Picture picture;
 
+    Core cre;
 
     public main(final Context context, final Core core, final WindowManager wm, final Activity act) {
         super(context);
+        cre= core;
 
         sv = new ScrollView(context);
         layout = new LinearLayout(context);
@@ -54,8 +56,6 @@ public class main extends LinearLayout {
         roller3Layout = new LinearLayout(context);
         pictureLayout = new LinearLayout(context);
 
-
-
         roller = new Roller(context, core, "آخرین پست ها");
         roller2 = new Roller(context, core, "پست های ویژه");
         roller3 = new Roller(context, core, "آخرین کسب و کارها");
@@ -70,8 +70,8 @@ public class main extends LinearLayout {
         new BackendData(core).getPageByPlace("SLIDER", new BackendData.GetPages() {
             @Override
             public void onExists(final BackendPage[] page) {
-
                 pager = new ViewPager(core.context, 2, core, wm, page.length, new ViewPager.Set() {
+
                     @Override
                     public Object setImages(ViewGroup viewGroup, final int i) {
 

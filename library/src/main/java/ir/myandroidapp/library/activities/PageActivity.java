@@ -1,6 +1,7 @@
 package ir.myandroidapp.library.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -54,7 +55,6 @@ public class PageActivity extends Activity {
         action.setMenu(R.menu.page_about);
         action.setTitle("نخچه");
         action.setBackIcon(this);
-        action.setNavIcon(R.drawable.ic_location_light, new Primary().getMapActivity());
         action.setOnItemClick(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -75,9 +75,20 @@ public class PageActivity extends Activity {
 
         new BackendData(core).getPageById(extra, new BackendData.GetUserPage() {
             @Override
-            public void onExists(BackendPage page) {
+            public void onExists(final BackendPage page) {
                 pv.cancel();
                 info = page.getInfo();
+
+                action.setNavIcon(R.drawable.ic_location_light, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Class target = new Primary().getMapact();
+                        Intent intent = new Intent(PageActivity.this,target);
+                        intent.putExtra("lat",page.getLat());
+                        intent.putExtra("lng",page.getLng());
+                        startActivity(intent);
+                    }
+                });
 
                 Picasso.with(core.context).load(page.getLogo()).into(logo);
                 brand.setText(page.getBrand());

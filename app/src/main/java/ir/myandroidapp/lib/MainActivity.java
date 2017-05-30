@@ -1,25 +1,13 @@
 package ir.myandroidapp.lib;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
 
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.Primary;
 import ir.myandroidapp.library.Remember;
-import ir.myandroidapp.library.activities.AddItem;
-import ir.myandroidapp.library.activities.AddPage;
-import ir.myandroidapp.library.activities.ListView;
-import ir.myandroidapp.library.activities.Page;
-import ir.myandroidapp.library.activities.PageActivity;
-import ir.myandroidapp.library.activities.Profile;
-import ir.myandroidapp.library.activities.Searcher;
-import ir.myandroidapp.library.activities.SubMain;
 import ir.myandroidapp.library.activities.main;
-import ir.myandroidapp.library.backend.BackendData;
-import ir.myandroidapp.library.backend.BackendPage;
 import ir.myandroidapp.library.backend.BackendUser;
 
 public class MainActivity extends Activity {
@@ -37,12 +25,7 @@ public class MainActivity extends Activity {
         new Primary().init("brand", "https://storage.backtory.com/nokchefile/usersPics/",
                 ir.myandroidapp.library.R.color.colorPrimary,
                 ir.myandroidapp.library.R.color.colorPrimaryLight,
-                ir.myandroidapp.library.R.color.colorPrimaryDark, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                });
+                ir.myandroidapp.library.R.color.colorPrimaryDark,MainActivity.class);
 
         core = new Core(this);
 
@@ -67,7 +50,7 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        core.intentActivity(AddPage.class);
+        setContentView(new main(core.context,core,getWindowManager(),MainActivity.this));
 
     }
 }

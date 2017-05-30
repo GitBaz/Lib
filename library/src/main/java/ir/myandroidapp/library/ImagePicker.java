@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.soundcloud.android.crop.Crop;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
