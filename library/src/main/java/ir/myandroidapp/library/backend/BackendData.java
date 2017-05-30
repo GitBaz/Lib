@@ -10,7 +10,6 @@ import com.backtory.java.internal.BulkOperation;
 import com.backtory.java.internal.Request;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
