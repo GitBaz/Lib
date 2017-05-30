@@ -119,6 +119,21 @@
             android:textColor="@color/colorSecondaryPrice"
             android:paddingBottom="4dp"
             android:gravity="center" />
+
+        <TextView
+            android:id="@+id/prof_comp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="4dp"
+            android:text="تکمیل ثبت نام"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorPrimaryPrice" />
     </LinearLayout>
 
 </LinearLayout>

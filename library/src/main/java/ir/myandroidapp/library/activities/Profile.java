@@ -28,6 +28,7 @@ public class Profile extends LinearLayout {
     TextView address;
     TextView exit;
     Core core;
+    TextView comp;
 
     BackendUser backend;
 
@@ -35,6 +36,7 @@ public class Profile extends LinearLayout {
         super(context);
         core = cre;
         backend = new BackendUser(cre);
+
 
         LayoutInflater.from(context).inflate(R.layout.profile, this);
 
@@ -45,6 +47,7 @@ public class Profile extends LinearLayout {
         number = (TextView) findViewById(R.id.profile_number);
         address = (TextView) findViewById(R.id.profile_address);
         exit = (TextView) findViewById(R.id.profile_exit);
+        comp = (TextView) findViewById(R.id.prof_comp);
 
         username.setTypeface(core.setTypeFace());
         name.setTypeface(core.setTypeFace());
@@ -53,8 +56,33 @@ public class Profile extends LinearLayout {
         number.setTypeface(core.setTypeFace());
         address.setTypeface(core.setTypeFace());
         exit.setTypeface(core.setTypeFace());
+        comp.setTypeface(core.setTypeFace());
+
+        if (BacktoryUser.getCurrentUser().getPhoneNumber().isEmpty()) {
+
+            username.setVisibility(GONE);
+            name.setVisibility(GONE);
+            password.setVisibility(GONE);
+            email.setVisibility(GONE);
+            number.setVisibility(GONE);
+            address.setVisibility(GONE);
+            exit.setVisibility(GONE);
+            comp.setVisibility(VISIBLE);
+
+        } else {
+            username.setVisibility(VISIBLE);
+            name.setVisibility(VISIBLE);
+            password.setVisibility(VISIBLE);
+            email.setVisibility(VISIBLE);
+            number.setVisibility(VISIBLE);
+            address.setVisibility(VISIBLE);
+            exit.setVisibility(VISIBLE);
+            comp.setVisibility(GONE);
+        }
+
 
         setText();
+
 
         number.setOnClickListener(new OnClickListener() {
             @Override
@@ -161,6 +189,47 @@ public class Profile extends LinearLayout {
                         backend.logout();
                         core.intentActivity(exitActivity);
                         activity.finishAffinity();
+                    }
+                });
+            }
+        });
+
+        comp.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new Login(context, new Login.onSignIn() {
+                    @Override
+                    public void onLogin(String username, String password) {
+                    }
+
+                    @Override
+                    public void onRegister(String firstname, final String username, String email, final String password, String number, String address) {
+                        backend.compeleteRegistration(firstname, address, email, username, number, password, new BackendUser.Response() {
+                            @Override
+                            public void onSuccess() {
+
+                                backend.login(username, password, new BackendUser.Response() {
+                                    @Override
+                                    public void onSuccess() {
+                                    }
+
+                                    @Override
+                                    public void onFailure() {
+                                    }
+                                });
+
+                            }
+
+                            @Override
+                            public void onFailure() {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onGuestLogin() {
+
                     }
                 });
             }

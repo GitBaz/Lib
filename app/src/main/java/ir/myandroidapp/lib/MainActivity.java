@@ -7,10 +7,11 @@ import android.support.annotation.Nullable;
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.Primary;
 import ir.myandroidapp.library.Remember;
+import ir.myandroidapp.library.activities.AddItem;
 import ir.myandroidapp.library.activities.main;
 import ir.myandroidapp.library.backend.BackendUser;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AddItem {
 
     Core core;
 
