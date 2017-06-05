@@ -197,12 +197,23 @@ public class Profile extends LinearLayout {
                 removeAllViews();
                 addView(new CompleteRegister(context, new CompleteRegister.onSignIn() {
                     @Override
-                    public void onRegister(String firstname, String username, String email, String password, String number, String address) {
+                    public void onRegister(String firstname, final String username, String email, final String password, String number, String address) {
                         backend.compeleteRegistration(firstname, address, email, username, number, password, new BackendUser.Response() {
                             @Override
                             public void onSuccess() {
-                                core.toast("ثبت نام تکمیل شد");
-                                activity.finish();
+                                backend.login(username, password, new BackendUser.Response() {
+                                    @Override
+                                    public void onSuccess() {
+                                        core.toast("ثبت نام تکمیل شد");
+                                        activity.finish();
+                                    }
+
+                                    @Override
+                                    public void onFailure() {
+
+                                    }
+                                });
+
                             }
 
                             @Override
