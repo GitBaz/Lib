@@ -3,7 +3,6 @@ package ir.myandroidapp.library.activities;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Path;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,7 +21,6 @@ import ir.myandroidapp.library.ActionBar;
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.Dialogs.MessageView;
 import ir.myandroidapp.library.Dialogs.ProgressView;
-import ir.myandroidapp.library.Loc;
 import ir.myandroidapp.library.Primary;
 import ir.myandroidapp.library.R;
 import ir.myandroidapp.library.backend.BackendData;
@@ -51,7 +49,7 @@ public class PageActivity extends Activity {
 
     DetailView dv;
 
-    CardView call;
+    android.support.v7.widget.CardView call;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,7 +73,7 @@ public class PageActivity extends Activity {
         logo = (ImageView) findViewById(R.id.page_activity_pic);
         brand = (TextView) findViewById(R.id.page_activity_name);
         container = (LinearLayout) findViewById(R.id.page_activity_container);
-        call = (CardView) findViewById(R.id.page_activity_call_card);
+        call = (android.support.v7.widget.CardView) findViewById(R.id.page_activity_call_card);
 
         getIntent().getStringExtra("pageId");
 
