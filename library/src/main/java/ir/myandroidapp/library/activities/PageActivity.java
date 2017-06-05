@@ -39,6 +39,7 @@ public class PageActivity extends Activity {
     ImageView logo;
     TextView brand;
     LinearLayout container;
+    TextView number ;
 
     String extra = "";
 
@@ -64,6 +65,7 @@ public class PageActivity extends Activity {
         });
         setContentView(action);
 
+        number = (TextView) findViewById(R.id.page_activity_number);
         logo = (ImageView) findViewById(R.id.page_activity_pic);
         brand = (TextView) findViewById(R.id.page_activity_name);
         container = (LinearLayout) findViewById(R.id.page_activity_container);
@@ -94,6 +96,8 @@ public class PageActivity extends Activity {
                 brand.setText(page.getBrand());
 
                 dv = new DetailView(core.context,core,getWindowManager(),page.getDetail());
+
+                number.setText(page.getNumber());
 
                 ProgressBar pb = new ProgressBar(core.context);
                 container.addView(pb);
