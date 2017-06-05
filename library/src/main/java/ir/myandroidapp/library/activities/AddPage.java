@@ -15,6 +15,8 @@ import android.widget.ToggleButton;
 
 import com.backtory.java.internal.BacktoryUser;
 
+import java.io.IOException;
+
 import ir.myandroidapp.library.ActionBar;
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.Dialogs.CatDialog;
@@ -175,7 +177,11 @@ public class AddPage extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        picker.result(requestCode, resultCode, data);
+        try {
+            picker.result(requestCode, resultCode, data);
+        }catch (IOException e){
+
+        }
     }
 
     public BackendPage getPage() {

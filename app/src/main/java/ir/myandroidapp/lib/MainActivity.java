@@ -11,7 +11,7 @@ import ir.myandroidapp.library.activities.AddItem;
 import ir.myandroidapp.library.activities.main;
 import ir.myandroidapp.library.backend.BackendUser;
 
-public class MainActivity extends AddItem {
+public class MainActivity extends Activity {
 
     Core core;
 
@@ -51,7 +51,7 @@ public class MainActivity extends AddItem {
 
     @Override
     public void onBackPressed() {
-        setContentView(new main(core.context,core,getWindowManager(),MainActivity.this));
+        core.intentActivity(AddItem.class);
 
     }
 }

@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +14,7 @@ import android.widget.ImageView;
 import com.soundcloud.android.crop.Crop;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -19,6 +22,8 @@ import java.security.SecureRandom;
 
 import ir.myandroidapp.library.Dialogs.DecideView;
 import ir.myandroidapp.library.Ui.Rounder;
+
+import static ir.myandroidapp.library.R.id.imageView;
 
 /**
  * Created by kam.amir on 4/10/17.
@@ -37,13 +42,15 @@ public class ImagePicker {
 
     Core core;
     ContentResolver resolver;
-    int round = 0;
 
-    public ImagePicker(Activity act, Core cre, ImageView[] images, ContentResolver cr, int radius) {
+    int radius = 0;
+
+    public ImagePicker(Activity act, Core cre, ImageView[] images, ContentResolver cr,int rds) {
         activity = act;
         imageViews = images;
         resolver = cr;
-        round = radius;
+
+        radius = rds;
 
         core = cre;
         int imageCount = images.length;
@@ -64,12 +71,13 @@ public class ImagePicker {
 
     }
 
-    public ImagePicker(Activity act, Core cre, ImageView image, ContentResolver cr, int radius) {
+    public ImagePicker(Activity act, Core cre, ImageView image, ContentResolver cr,int rds) {
         activity = act;
         imageViews = new ImageView[1];
         imageViews[0] = image;
         resolver = cr;
-        round = radius;
+
+        radius = rds;
 
         core = cre;
         int imageCount = 1;
@@ -93,12 +101,23 @@ public class ImagePicker {
         Crop.pickImage(activity);
     }
 
-    public void result(int requestCode, int resultCode, Intent data) {
+    public void result(int requestCode, int resultCode, Intent data) throws IOException {
         if (requestCode == Crop.REQUEST_PICK && resultCode == activity.RESULT_OK) {
             startCrop(data.getData());
         } else if (requestCode == Crop.REQUEST_CROP) {
 
+
             String path = Crop.getOutput(data).getPath();
+
+//            Bitmap water = core.watermark(
+//            MediaStore.Images.Media.getBitmap(resolver,data.getData())
+//            ,"نخچه",core.getColor(R.color.white));
+//
+
+          //  MediaStore.Images.Media.getBitmap(resolver,data.getData());
+
+         //   String pathed = core.storeImage(water).getPath();
+
 
             if (core.fileMoreThan(path, 200))
                 core.toast(core.getString(R.string.more_than_200_kb));
@@ -119,6 +138,7 @@ public class ImagePicker {
         link = new Primary().getUploadLink()+id;
         Uri destination = Uri.fromFile(new File(activity.getCacheDir(), id));
         Crop.of(source, destination).asSquare().start(activity);
+
     }
 
     private final class SIG {
@@ -181,11 +201,20 @@ public class ImagePicker {
         imageViews[number].setImageURI(uri);
         ivOn[number] = 1;
 
-        try {
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(resolver, uri);
-            imageViews[number].setImageBitmap(new Rounder().getRoundedCornerBitmap(bitmap, round));
-        } catch (IOException e) {
-        }
+
+
+
+
+//        Bitmap bmp = imageViews[number].getDrawingCache();
+//        imageViews[number].setImageBitmap(bmp);
+       // imageViews[number].setImageBitmap(core.watermark(bmp,"نخچه",core.getColor(R.color.white)));
+
+//        try {
+//            Bitmap bitmap = MediaStore.Images.Media.getBitmap(resolver, uri);
+//           // Bitmap water = core.watermark(bitmap,"نخچه",core.getColor(R.color.white));
+//            imageViews[number].setImageBitmap(bitmap);
+//        } catch (IOException e) {
+//        }
 
     }
 

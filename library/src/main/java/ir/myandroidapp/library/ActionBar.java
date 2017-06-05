@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
-
 /**
  * Created by kam.amir on 4/7/17.
  */

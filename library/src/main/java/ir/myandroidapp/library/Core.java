@@ -13,14 +13,17 @@ import android.graphics.Path;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.style.TypefaceSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -31,12 +34,15 @@ import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class Core {
@@ -111,12 +117,14 @@ public class Core {
     }
 
     public Bitmap watermark(Bitmap src, String watermark, int color) {
+
         int w = src.getWidth();
         int h = src.getHeight();
-
         Bitmap result = Bitmap.createBitmap(w, h, src.getConfig());
+
         Canvas canvas = new Canvas(result);
         canvas.drawBitmap(src, 0, 0, null);
+
         Paint paint = new Paint();
         paint.setColor((context).getResources().getColor(color));
         paint.setTextSize(50);
@@ -127,6 +135,48 @@ public class Core {
         canvas.drawText(watermark, 20, h - 30, paint);
 
         return result;
+    }
+
+    public File storeImage(Bitmap image) {
+        File pictureFile = getOutputMediaFile();
+        if (pictureFile == null) {
+
+            return pictureFile;
+        }
+        try {
+            FileOutputStream fos = new FileOutputStream(pictureFile);
+            image.compress(Bitmap.CompressFormat.PNG, 90, fos);
+            fos.close();
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+        }
+
+        return pictureFile;
+    }
+
+    private  File getOutputMediaFile(){
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
+        File mediaStorageDir = new File(Environment.getExternalStorageDirectory()
+                + "/Android/data/"
+                + context.getPackageName()
+                + "/Files");
+
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (! mediaStorageDir.exists()){
+            if (! mediaStorageDir.mkdirs()){
+                return null;
+            }
+        }
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
+        File mediaFile;
+        String mImageName="MI_"+ timeStamp +".jpg";
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
+        return mediaFile;
     }
 
     public InputFilter[] textLimit(int length) {

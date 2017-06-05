@@ -37,7 +37,6 @@ public class Profile extends LinearLayout {
         core = cre;
         backend = new BackendUser(cre);
 
-
         LayoutInflater.from(context).inflate(R.layout.profile, this);
 
         username = (TextView) findViewById(R.id.profile_username);
@@ -66,7 +65,7 @@ public class Profile extends LinearLayout {
             email.setVisibility(GONE);
             number.setVisibility(GONE);
             address.setVisibility(GONE);
-            exit.setVisibility(GONE);
+            exit.setVisibility(VISIBLE);
             comp.setVisibility(VISIBLE);
 
         } else {
@@ -80,9 +79,7 @@ public class Profile extends LinearLayout {
             comp.setVisibility(GONE);
         }
 
-
         setText();
-
 
         number.setOnClickListener(new OnClickListener() {
             @Override
@@ -198,27 +195,14 @@ public class Profile extends LinearLayout {
             @Override
             public void onClick(View view) {
                 removeAllViews();
-                addView(new Login(context, new Login.onSignIn() {
+                addView(new CompleteRegister(context, new CompleteRegister.onSignIn() {
                     @Override
-                    public void onLogin(String username, String password) {
-                    }
-
-                    @Override
-                    public void onRegister(String firstname, final String username, String email, final String password, String number, String address) {
+                    public void onRegister(String firstname, String username, String email, String password, String number, String address) {
                         backend.compeleteRegistration(firstname, address, email, username, number, password, new BackendUser.Response() {
                             @Override
                             public void onSuccess() {
-
-                                backend.login(username, password, new BackendUser.Response() {
-                                    @Override
-                                    public void onSuccess() {
-                                    }
-
-                                    @Override
-                                    public void onFailure() {
-                                    }
-                                });
-
+                                core.toast("ثبت نام تکمیل شد");
+                                activity.finish();
                             }
 
                             @Override
@@ -226,11 +210,6 @@ public class Profile extends LinearLayout {
 
                             }
                         });
-                    }
-
-                    @Override
-                    public void onGuestLogin() {
-
                     }
                 }));
             }
