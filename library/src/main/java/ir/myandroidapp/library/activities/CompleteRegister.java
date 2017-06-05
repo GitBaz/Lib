@@ -12,15 +12,14 @@ import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.R;
 
 /**
- * Created by kam.amir on 6/5/17.
+ * Created by kam.amir on 1/3/17.
  */
-
 public class CompleteRegister extends LinearLayout {
 
     Core core;
 
     EditText name, user, pass, mail, number, address;
-    Button main;
+    Button main, secondary, guest;
 
     LinearLayout thisLayout;
 
@@ -42,6 +41,8 @@ public class CompleteRegister extends LinearLayout {
         address = (EditText) findViewById(R.id.layout_sign_up_address);
 
         main = (Button) findViewById(R.id.layout_sign_up_main_btn);
+        secondary = (Button) findViewById(R.id.layout_sign_up_secondary_btn);
+        guest = (Button) findViewById(R.id.layout_sign_up_guest_btn);
 
         name.setTypeface(core.setTypeFace());
         user.setTypeface(core.setTypeFace());
@@ -51,6 +52,8 @@ public class CompleteRegister extends LinearLayout {
         address.setTypeface(core.setTypeFace());
 
         main.setTypeface(core.setTypeFace());
+        secondary.setTypeface(core.setTypeFace());
+        guest.setTypeface(core.setTypeFace());
 
         main.setOnClickListener(new OnClickListener() {
             @Override
@@ -68,19 +71,25 @@ public class CompleteRegister extends LinearLayout {
             }
         });
 
+        secondary.setVisibility(GONE);
+        guest.setVisibility(GONE);
 
         layoutSignUp();
     }
+
 
     private void layoutSignUp() {
         name.setVisibility(VISIBLE);
         mail.setVisibility(VISIBLE);
         number.setVisibility(VISIBLE);
         address.setVisibility(VISIBLE);
+        guest.setVisibility(GONE);
 
+        secondary.setText("ورود");
         main.setText("ثبت نام");
 
     }
+
 
     public interface onSignIn {
         void onRegister(String firstname, String username, String email, String password, String number, String address);
