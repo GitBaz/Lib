@@ -464,7 +464,7 @@ public class BackendData {
     }
 
     public void getPageByCat(String s, final GetPages obj) {
-        BacktoryQuery.getQuery("Pages").whereMatches("permission", "0").whereContains("cat", s).findInBackground(
+        BacktoryQuery.getQuery("Pages").whereMatches("permission", "1").orderByDescending("createdAt").whereContains("cat", s).findInBackground(
                 new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
