@@ -111,7 +111,7 @@ public class PageActivity extends Activity {
                         Intent callIntent = new Intent(Intent.ACTION_CALL);
                         callIntent.setData(Uri.parse("tel:"+phone_no));
                         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        if (getPackageManager().checkPermission("android.permission.CALL_PHONE", "example.vahid") ==
+                        if (getPackageManager().checkPermission("android.permission.CALL_PHONE", "com.nokhche.app") ==
                                 getPackageManager().PERMISSION_GRANTED)
                             startActivity(callIntent);
                         else

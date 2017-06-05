@@ -66,6 +66,13 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="شماره تلفن : " />
+
+            <TextView
                 android:id="@+id/page_activity_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,12 +81,6 @@
                 android:padding="8dp"
                 android:text="TextView" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="شماره تلفن : " />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

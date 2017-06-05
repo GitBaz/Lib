@@ -51,7 +51,7 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        core.intentActivity(AddItem.class);
+        setContentView(new main(core.context,core,getWindowManager(),MainActivity.this));
 
     }
 }
