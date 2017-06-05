@@ -1,9 +1,13 @@
 package ir.myandroidapp.library.activities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Path;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +51,8 @@ public class PageActivity extends Activity {
 
     DetailView dv;
 
+    CardView call;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +75,7 @@ public class PageActivity extends Activity {
         logo = (ImageView) findViewById(R.id.page_activity_pic);
         brand = (TextView) findViewById(R.id.page_activity_name);
         container = (LinearLayout) findViewById(R.id.page_activity_container);
+        call = (CardView) findViewById(R.id.page_activity_call_card);
 
         getIntent().getStringExtra("pageId");
 
@@ -98,6 +105,22 @@ public class PageActivity extends Activity {
                 dv = new DetailView(core.context,core,getWindowManager(),page.getDetail());
 
                 number.setText(page.getNumber());
+
+                call.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String phone_no = number.getText().toString();
+                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse("tel:"+phone_no));
+                        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        if (getPackageManager().checkPermission("android.permission.CALL_PHONE", "example.vahid") ==
+                                getPackageManager().PERMISSION_GRANTED)
+                            startActivity(callIntent);
+                        else
+                            ActivityCompat.requestPermissions(PageActivity.this,new String[]{Manifest.permission.CALL_PHONE},1);
+
+                    }
+                });
 
                 ProgressBar pb = new ProgressBar(core.context);
                 container.addView(pb);
