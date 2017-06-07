@@ -26,8 +26,6 @@ public class Loc {
     }
 
     public void getPermission() {
-        LocationManager locationManager = (LocationManager) core.context.getSystemService(LOCATION_SERVICE);
-        String provider = LocationManager.NETWORK_PROVIDER;
         PackageManager manager = core.context.getPackageManager();
         int hasPermission = manager.checkPermission("android.permission.ACCESS_FINE_LOCATION", "com.nokhche.app");
         if (hasPermission == manager.PERMISSION_GRANTED) {
@@ -35,6 +33,12 @@ public class Loc {
             ActivityCompat.requestPermissions(activity,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
+    }
+
+    public boolean isPermission(){
+        PackageManager manager = core.context.getPackageManager();
+        int hasPermission = manager.checkPermission("android.permission.ACCESS_FINE_LOCATION", "com.nokhche.app");
+        return hasPermission == manager.PERMISSION_GRANTED ;
     }
 
     public void getLatLong(final GetStatus status) {

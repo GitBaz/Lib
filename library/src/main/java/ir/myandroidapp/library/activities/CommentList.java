@@ -3,19 +3,22 @@ package ir.myandroidapp.library.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+
+import com.backtory.java.internal.BacktoryCallBack;
+import com.backtory.java.internal.BacktoryObject;
+import com.backtory.java.internal.BacktoryResponse;
+import com.backtory.java.internal.BacktoryUser;
 
 import ir.myandroidapp.library.ActionBar;
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.Dialogs.DialogInput;
 import ir.myandroidapp.library.R;
 import ir.myandroidapp.library.backend.BackendComment;
-import ir.myandroidapp.library.backend.SimpleResponse;
+import ir.myandroidapp.library.backend.BackendData;
 import ir.myandroidapp.library.cards.CardComment;
 
 /**
@@ -33,8 +36,6 @@ public class CommentList extends Activity{
     LinearLayout sl;
 
     String extra;
-
-    BackendComment bc;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,7 +63,6 @@ public class CommentList extends Activity{
 
         extra = getIntent().getStringExtra("commentId");
 
-        bc = new BackendComment(core);
 
         show();
 
@@ -73,25 +73,27 @@ public class CommentList extends Activity{
                 new DialogInput(core.context, core, "نظر شما", "نظر خود را بنویسید .", 150, new DialogInput.Response() {
                     @Override
                     public void resp(String result) {
-                        bc.create(result,extra);
-                        bc.writeComment(new SimpleResponse() {
+                        BacktoryObject object = new BacktoryObject("Comments");
+                        object.put("user", BacktoryUser.getCurrentUser().getUserId());
+                        object.put("comment", result);
+                        object.put("itemId", extra);
+                        object.put("permission", "0");
+                        object.put("username", BacktoryUser.getCurrentUser().getFirstName());
+                        object.saveInBackground(new BacktoryCallBack<Void>() {
                             @Override
-                            public void onSuccess() {
-                                show();
-                            }
+                            public void onResponse(BacktoryResponse<Void> backtoryResponse) {
+                                if (backtoryResponse.isSuccessful()){
 
-                            @Override
-                            public void onFailure() {
-
+                                }
+                                else {
+                                    core.toast(core.getString(R.string.connection_error));
+                                }
                             }
                         });
                     }
                 });
-
-
             }
         });
-
 
     }
 
@@ -99,7 +101,7 @@ public class CommentList extends Activity{
         layout.removeAllViews();
         ProgressBar pb = new ProgressBar(core.context);
         layout.addView(pb);
-        bc.readComment(extra, new BackendComment.CommentResponse() {
+        new BackendData(core).readComment(extra, new BackendData.CommentResponse() {
             @Override
             public void onSuccess(BackendComment[] cmt) {
                 layout.removeAllViews();

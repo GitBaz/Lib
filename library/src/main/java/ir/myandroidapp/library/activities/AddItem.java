@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.backtory.java.internal.BacktoryObject;
+
 import java.io.IOException;
 
 import ir.myandroidapp.library.ActionBar;

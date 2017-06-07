@@ -4,16 +4,21 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.backtory.java.internal.BacktoryCallBack;
+import com.backtory.java.internal.BacktoryObject;
+import com.backtory.java.internal.BacktoryResponse;
+
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.Primary;
 import ir.myandroidapp.library.Remember;
 import ir.myandroidapp.library.activities.AddItem;
-import ir.myandroidapp.library.activities.main;
 import ir.myandroidapp.library.backend.BackendUser;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AddItem {
 
     Core core;
+
+    int check=0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,7 +40,8 @@ public class MainActivity extends Activity {
         BackendUser user = new BackendUser(core);
         user.init("58f5dd79e4b0f42c8b96715a", "58f5dd79e4b05d0bd4f0a823",
                 "58f5dd7ae4b0f42c8b96715d", "58f5de1be4b0f42c8b9671a3");
-        user.login("123456", "123456", new BackendUser.Response() {
+
+        user.login("12341234", "12341234", new BackendUser.Response() {
             @Override
             public void onSuccess() {
                 core.toast("work");
@@ -51,7 +57,7 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        setContentView(new main(core.context,core,getWindowManager(),MainActivity.this));
+
 
     }
 }

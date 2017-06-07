@@ -3,7 +3,6 @@ package ir.myandroidapp.library.cards;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,7 +25,6 @@ public class CardComment extends LinearLayout {
 
     BackendComment backendComment;
     Core core;
-
 
     public CardComment(final Context ctx, Core cre, final BackendComment bc) {
         super(ctx);

@@ -21,6 +21,7 @@ import ir.myandroidapp.library.ActionBar;
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.Dialogs.MessageView;
 import ir.myandroidapp.library.Dialogs.ProgressView;
+import ir.myandroidapp.library.Loc;
 import ir.myandroidapp.library.Primary;
 import ir.myandroidapp.library.R;
 import ir.myandroidapp.library.backend.BackendData;
@@ -41,13 +42,15 @@ public class PageActivity extends Activity {
     ImageView logo;
     TextView brand;
     LinearLayout container;
-    TextView number ;
+    TextView number;
 
     String extra = "";
 
-    String info="";
+    String info = "";
 
     DetailView dv;
+
+    LinearLayout detailContainer;
 
     android.support.v7.widget.CardView call;
 
@@ -63,7 +66,7 @@ public class PageActivity extends Activity {
         action.setOnItemClick(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                new MessageView(PageActivity.this,core,info);
+                new MessageView(PageActivity.this, core, info);
                 return false;
             }
         });
@@ -74,8 +77,9 @@ public class PageActivity extends Activity {
         brand = (TextView) findViewById(R.id.page_activity_name);
         container = (LinearLayout) findViewById(R.id.page_activity_container);
         call = (android.support.v7.widget.CardView) findViewById(R.id.page_activity_call_card);
+        detailContainer = (LinearLayout) findViewById(R.id.page_activity_detail_container);
 
-        getIntent().getStringExtra("pageId");
+        extra = getIntent().getStringExtra("pageId");
 
         final ProgressView pv = new ProgressView(this);
         pv.show();
@@ -86,21 +90,29 @@ public class PageActivity extends Activity {
                 pv.cancel();
                 info = page.getInfo();
 
-                action.setNavIcon(R.drawable.ic_location_light, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Class target = new Primary().getMapact();
-                        Intent intent = new Intent(PageActivity.this,target);
-                        intent.putExtra("lat",page.getLat());
-                        intent.putExtra("lng",page.getLng());
-                        startActivity(intent);
-                    }
-                });
+                if (!page.getLat().equals("")) {
+                    action.setNavIcon(R.drawable.ic_location_light, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            if (new Loc(core, PageActivity.this).isPermission()) {
+
+                                Class target = new Primary().getMapact();
+                                Intent intent = new Intent(PageActivity.this, target);
+                                intent.putExtra("lat", page.getLat());
+                                intent.putExtra("lng", page.getLng());
+                                startActivity(intent);
+                            } else
+                                new Loc(core, PageActivity.this).getPermission();
+                        }
+                    });
+
+                }
 
                 Picasso.with(core.context).load(page.getLogo()).into(logo);
                 brand.setText(page.getBrand());
 
-                dv = new DetailView(core.context,core,getWindowManager(),page.getDetail());
+                dv = new DetailView(core.context, core, getWindowManager(), page.getDetail());
 
                 number.setText(page.getNumber());
 
@@ -109,16 +121,18 @@ public class PageActivity extends Activity {
                     public void onClick(View view) {
                         String phone_no = number.getText().toString();
                         Intent callIntent = new Intent(Intent.ACTION_CALL);
-                        callIntent.setData(Uri.parse("tel:"+phone_no));
+                        callIntent.setData(Uri.parse("tel:" + phone_no));
                         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         if (getPackageManager().checkPermission("android.permission.CALL_PHONE", "com.nokhche.app") ==
                                 getPackageManager().PERMISSION_GRANTED)
                             startActivity(callIntent);
                         else
-                            ActivityCompat.requestPermissions(PageActivity.this,new String[]{Manifest.permission.CALL_PHONE},1);
+                            ActivityCompat.requestPermissions(PageActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 1);
 
                     }
                 });
+
+                detailContainer.addView(new DetailView(core.context, core, getWindowManager(), page.getDetail()));
 
                 ProgressBar pb = new ProgressBar(core.context);
                 container.addView(pb);
@@ -126,8 +140,8 @@ public class PageActivity extends Activity {
                     @Override
                     public void onExists(BackendObject[] objects) {
                         container.removeAllViews();
-                        for(int i=0;i<objects.length;i++)
-                            container.addView(new CardView(core.context,core,objects[i],PageActivity.this));
+                        for (int i = 0; i < objects.length; i++)
+                            container.addView(new CardView(core.context, core, objects[i], PageActivity.this));
                     }
 
                     @Override

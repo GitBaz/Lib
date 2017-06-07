@@ -221,39 +221,38 @@ public class BackendData {
     }
 
     public void getPageById(String id, final GetUserPage response) {
-        BacktoryQuery.getQuery("Pages").whereMatches("permission", "1").whereMatches("user", id).findInBackground(
-                new BacktoryCallBack<List<BacktoryObject>>() {
-                    @Override
-                    public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
-                        if (backtoryResponse.isSuccessful()) {
-                            if (backtoryResponse.body().isEmpty()) {
-                                response.onNotExists();
-                            } else {
-                                BackendPage page = new BackendPage();
-                                BacktoryObject obj = backtoryResponse.body().get(0);
-                                page.setId(obj.getObjectId().toString());
-                                page.setBrand(obj.get("brand").toString());
-                                page.setLogo(obj.get("logo").toString());
-                                page.setInfo(obj.get("info").toString());
-                                page.setNumber(obj.get("number").toString());
-                                page.setDetail(obj.get("detail").toString());
-                                page.setUser(obj.get("user").toString());
-                                page.setPermission(obj.get("permission").toString());
-                                page.setPlace(obj.get("place").toString());
-                                page.setCat(obj.get("cat").toString());
-                                page.setLocation(obj.get("location").toString());
-                                page.setLat(obj.get("lat").toString());
-                                page.setLng(obj.get("lng").toString());
-                                page.setSliderPic(obj.get("sliderpic").toString());
-                                page.setSponserPic(obj.get("sponserpic").toString());
-                                response.onExists(page);
-                            }
-                        } else {
-                            response.onFailure();
-                            core.toast(core.getString(R.string.connection_error));
-                        }
+        BacktoryObject.getQuery("Pages").getInBackground(id, new BacktoryCallBack<BacktoryObject>() {
+            @Override
+            public void onResponse(BacktoryResponse<BacktoryObject> backtoryResponse) {
+                if (backtoryResponse.isSuccessful()) {
+                    if (backtoryResponse.body().toString()=="") {
+                        response.onNotExists();
+                    } else {
+                        BackendPage page = new BackendPage();
+                        BacktoryObject obj = backtoryResponse.body();
+                        page.setId(obj.getObjectId().toString());
+                        page.setBrand(obj.get("brand").toString());
+                        page.setLogo(obj.get("logo").toString());
+                        page.setInfo(obj.get("info").toString());
+                        page.setNumber(obj.get("number").toString());
+                        page.setDetail(obj.get("detail").toString());
+                        page.setUser(obj.get("user").toString());
+                        page.setPermission(obj.get("permission").toString());
+                        page.setPlace(obj.get("place").toString());
+                        page.setCat(obj.get("cat").toString());
+                        page.setLocation(obj.get("location").toString());
+                        page.setLat(obj.get("lat").toString());
+                        page.setLng(obj.get("lng").toString());
+                        page.setSliderPic(obj.get("sliderpic").toString());
+                        page.setSponserPic(obj.get("sponserpic").toString());
+                        response.onExists(page);
                     }
-                });
+                } else {
+                    response.onFailure();
+                    core.toast(core.getString(R.string.connection_error));
+                }
+            }
+        });
     }
 
     public void getUserPagePosts(String user, final GetUserPagePosts getPosts) {
@@ -624,6 +623,59 @@ public class BackendData {
                     }
                 });
 
+    }
+
+    public void writeComment(String com,String itemId,final SimpleResponse response) {
+        BacktoryObject object = new BacktoryObject("Comments");
+        object.put("user", BacktoryUser.getCurrentUser().getUserId());
+        object.put("comment", com);
+        object.put("itemId", itemId);
+        object.put("permission", "0");
+        object.put("username", BacktoryUser.getCurrentUser().getFirstName());
+        object.saveInBackground(new BacktoryCallBack<Void>() {
+            @Override
+            public void onResponse(BacktoryResponse<Void> backtoryResponse) {
+                if (backtoryResponse.isSuccessful())
+                    response.onSuccess();
+                else {
+                    core.toast(core.getString(R.string.connection_error));
+                    response.onFailure();
+                }
+            }
+        });
+    }
+
+    public void readComment(String id,final CommentResponse response){
+        new BacktoryQuery("Comments").whereMatches("itemId", id).whereMatches("permission", "1")
+                .findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
+                    @Override
+                    public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
+                        if (backtoryResponse.isSuccessful()) {
+
+                            int count = backtoryResponse.body().size();
+                            BackendComment[] bcmt = new BackendComment[count];
+
+                            for (int i = 0; i < count; i++) {
+                                bcmt[i] = new BackendComment();
+                                BacktoryObject obj = backtoryResponse.body().get(i);
+                                bcmt[i].create(obj.get("comment").toString(),
+                                        obj.get("itemId").toString(),
+                                        obj.get("username").toString(),
+                                        obj.getObjectId().toString());
+                            }
+
+                            response.onSuccess(bcmt);
+
+                        } else {
+                            core.toast(core.getString(R.string.connection_error));
+                        }
+
+                    }
+                });
+    }
+
+    public interface CommentResponse {
+        void onSuccess(BackendComment[] cmt);
     }
 
 
