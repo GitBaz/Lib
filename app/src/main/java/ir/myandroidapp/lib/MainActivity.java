@@ -4,21 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.backtory.java.internal.BacktoryCallBack;
-import com.backtory.java.internal.BacktoryObject;
-import com.backtory.java.internal.BacktoryResponse;
-
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.Primary;
 import ir.myandroidapp.library.Remember;
-import ir.myandroidapp.library.activities.AddItem;
 import ir.myandroidapp.library.backend.BackendUser;
 
-public class MainActivity extends AddItem {
+public class MainActivity extends Activity {
 
     Core core;
-
-    int check=0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,9 +48,4 @@ public class MainActivity extends AddItem {
 
     }
 
-    @Override
-    public void onBackPressed() {
-
-
-    }
 }
