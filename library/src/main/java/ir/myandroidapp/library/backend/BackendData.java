@@ -678,5 +678,4 @@ public class BackendData {
         void onSuccess(BackendComment[] cmt);
     }
 
-
 }

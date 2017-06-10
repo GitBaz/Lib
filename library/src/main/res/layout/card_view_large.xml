@@ -29,7 +29,8 @@
                     android:id="@+id/card_view_large_iv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:foreground="@drawable/watermark" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
