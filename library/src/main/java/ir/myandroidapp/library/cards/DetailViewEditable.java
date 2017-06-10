@@ -79,12 +79,12 @@ public class DetailViewEditable extends LinearLayout {
     }
 
     public void add() {
-        new DialogInput(core.context, core, "عنوان", "برای مثال وزن", 15, new DialogInput.Response() {
+        new DialogInput(core.context, core, "عنوان", "نام", 15, new DialogInput.Response() {
             @Override
             public void resp(String result) {
                 nameIp = result;
 
-                new DialogInput(core.context, core, "مقدار", "برای مثال ۴ کیلوگرم", 15, new DialogInput.Response() {
+                new DialogInput(core.context, core, "مقدار", "...", 15, new DialogInput.Response() {
                     @Override
                     public void resp(String result) {
                         valueIp = result;

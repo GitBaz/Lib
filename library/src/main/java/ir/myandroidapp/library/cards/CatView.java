@@ -27,7 +27,6 @@ public class CatView extends LinearLayout {
         tv = (TextView) findViewById(R.id.cat_view_title);
         tv.setTypeface(core.setTypeFace());
         main = (LinearLayout) findViewById(R.id.cat_view_click);
-
         iv.setImageResource(icon);
         tv.setText(title);
 
