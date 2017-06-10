@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -15,6 +19,7 @@ import ir.myandroidapp.library.ActionBar;
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.R;
 import ir.myandroidapp.library.Remember;
+import ir.myandroidapp.library.Size;
 import ir.myandroidapp.library.backend.BackendData;
 import ir.myandroidapp.library.backend.BackendObject;
 import ir.myandroidapp.library.backend.BackendPage;
@@ -36,6 +41,8 @@ public class ItemActivity extends Activity {
     LinearLayout container;
 
     String id="";
+
+    FrameLayout fl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,11 +105,36 @@ public class ItemActivity extends Activity {
                 core.divide(object.getPics(), '|').length, new ViewPager.Set() {
             @Override
             public Object setImages(ViewGroup container, int position) {
+                fl = new FrameLayout(core.context);
+                fl.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 final ImageView imageView = new ImageView(core.context);
                 imageView.setBackgroundColor(core.getColor(ir.myandroidapp.library.R.color.colorCard));
                 Picasso.with(core.context).load(core.divide(object.getPics(),'|')[position]).into(imageView);
-                container.addView(imageView);
-                return imageView;
+                fl.addView(imageView);
+                container.addView(fl);
+
+                TextView water = new TextView(core.context);
+                water.setText("نخچه");
+                water.setTextColor(core.getColor(R.color.white));
+                water.setTypeface(core.setTypeFace());
+                water.setBackgroundColor(core.getColor(R.color.colorDark));
+                int mg = new Size(core.context,getWindowManager()).getdp(8);
+                int pd = new Size(core.context,getWindowManager()).getdp(8);
+                water.setPadding(pd,pd,pd,pd);
+
+                LinearLayout textC = new LinearLayout(core.context);
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT);
+
+                textC.setLayoutParams(params);
+
+                textC.addView(water);
+                textC.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
+
+                fl.addView(textC);
+
+                return fl;
             }
         });
 
