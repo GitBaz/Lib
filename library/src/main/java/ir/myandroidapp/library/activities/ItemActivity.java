@@ -94,7 +94,7 @@ public class ItemActivity extends Activity {
 
         container = (LinearLayout) findViewById(R.id.item_view_container);
 
-        final ViewPager vp = new ViewPager(this, 1,core, getWindowManager(),
+        final ViewPager vp = new ViewPager(this, core.divide(object.getPics(),'|').length,core, getWindowManager(),
                 core.divide(object.getPics(), '|').length, new ViewPager.Set() {
             @Override
             public Object setImages(ViewGroup container, int position) {

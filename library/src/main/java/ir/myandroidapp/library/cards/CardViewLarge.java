@@ -51,6 +51,9 @@ public class CardViewLarge extends LinearLayout{
         TextView subTitleView = (TextView) findViewById(R.id.card_view_large_sub_title);
         fav = (ImageView) findViewById(R.id.card_view_large_add_fav);
 
+        TextView water = (TextView) findViewById(R.id.card_view_large_water);
+        water.setTypeface(core.setTypeFace());
+
         primary.setTypeface(core.setTypeFace());
         secondary.setTypeface(core.setTypeFace());
         titleView.setTypeface(core.setTypeFace());

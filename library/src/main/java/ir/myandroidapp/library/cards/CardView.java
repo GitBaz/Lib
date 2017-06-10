@@ -62,6 +62,8 @@ public class CardView extends LinearLayout {
 
         Picasso.with(context).load(core.divide(object.getPics(), '|')[0]).into(imageView);
 
+        TextView water = (TextView) findViewById(R.id.card_view_water);
+        water.setTypeface(core.setTypeFace());
 
     }
 

@@ -96,7 +96,6 @@ public class PageActivity extends Activity {
                         public void onClick(View view) {
 
                             if (new Loc(core, PageActivity.this).isPermission()) {
-
                                 Class target = new Primary().getMapact();
                                 Intent intent = new Intent(PageActivity.this, target);
                                 intent.putExtra("lat", page.getLat());
