@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/add_item_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/add_item_main"
     android:background="@color/colorBackground"
     android:orientation="vertical">
 
@@ -37,40 +37,40 @@
 
                     <EditText
                         android:id="@+id/ai_name_et"
-                        android:maxLength="35"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:maxLength="35" />
 
                     <TextView
                         android:id="@+id/ai_sp_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="قیمت اصلی"
+                        android:layout_marginTop="8dp"
 
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:layout_marginTop="8dp" />
+                        android:text="قیمت اصلی"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <EditText
                         android:id="@+id/ai_sp_et"
-                        android:maxLength="35"
-                        android:inputType="number"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="35" />
 
                     <TextView
                         android:id="@+id/ai_pp_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:text="قیمت من"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:layout_marginTop="8dp" />
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <EditText
                         android:id="@+id/ai_pp_et"
-                        android:maxLength="35"
-                        android:inputType="number"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="35" />
 
                 </LinearLayout>
 
@@ -165,29 +165,30 @@
                     android:orientation="vertical">
 
                     <ToggleButton
-                        android:textOn="انتخاب شد"
                         android:id="@+id/ai_cat_btn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
-                        android:textSize="18sp"
                         android:background="@color/colorPrimary"
                         android:gravity="center"
+                        android:textColor="@color/white"
                         android:textOff="انتخاب دسته بندی"
-                        android:textColor="@color/white" />
+                        android:textOn="انتخاب شد"
+                        android:textSize="18sp" />
 
                     <ToggleButton
-                        android:textOn="انتخاب شد"
                         android:id="@+id/ai_loc_btn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="16dp"
                         android:layout_marginLeft="16dp"
-                        android:textSize="18sp"
+                        android:layout_marginRight="16dp"
                         android:background="@color/colorPrimary"
                         android:gravity="center"
+                        android:textColor="@color/white"
                         android:textOff="انتخاب مکان"
-                        android:textColor="@color/white" />
+                        android:textOn="انتخاب شد"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -205,16 +206,16 @@
                     android:orientation="horizontal">
 
                     <ToggleButton
-                        android:textOn="متصل شده"
                         android:id="@+id/ai_add_page"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
-                        android:textSize="18sp"
                         android:background="@color/colorPrimary"
                         android:gravity="center"
+                        android:textColor="@color/white"
                         android:textOff="اتصال به کسب و کار"
-                        android:textColor="@color/white" />
+                        android:textOn="متصل شده"
+                        android:textSize="18sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -231,27 +232,42 @@
                     android:padding="16dp">
 
                     <TextView
+                        android:id="@+id/ai_number_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="شماره تماس" />
+
+                    <EditText
+                        android:id="@+id/ai_number_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="phone"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <TextView
                         android:id="@+id/ai_info_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:text="توضیحات"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <EditText
                         android:id="@+id/ai_info_et"
-                        android:maxLength="150"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:maxLength="150" />
 
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
             <LinearLayout
+                android:id="@+id/ai_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/ai_details"/>
+                android:orientation="vertical" />
 
             <LinearLayout
                 android:layout_width="match_parent"

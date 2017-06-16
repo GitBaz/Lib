@@ -20,6 +20,7 @@ public class BackendObject {
     private String user = "0";
     private String permission = "0";
     private String location = "0";
+    private String number = "0";
 
     public BackendObject() {
     }
@@ -74,6 +75,10 @@ public class BackendObject {
 
     public void setLocation(String s) {
         location = s;
+    }
+
+    public void setNumber(String s){
+        number=s;
     }
 
 
@@ -164,6 +169,13 @@ public class BackendObject {
     public String getLocation() {
         if (!location.equals(""))
             return location;
+        else
+            return "0";
+    }
+
+    public String getNumber(){
+        if (!number.equals(""))
+            return number;
         else
             return "0";
     }

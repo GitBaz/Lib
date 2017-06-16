@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import ir.myandroidapp.library.Core;
 import ir.myandroidapp.library.Primary;
 import ir.myandroidapp.library.Remember;
+import ir.myandroidapp.library.activities.AddItem;
 import ir.myandroidapp.library.activities.SubMain;
 import ir.myandroidapp.library.activities.main;
 import ir.myandroidapp.library.backend.BackendUser;
@@ -53,6 +54,6 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        core.intentActivityPutExtra(SubMain.class,"subMain","no");
+        setContentView(new main(this,core,getWindowManager(),this));
     }
 }

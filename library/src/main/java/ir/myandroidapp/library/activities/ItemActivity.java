@@ -1,9 +1,12 @@
 package ir.myandroidapp.library.activities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
@@ -101,7 +104,7 @@ public class ItemActivity extends Activity {
 
         container = (LinearLayout) findViewById(R.id.item_view_container);
 
-        final ViewPager vp = new ViewPager(this, core.divide(object.getPics(),'|').length,core, getWindowManager(),
+        final ViewPager vp = new ViewPager(this, 1,core, getWindowManager(),
                 core.divide(object.getPics(), '|').length, new ViewPager.Set() {
             @Override
             public Object setImages(ViewGroup container, int position) {
@@ -155,6 +158,28 @@ public class ItemActivity extends Activity {
 
         if(!object.getDetails().equals(""))
             container.addView(new DetailView(this,core,getWindowManager(),object.getDetails()));
+
+        DetailView dv = new DetailView(this,core,getWindowManager(),"شماره تماس"+":"+object.getNumber()+":|");
+
+        container.addView(dv);
+
+        dv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String phone_no = object.getNumber();
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + phone_no));
+                callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                if (getPackageManager().checkPermission("android.permission.CALL_PHONE", "com.nokhche.app") ==
+                        getPackageManager().PERMISSION_GRANTED)
+                    startActivity(callIntent);
+                else
+                    ActivityCompat.requestPermissions(ItemActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 1);
+
+            }
+        });
+
+
 
         new BackendData(core).getPageByUser(object.getUser(), new BackendData.GetUserPage() {
             @Override

@@ -75,6 +75,7 @@ public class BackendData {
         object.put("permission", "0");
         object.put("comments", "0");
         object.put("location", obj.getLocation());
+        object.put("number",obj.getNumber());
         object.saveInBackground(new BacktoryCallBack<Void>() {
             @Override
             public void onResponse(BacktoryResponse<Void> backtoryResponse) {
@@ -138,6 +139,7 @@ public class BackendData {
                     bo.setPage(object.get("page").toString());
                     bo.setPermission(object.get("permission").toString());
                     bo.setLocation(object.get("location").toString());
+                    bo.setNumber(object.get("number").toString());
 
                     objct.onSuccess(bo);
 
@@ -155,7 +157,7 @@ public class BackendData {
 
         for (int i = 0; i < id.length; i++) {
             final int j = i;
-            BacktoryQuery.getQuery("Products").whereMatches("permission", "1").getInBackground(id[i], new BacktoryCallBack<BacktoryObject>() {
+            BacktoryQuery.getQuery("Products").whereMatches("permission", "1").orderByDescending("createdAt").getInBackground(id[i], new BacktoryCallBack<BacktoryObject>() {
                 @Override
                 public void onResponse(BacktoryResponse<BacktoryObject> backtoryResponse) {
                     if (backtoryResponse.isSuccessful()) {
@@ -174,6 +176,7 @@ public class BackendData {
                         bo[j].setPage(object.get("page").toString());
                         bo[j].setPermission(object.get("permission").toString());
                         bo[j].setLocation(object.get("location").toString());
+                        bo[j].setNumber(object.get("number").toString());
                         getCounter++;
                     }
                 }
@@ -256,7 +259,7 @@ public class BackendData {
     }
 
     public void getUserPagePosts(String user, final GetUserPagePosts getPosts) {
-        BacktoryQuery.getQuery("Products").whereMatches("permission", "1").whereMatches("user", user).whereMatches("page", "1").
+        BacktoryQuery.getQuery("Products").whereMatches("permission", "1").orderByDescending("createdAt").whereMatches("user", user).whereMatches("page", "1").
                 findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
@@ -283,6 +286,7 @@ public class BackendData {
                                     objects[i].setPage(bo.get("page").toString());
                                     objects[i].setPermission(bo.get("permission").toString());
                                     objects[i].setLocation(bo.get("location").toString());
+                                    objects[i].setNumber(bo.get("number").toString());
 
                                 }
                                 getPosts.onExists(objects);
@@ -298,7 +302,7 @@ public class BackendData {
     }
 
     public void getSearch(String name, String cat, String loc, final GetObject object) {
-        BacktoryQuery.getQuery("Products").whereMatches("permission", "1")
+        BacktoryQuery.getQuery("Products").whereMatches("permission", "1").orderByDescending("createdAt")
                 .whereContains("name", name).whereContains("cat", cat).whereMatches("location", loc).
                 findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
@@ -322,6 +326,7 @@ public class BackendData {
                                 bo[i].setPage(objects.get(i).get("page").toString());
                                 bo[i].setPermission(objects.get(i).get("permission").toString());
                                 bo[i].setLocation(objects.get(i).get("location").toString());
+                                bo[i].setNumber(objects.get(i).get("number").toString());
 
                             }
 
@@ -336,7 +341,7 @@ public class BackendData {
 
     public void getSearchPages(String name, String cat, String loc, final GetPag object) {
         BacktoryQuery.getQuery("Pages").whereMatches("permission", "1")
-                .whereContains("name", name).whereMatches("cat", cat).whereMatches("location", loc).
+                .whereContains("name", name).whereMatches("cat", cat).orderByDescending("createdAt").whereMatches("location", loc).
                 findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
@@ -425,7 +430,7 @@ public class BackendData {
     }
 
     public void getPageByPlace(String s, final GetPages obj) {
-        BacktoryQuery.getQuery("Pages").whereMatches("permission", "1").whereMatches("place", s).findInBackground(
+        BacktoryQuery.getQuery("Pages").whereMatches("permission", "1").orderByDescending("createdAt").whereMatches("place", s).findInBackground(
                 new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
@@ -501,7 +506,7 @@ public class BackendData {
     }
 
     public void getObjectByPlace(String s, final GetObjects obj) {
-        BacktoryQuery.getQuery("Products").whereMatches("permission", "1").whereContains("place", s).findInBackground(
+        BacktoryQuery.getQuery("Products").whereMatches("permission", "1").orderByDescending("createdAt").whereContains("place", s).findInBackground(
                 new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
@@ -524,6 +529,8 @@ public class BackendData {
                                     objects[i].setPage(bo.get("page").toString());
                                     objects[i].setPermission(bo.get("permission").toString());
                                     objects[i].setLocation(bo.get("location").toString());
+                                    objects[i].setNumber(bo.get("number").toString());
+
                                 }
                                 obj.onExists(objects);
                             } else
@@ -536,7 +543,7 @@ public class BackendData {
     }
 
     public void getObjectByCat(String s, final GetObjects obj) {
-        BacktoryQuery.getQuery("Products").whereMatches("permission", "1").whereContains("cat", s).findInBackground(
+        BacktoryQuery.getQuery("Products").whereMatches("permission", "1").orderByDescending("createdAt").whereContains("cat", s).findInBackground(
                 new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {
@@ -559,6 +566,8 @@ public class BackendData {
                                     objects[i].setPage(bo.get("page").toString());
                                     objects[i].setPermission(bo.get("permission").toString());
                                     objects[i].setLocation(bo.get("location").toString());
+                                    objects[i].setNumber(bo.get("number").toString());
+
                                 }
                                 obj.onExists(objects);
                             } else
@@ -646,7 +655,7 @@ public class BackendData {
     }
 
     public void readComment(String id,final CommentResponse response){
-        new BacktoryQuery("Comments").whereMatches("itemId", id).whereMatches("permission", "1")
+        new BacktoryQuery("Comments").whereMatches("itemId", id).orderByDescending("createdAt").whereMatches("permission", "1")
                 .findInBackground(new BacktoryCallBack<List<BacktoryObject>>() {
                     @Override
                     public void onResponse(BacktoryResponse<List<BacktoryObject>> backtoryResponse) {

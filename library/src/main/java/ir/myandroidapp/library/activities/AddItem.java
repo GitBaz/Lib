@@ -48,8 +48,11 @@ public class AddItem extends Activity {
     TextView tvInfo;
     EditText etInfo;
 
+    TextView tvNumber;
+    EditText etNumber;
+
     LinearLayout addPageContainer;
-    ToggleButton addPage, catButton,locButton;
+    ToggleButton addPage, catButton, locButton;
 
     TextView iv_title;
     ImageView[] iv = new ImageView[5];
@@ -79,7 +82,7 @@ public class AddItem extends Activity {
             @Override
             public void onClick(View view) {
                 if (checkers())
-                    new ObjectUploader(core, "Products", picker.getPaths(),AddItem.this).create(getObject()).upload();
+                    new ObjectUploader(core, "Products", picker.getPaths(), AddItem.this).create(getObject()).upload();
             }
         });
         action.turnOnFloatingButton(true);
@@ -118,6 +121,12 @@ public class AddItem extends Activity {
         tvInfo.setTypeface(core.setTypeFace());
         etInfo.setTypeface(core.setTypeFace());
 
+        etNumber = (EditText) findViewById(R.id.ai_number_et);
+        tvNumber = (TextView) findViewById(R.id.ai_number_tv);
+
+        etNumber.setTypeface(core.setTypeFace());
+        tvNumber.setTypeface(core.setTypeFace());
+
         iv_title = (TextView) findViewById(R.id.ai_pics_title);
         iv_title.setTypeface(core.setTypeFace());
 
@@ -137,8 +146,8 @@ public class AddItem extends Activity {
                         core.toast(s);
                     }
                 });
-                if(b)
-                cat.show();
+                if (b)
+                    cat.show();
             }
         });
 
@@ -148,13 +157,13 @@ public class AddItem extends Activity {
         locButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    LocationDialog ld = new LocationDialog(core.context, core, new LocationDialog.GetAddress() {
-                        @Override
-                        public void address(String s) {
-                            location = s;
-                        }
-                    });
-                if(b)
+                LocationDialog ld = new LocationDialog(core.context, core, new LocationDialog.GetAddress() {
+                    @Override
+                    public void address(String s) {
+                        location = s;
+                    }
+                });
+                if (b)
                     ld.show();
 
             }
@@ -208,7 +217,7 @@ public class AddItem extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         try {
             picker.result(requestCode, resultCode, data);
-        }catch (IOException e){
+        } catch (IOException e) {
 
         }
     }
@@ -223,6 +232,7 @@ public class AddItem extends Activity {
         obj.setPrimaryPrice(etPp.getText().toString());
         obj.setSecondaryPrice(etSp.getText().toString());
         obj.setCat(address);
+        obj.setNumber(etNumber.getText().toString());
         obj.setLocation(location);
         if (addPage.isChecked())
             obj.setPage("1");
@@ -234,9 +244,14 @@ public class AddItem extends Activity {
     }
 
     boolean checkers() {
-        if ((catButton.isChecked() && !address.equals("")) || addPage.isChecked())
-            return true;
-        else {
+        if (catButton.isChecked() && !address.equals("") || addPage.isChecked()) {
+            if (!etNumber.getText().toString().equals(""))
+                return true;
+            else {
+                core.toast("شماره تماس وارد نشده است.");
+                return false;
+            }
+        } else {
             core.toast("دسته بندی انتخاب نشده");
             return false;
         }
